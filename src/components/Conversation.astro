@@ -1,0 +1,179 @@
+---
+import {
+  introduction,
+  interfaceCopy,
+  commandDescriptions,
+  sections,
+  type SectionName,
+} from '../data/en';
+import { commands } from '../data/commands';
+import { withBase } from '../lib/paths';
+import SectionContent from './SectionContent.astro';
+import Icon from './Icon.astro';
+---
+
+<div class="conversation" data-conversation>
+  <div class="welcome" data-welcome>
+    <div class="welcome-inner">
+      <p class="greeting" data-type-line>
+        <span class="visually-hidden" data-i18n="introduction.greeting">
+          {introduction.greeting}
+        </span>
+        <span
+          aria-hidden="true"
+          data-type-text
+          data-i18n="introduction.greeting"
+        >
+          {introduction.greeting}
+        </span>
+      </p>
+      <h1 data-type-line>
+        <span class="visually-hidden" data-i18n="introduction.heading">
+          {introduction.heading}
+        </span>
+        <span
+          aria-hidden="true"
+          data-type-text
+          data-i18n="introduction.heading"
+        >
+          {introduction.heading}
+        </span>
+      </h1>
+      <p class="welcome-description" data-type-line>
+        <span class="visually-hidden" data-i18n="introduction.description">
+          {introduction.description}
+        </span>
+        <span
+          aria-hidden="true"
+          data-type-text
+          data-i18n="introduction.description"
+        >
+          {introduction.description}
+        </span>
+      </p>
+      <p class="welcome-hint" data-welcome-hint hidden>
+        <span data-i18n="introduction.hintBefore">
+          {introduction.hintBefore}
+        </span>
+        <button class="inline-command" data-command="help" type="button">
+          "help"
+        </button>
+        <span data-i18n="introduction.hintAfter">{introduction.hintAfter}</span>
+      </p>
+    </div>
+  </div>
+
+  <ol
+    id="conversation-history"
+    class="conversation-history"
+    aria-label={interfaceCopy.historyLabel}
+    data-i18n-aria-label="interfaceCopy.historyLabel"
+    data-history
+  ></ol>
+  <p
+    class="empty-history"
+    data-empty
+    data-i18n="interfaceCopy.clearHint"
+    tabindex="-1"
+    hidden
+  >
+    {interfaceCopy.clearHint}
+  </p>
+
+  <div class="composer-area" data-composer>
+    <form class="composer" data-command-form hidden>
+      <label
+        class="visually-hidden"
+        for="command-input"
+        data-i18n="interfaceCopy.commandLabel"
+      >
+        {interfaceCopy.commandLabel}
+      </label>
+      <input
+        id="command-input"
+        name="command"
+        type="text"
+        placeholder={interfaceCopy.placeholder}
+        data-i18n-placeholder="interfaceCopy.placeholder"
+        autocomplete="off"
+        autocapitalize="none"
+        autocorrect="off"
+        spellcheck="false"
+        enterkeyhint="send"
+        maxlength="200"
+        aria-controls="conversation-history"
+      />
+      <button
+        class="send-button"
+        type="submit"
+        data-send
+        aria-label={interfaceCopy.submit}
+        data-i18n-aria-label="interfaceCopy.submit"
+        disabled
+      >
+        <Icon name="send-horizontal" />
+      </button>
+    </form>
+    <noscript>
+      <p class="no-script" data-i18n="interfaceCopy.noScript">
+        {interfaceCopy.noScript}
+      </p>
+      <ul class="no-script-links">
+        {Object.entries(sections).map(([name, section]) => (
+          <li>
+            <a href={withBase(`${name}/`)} data-i18n={`sections.${name}.title`}>
+              {section.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </noscript>
+  </div>
+
+  <div
+    class="visually-hidden"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    data-announcer
+  ></div>
+
+  <template data-response="help">
+    <div class="help-content">
+      <p class="section-lead" data-i18n="interfaceCopy.helpTitle">
+        {interfaceCopy.helpTitle}
+      </p>
+      <p data-i18n="interfaceCopy.helpDescription">
+        {interfaceCopy.helpDescription}
+      </p>
+      <dl class="help-list">
+        {commands.map((command) => (
+          <div>
+            <dt>
+              <button
+                class="with-icon"
+                type="button"
+                data-command={command.name}
+              >
+                <Icon name={command.icon} />
+                <span>{command.name}</span>
+              </button>
+            </dt>
+            <dd data-i18n={`commandDescriptions.${command.name}`}>
+              {commandDescriptions[command.name]}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </template>
+  {(Object.keys(sections) as SectionName[]).map((name) => (
+    <template data-response={name}>
+      <SectionContent name={name} />
+    </template>
+  ))}
+</div>
+
+<script>
+  import '../scripts/conversation';
+</script>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionContent from '../components/SectionContent.astro';
+import Icon from '../components/Icon.astro';
+import { sections, site, type SectionName } from '../data/en';
+import { withBase } from '../lib/paths';
+
+export function getStaticPaths() {
+  return Object.keys(sections).map((section) => ({ params: { section } }));
+}
+
+const name = Astro.params.section as SectionName;
+const section = sections[name];
+---
+
+<BaseLayout
+  title={`${section.title} — ${site.name}`}
+  description={section.description}
+  page={name}
+>
+  <article class="document-page">
+    <a class="back-link with-icon" href={withBase()}>
+      <Icon name="arrow-left" />
+      <span>{site.name}</span>
+    </a>
+    <h1 data-i18n={`sections.${name}.title`}>{section.title}</h1>
+    <SectionContent name={name} />
+  </article>
+</BaseLayout>
