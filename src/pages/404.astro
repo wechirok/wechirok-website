@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { notFound, site } from '../data/en';
+import { withBase } from '../lib/paths';
+---
+
+<BaseLayout
+  title={`${notFound.title} — ${site.name}`}
+  description={notFound.description}
+  page="notFound"
+>
+  <article class="document-page not-found">
+    <p class="page-number">404</p>
+    <h1 data-i18n="notFound.heading">{notFound.heading}</h1>
+    <p data-i18n="notFound.description">{notFound.description}</p>
+    <a class="back-link with-icon" href={withBase()}>
+      <span data-i18n="notFound.link">{notFound.link}</span>
+      <Icon name="arrow-right" />
+    </a>
+  </article>
+</BaseLayout>

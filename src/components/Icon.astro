@@ -1,0 +1,19 @@
+---
+import { icons, type IconName } from '../lib/icons';
+
+interface Props {
+  name: IconName;
+  brand?: boolean;
+}
+
+const { name, brand = false } = Astro.props;
+const Svg = icons[name];
+---
+
+<Svg
+  class:list={['icon', { 'icon--brand': brand }]}
+  aria-hidden="true"
+  focusable="false"
+  fill={brand ? 'currentColor' : 'none'}
+  stroke-width={brand ? undefined : 1.7}
+/>

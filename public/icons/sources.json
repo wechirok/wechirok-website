@@ -1,0 +1,94 @@
+{
+  "collections": [
+    {
+      "name": "simple-icons",
+      "version": "16.34.0",
+      "source": "https://registry.npmjs.org/simple-icons/-/simple-icons-16.34.0.tgz",
+      "license": "licenses/simple-icons.txt",
+      "icons": [
+        "github",
+        "discord",
+        "steam",
+        "crowdin",
+        "weblate",
+        "modrinth",
+        "curseforge"
+      ]
+    },
+    {
+      "name": "lucide-static",
+      "version": "1.52.0",
+      "source": "https://registry.npmjs.org/lucide-static/-/lucide-static-1.52.0.tgz",
+      "license": "licenses/lucide-static.txt",
+      "icons": [
+        "circle-help",
+        "user-round",
+        "briefcase-business",
+        "folder-code",
+        "link",
+        "trash-2",
+        "server",
+        "code-xml",
+        "languages",
+        "palette",
+        "send-horizontal",
+        "arrow-left",
+        "arrow-right",
+        "sun",
+        "moon",
+        "chevron-down",
+        "check"
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "title": "Crowdin",
+      "slug": "crowdin",
+      "hex": "2E3340",
+      "source": "https://support.crowdin.com/using-logo/"
+    },
+    {
+      "title": "CurseForge",
+      "slug": "curseforge",
+      "hex": "F16436",
+      "source": "https://www.curseforge.com"
+    },
+    {
+      "title": "Discord",
+      "slug": "discord",
+      "hex": "5865F2",
+      "source": "https://discord.com/branding",
+      "guidelines": "https://discord.com/branding"
+    },
+    {
+      "title": "GitHub",
+      "slug": "github",
+      "hex": "181717",
+      "source": "https://github.com/logos",
+      "guidelines": "https://github.com/logos"
+    },
+    {
+      "title": "Modrinth",
+      "slug": "modrinth",
+      "hex": "00AF5C",
+      "source": "https://github.com/modrinth/art/blob/d5ab4f965b0b4cea7201967483885ecd8d04a562/Branding/Favicon/favicon.svg"
+    },
+    {
+      "title": "Steam",
+      "slug": "steam",
+      "hex": "000000",
+      "source": "https://partner.steamgames.com/doc/marketing/branding",
+      "guidelines": "https://partner.steamgames.com/doc/marketing/branding"
+    },
+    {
+      "title": "Weblate",
+      "slug": "weblate",
+      "hex": "2ECCAA",
+      "source": "https://github.com/WeblateOrg/graphics/blob/669e4f910abd9ec36fda172d2ea6f2f424a32ace/logo/weblate-black.svg",
+      "license": {
+        "type": "GPL-3.0-only"
+      }
+    }
+  ]
+}

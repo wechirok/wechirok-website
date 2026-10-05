@@ -1,0 +1,83 @@
+---
+import {
+  sections,
+  workAreas,
+  projects,
+  profiles,
+  type SectionName,
+} from '../data/en';
+import Icon from './Icon.astro';
+
+interface Props {
+  name: SectionName;
+}
+
+const { name } = Astro.props;
+const section = sections[name];
+---
+
+<div class="section-content">
+  <p class="section-lead" data-i18n={`sections.${name}.lead`}>
+    {section.lead}
+  </p>
+  <div class="section-prose">
+    {section.paragraphs.map((paragraph, index) => (
+      <p data-i18n={`sections.${name}.paragraphs.${index}`}>{paragraph}</p>
+    ))}
+  </div>
+
+  {name === 'work' && (
+    <dl class="text-list work-list">
+      {workAreas.map((area, index) => (
+        <div class="text-row">
+          <dt class="with-icon">
+            <Icon name={area.icon} />
+            <span data-i18n={`workAreas.${index}.title`}>{area.title}</span>
+          </dt>
+          <dd data-i18n={`workAreas.${index}.description`}>
+            {area.description}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )}
+
+  {name === 'projects' && (
+    <ul class="text-list project-list">
+      {projects.map((project, index) => (
+        <li class="text-row">
+          <div class="row-title">
+            <a href={project.url}>{project.name}</a>
+            <span class="row-detail" data-i18n={`projects.${index}.category`}>
+              {project.category}
+            </span>
+          </div>
+          <p data-i18n={`projects.${index}.description`}>
+            {project.description}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {name === 'links' && (
+    <ul class="text-list profile-list">
+      {profiles.map((profile, index) => (
+        <li>
+          <a class="profile-link" href={profile.url} rel="me">
+            <span class="profile-name with-icon">
+              <Icon name={profile.icon} brand />
+              <span>{profile.name}</span>
+            </span>
+            <span
+              class="profile-description"
+              data-i18n={`profiles.${index}.description`}
+            >
+              {profile.description}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
