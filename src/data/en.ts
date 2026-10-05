@@ -41,7 +41,6 @@ export const sections = {
     paragraphs: [
       'I’m Wechirok, sometimes also known as Katzeyoru. I’m a system administrator (or at least I’m trying to be), with an interest in the way software, services and infrastructure fit together.',
       'I build and maintain personal projects, work on Minecraft mods and modpacks, and contribute to software localization. I also spend time on graphic design, photo editing, video and audio.',
-      'These are things I do out of curiosity and for the people around me. This space brings them together, along with the places you can find me online.',
       'I’m the kind of loser who wants everything the easy way. I use AI for code (even this site, lol), then realize the whole approach is shit and end up fixing things myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway. Getting a great result matters to me. Apparently, I just have to go through all nine circles of hell first.',
     ],
   },
