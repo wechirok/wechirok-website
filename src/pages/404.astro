@@ -14,7 +14,12 @@ import { withBase } from '../lib/paths';
     <p class="page-number">404</p>
     <h1 data-i18n="notFound.heading">{notFound.heading}</h1>
     <p data-i18n="notFound.description">{notFound.description}</p>
-    <a class="back-link with-icon" href={withBase()}>
+    <a
+      class="back-link with-icon"
+      href={withBase()}
+      target="_blank"
+      rel="noopener"
+    >
       <span data-i18n="notFound.link">{notFound.link}</span>
       <Icon name="arrow-right" />
     </a>

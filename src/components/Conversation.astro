@@ -121,7 +121,12 @@ import Icon from './Icon.astro';
       <ul class="no-script-links">
         {Object.entries(sections).map(([name, section]) => (
           <li>
-            <a href={withBase(`${name}/`)} data-i18n={`sections.${name}.title`}>
+            <a
+              href={withBase(`${name}/`)}
+              target="_blank"
+              rel="noopener"
+              data-i18n={`sections.${name}.title`}
+            >
               {section.title}
             </a>
           </li>

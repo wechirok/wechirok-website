@@ -47,7 +47,9 @@ const section = sections[name];
       {projects.map((project, index) => (
         <li class="text-row">
           <div class="row-title">
-            <a href={project.url}>{project.name}</a>
+            <a href={project.url} target="_blank" rel="noopener">
+              {project.name}
+            </a>
             <span class="row-detail" data-i18n={`projects.${index}.category`}>
               {project.category}
             </span>
@@ -64,7 +66,12 @@ const section = sections[name];
     <ul class="text-list profile-list">
       {profiles.map((profile, index) => (
         <li>
-          <a class="profile-link" href={profile.url} rel="me">
+          <a
+            class="profile-link"
+            href={profile.url}
+            target="_blank"
+            rel="me noopener"
+          >
             <span class="profile-name with-icon">
               <Icon name={profile.icon} brand />
               <span>{profile.name}</span>
