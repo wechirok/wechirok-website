@@ -18,8 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_URL: https://wechirok.github.io
-      BASE_PATH: /wechirok-website
+      SITE_URL: https://wechirok.com
+      BASE_PATH: /
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
