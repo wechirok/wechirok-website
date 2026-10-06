@@ -19,7 +19,12 @@ const section = sections[name];
   page={name}
 >
   <article class="document-page">
-    <a class="back-link with-icon" href={withBase()}>
+    <a
+      class="back-link with-icon"
+      href={withBase()}
+      target="_blank"
+      rel="noopener"
+    >
       <Icon name="arrow-left" />
       <span>{site.name}</span>
     </a>
