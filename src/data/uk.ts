@@ -10,7 +10,7 @@ export const site = {
 };
 
 export const introduction = {
-  greeting: 'Як справи, незнайомцю?',
+  greeting: 'Ну шо ти?',
   heading: 'Я Wechirok.',
   description:
     'Це мій особистий простір для всього, що я створюю, підтримую й над чим працюю.',
