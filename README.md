@@ -1,6 +1,6 @@
 # Wechirok website
 
-My profile on the internet! I put all my links and other information about me here. It’s probably not interesting to anyone, but why not if I can?
+My profile on the internet! I put all my links and other info about me here. It’s probably not interesting to anyone, but why not if I can?
 
 ## License
 
