@@ -164,6 +164,7 @@ main:focus {
 
 .preference-button {
   --icon-size: 21px;
+  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 12%);
   display: grid;
   place-items: center;
   width: 44px;
@@ -171,8 +172,12 @@ main:focus {
   padding: 10px;
   border: 0;
   border-radius: 10px;
-  background: transparent;
+  background: var(--button-surface);
   color: var(--foreground);
+  box-shadow:
+    0 4px 14px var(--shadow),
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 30%, transparent);
   transition:
     background-color 160ms ease,
     color 160ms ease;
@@ -191,13 +196,13 @@ main:focus {
 }
 
 .preference-button:hover {
-  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 18%);
   color: var(--interactive-hover);
 }
 
 .preference-button[aria-pressed='true'],
 .language-toggle[aria-expanded='true'] {
-  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 24%);
   color: var(--accent);
 }
 
@@ -347,6 +352,16 @@ main:focus {
     backdrop-filter: blur(20px) saturate(115%);
   }
 
+  .preference-button {
+    background: color-mix(in srgb, var(--button-surface) 66%, transparent);
+  }
+
+  .preference-button,
+  .composer .send-button {
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+  }
+
   .language-menu {
     background: color-mix(in srgb, var(--surface) 92%, transparent);
     -webkit-backdrop-filter: blur(20px);
@@ -390,6 +405,10 @@ main:focus {
   border-radius: 11px;
   background: color-mix(in srgb, var(--foreground) 12%, transparent);
   color: var(--accent);
+  box-shadow:
+    0 4px 14px var(--shadow),
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 30%, transparent);
   transition:
     background-color 180ms ease,
     box-shadow 180ms ease,
@@ -402,7 +421,7 @@ main:focus {
 }
 
 .composer .send-button:disabled {
-  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
   cursor: default;
 }
 
