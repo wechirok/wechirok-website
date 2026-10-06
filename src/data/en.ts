@@ -39,9 +39,9 @@ export const sections = {
     lead: 'I do a little bit of this and that.',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
-      'I’m Wechirok, sometimes also known as Katzeyoru. I’m a system administrator (or at least I’m trying to be), with an interest in the way software, services and infrastructure fit together.',
-      'I build and maintain personal projects, work on Minecraft mods and modpacks, and contribute to software localization. I also spend time on graphic design, photo editing, video and audio.',
-      'I’m the kind of loser who wants everything the easy way. I use AI for code (even this site, lol), then realize the whole approach is shit and end up fixing things myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway. Getting a great result matters to me. Apparently, I just have to go through all nine circles of hell first.',
+      'I’m Wechirok, sometimes also known as Katzeyoru. I do system administration (or at least I’m trying to), and I learn and make all sorts of things.',
+      'I build and maintain personal projects, work on mods and modpacks for games like Minecraft, and sometimes contribute to localization projects. I also occasionally edit photos, video and audio.',
+      'I’m one of those people who want everything the easy way. I use AI for code (even this site, lol), then realize the whole approach is shit and end up fixing everything myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway, because however much I want things to be easy and simple, getting a great result matters to me. I just have to go through all nine circles of hell first.',
     ],
   },
   work: {
@@ -57,9 +57,7 @@ export const sections = {
     title: 'Projects',
     lead: 'Things I build and look after.',
     description: 'Minecraft mods, modpacks and community tools by Wechirok.',
-    paragraphs: [
-      'Personal projects, Minecraft work, and a few tools made for a private community.',
-    ],
+    paragraphs: ['Personal projects, modding, and a few tools.'],
   },
   links: {
     title: 'Links',
@@ -76,7 +74,7 @@ export const workAreas = [
     title: 'Systems & infrastructure',
     icon: 'server',
     description:
-      'Linux administration, server infrastructure, automation and databases. Keeping services organized and useful.',
+      'Linux administration, server infrastructure, automation and databases.',
   },
   {
     title: 'Software & Minecraft',
@@ -150,18 +148,6 @@ export const profiles = [
     url: 'https://github.com/wechirok',
   },
   {
-    name: 'Discord',
-    icon: 'discord',
-    description: 'A place to get in touch.',
-    url: 'https://discord.com/users/526310915549691905',
-  },
-  {
-    name: 'Steam',
-    icon: 'steam',
-    description: 'My Steam profile.',
-    url: 'https://steamcommunity.com/id/wechirok/',
-  },
-  {
     name: 'Crowdin',
     icon: 'crowdin',
     description: 'Localization and translation contributions.',
@@ -185,6 +171,18 @@ export const profiles = [
     icon: 'curseforge',
     description: 'Another place for modding projects.',
     url: 'https://www.curseforge.com/members/wechirok',
+  },
+  {
+    name: 'Discord',
+    icon: 'discord',
+    description: 'A place to get in touch.',
+    url: 'https://discord.com/users/526310915549691905',
+  },
+  {
+    name: 'Steam',
+    icon: 'steam',
+    description: 'My Steam profile.',
+    url: 'https://steamcommunity.com/id/wechirok/',
   },
 ] as const;
 
