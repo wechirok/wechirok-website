@@ -3,7 +3,6 @@ import * as en from './en';
 export const site = {
   ...en.site,
   language: 'de',
-  title: 'Wechirok — Meine Ecke im Netz',
   description:
     'Meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite. Projekte, ein bisschen über mich und wo du mich findest.',
   skipLink: 'Zum Inhalt springen',

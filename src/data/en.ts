@@ -1,7 +1,7 @@
 export const site = {
   name: 'Wechirok',
   language: 'en',
-  title: 'Wechirok — Personal space',
+  title: 'Wechirok',
   description:
     'A personal space for the things I build, maintain and work on. Projects, a little about me, and where to find me.',
   skipLink: 'Skip to content',
