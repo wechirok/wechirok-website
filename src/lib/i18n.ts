@@ -1,4 +1,5 @@
 import * as en from '../data/en';
+import * as de from '../data/de';
 import * as uk from '../data/uk';
 import * as ru from '../data/ru';
 import { finishAllTyping } from './typewriter';
@@ -8,7 +9,7 @@ import {
   transitionLocaleText,
 } from './locale-transition';
 
-export const locales = ['en', 'uk', 'ru'] as const;
+export const locales = ['en', 'de', 'uk', 'ru'] as const;
 export type Locale = (typeof locales)[number];
 
 type CopyShape<T> = T extends string
@@ -17,7 +18,7 @@ type CopyShape<T> = T extends string
     ? readonly CopyShape<Item>[]
     : { [Key in keyof T]: CopyShape<T[Key]> };
 
-const translations = { en, uk, ru } satisfies Record<
+const translations = { en, de, uk, ru } satisfies Record<
   Locale,
   CopyShape<typeof en>
 >;
@@ -51,6 +52,7 @@ function flatten(
 
 const dictionaries = {
   en: flatten(en),
+  de: flatten(de),
   uk: flatten(uk),
   ru: flatten(ru),
 };
