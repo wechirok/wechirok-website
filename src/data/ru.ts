@@ -3,7 +3,6 @@ import * as en from './en';
 export const site = {
   ...en.site,
   language: 'ru',
-  title: 'Wechirok — Личное пространство',
   description:
     'Личное пространство для всего, что я создаю, поддерживаю и над чем работаю. Проекты, немного обо мне и где меня найти.',
   skipLink: 'Перейти к содержимому',
