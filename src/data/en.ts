@@ -41,7 +41,7 @@ export const sections = {
     paragraphs: [
       'I’m Wechirok, sometimes also known as Katzeyoru. I do system administration (or at least I’m trying to), and I learn and make all sorts of things.',
       'I build and maintain personal projects, work on mods and modpacks for games like Minecraft, and sometimes contribute to localization projects. I also occasionally edit photos, video and audio.',
-      'I’m one of those people who want everything the easy way. I use AI for code (even this site, lol), then realize the whole approach is shit and end up fixing everything myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway, because however much I want things to be easy and simple, getting a great result matters to me. I just have to go through all nine circles of hell first.',
+      'I’m one of those people who want everything the easy way. I use LLMs for code (even this site, lol), then realize the whole approach is shit and end up fixing everything myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway, because however much I want things to be easy and simple, getting a great result matters to me. I just have to go through all nine circles of hell first.',
     ],
   },
   work: {
