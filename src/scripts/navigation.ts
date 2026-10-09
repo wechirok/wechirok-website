@@ -36,8 +36,8 @@ if (root && stage) {
   };
   const introduceLabels = () => {
     clearLabels();
-    if (!touchLayout.matches) return;
     if (document.activeElement?.closest('.section-navigation')) return;
+    if (links.some((link) => link.matches(':hover'))) return;
     links.forEach((link, index) => {
       later(
         () => {
@@ -49,11 +49,12 @@ if (root && stage) {
     });
     later(clearLabels, 250 + links.length * 1450);
   };
-  touchLayout.addEventListener('change', () => {
-    if (touchLayout.matches) introduceLabels();
-    else clearLabels();
-  });
-  for (const link of links) link.addEventListener('focus', clearLabels);
+  for (const link of links) {
+    link.addEventListener('focus', clearLabels);
+    link.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') clearLabels();
+    });
+  }
   document.addEventListener('pointerdown', (event) => {
     if (
       event.target instanceof Element &&
@@ -178,6 +179,7 @@ if (root && stage) {
       ) {
         event.preventDefault();
         if (touchLayout.matches) revealLabel(link);
+        else clearLabels();
         navigate(link.dataset.section!);
       }
     });
@@ -193,10 +195,11 @@ if (root && stage) {
   };
   window.addEventListener('popstate', () => void show(fromAddress()));
   window.addEventListener('hashchange', () => void show(fromAddress()));
-  document.addEventListener(
-    'localechange',
-    () => void show(requested, { focus: false, animate: false }),
-  );
+  document.addEventListener('localechange', () => {
+    clearLabels();
+    void show(requested, { focus: false, animate: false });
+    if (current === 'home' && requested === 'home') introduceLabels();
+  });
   motion.addEventListener('change', () => {
     if (motion.matches) {
       const name = requested;
