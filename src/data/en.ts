@@ -12,25 +12,11 @@ export const introduction = {
   heading: "I'm Wechirok.",
   description:
     'This is my personal space for things I build, maintain and work on.',
-  hintBefore: 'Type ',
-  hintAfter: ' to see available commands.',
 };
 
-export const interfaceCopy = {
-  commandLabel: 'Enter a command',
-  placeholder: 'Your commands here, please :)',
-  submit: 'Send',
-  historyLabel: 'Conversation',
-  userLabel: 'You',
-  responseLabel: 'Wechirok',
-  helpTitle: 'A few ways to explore.',
-  helpDescription: 'Type a command or choose one below.',
-  unknownBefore: 'I don’t know the command “',
-  unknownAfter: '”. Try help to see what’s available.',
-  cleared: 'Conversation cleared.',
-  clearHint: 'Where next? Type "help" to see the commands.',
-  noScript:
-    'The conversation needs JavaScript. You can also read the text pages:',
+export const navigation = {
+  label: 'Explore',
+  home: 'Back to home',
 };
 
 export const sections = {
@@ -45,7 +31,7 @@ export const sections = {
     ],
   },
   work: {
-    title: 'Work',
+    title: 'What I do',
     lead: 'Things I spend my time on.',
     description:
       'System administration, software, localization, design, video and audio.',
@@ -192,15 +178,6 @@ export const notFound = {
   description:
     'That page may have moved, or the address might be a little off.',
   link: 'Back to my personal space',
-};
-
-export const commandDescriptions = {
-  help: 'See the available commands.',
-  about: 'A little about me.',
-  work: 'Things I spend my time on.',
-  projects: 'Things I build and maintain.',
-  links: 'Find me elsewhere.',
-  clear: 'Clear this conversation.',
 };
 
 export const preferences = {

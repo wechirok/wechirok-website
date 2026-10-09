@@ -1,7 +1,6 @@
 interface TextSnapshot {
   element: HTMLElement;
   text: string;
-  attribute?: 'placeholder';
 }
 
 const active = new Set<() => void>();
@@ -22,15 +21,12 @@ function reducedMotion() {
   return motion.matches;
 }
 
-function readText({ element, attribute }: TextSnapshot) {
-  return attribute
-    ? (element.getAttribute(attribute) ?? '')
-    : (element.textContent ?? '');
+function readText({ element }: TextSnapshot) {
+  return element.textContent ?? '';
 }
 
-function writeText({ element, attribute }: TextSnapshot, text: string) {
-  if (attribute) element.setAttribute(attribute, text);
-  else element.textContent = text;
+function writeText({ element }: TextSnapshot, text: string) {
+  element.textContent = text;
 }
 
 export function captureLocaleText(): TextSnapshot[] {
@@ -38,21 +34,12 @@ export function captureLocaleText(): TextSnapshot[] {
     return [];
 
   const snapshots: TextSnapshot[] = [];
-  for (const element of document.querySelectorAll<HTMLElement>(
-    '[data-i18n], [data-unknown-command], [data-i18n-placeholder]',
-  )) {
-    if (
-      element.closest(excluded) ||
-      (element instanceof HTMLInputElement && element.value)
-    )
-      continue;
+  for (const element of document.querySelectorAll<HTMLElement>('[data-i18n]')) {
+    if (element.closest(excluded)) continue;
 
     const snapshot: TextSnapshot = {
       element,
       text: '',
-      attribute: element.hasAttribute('data-i18n-placeholder')
-        ? 'placeholder'
-        : undefined,
     };
     snapshot.text = readText(snapshot);
     snapshots.push(snapshot);
@@ -68,7 +55,7 @@ export function transitionLocaleText(snapshots: TextSnapshot[]) {
     const translated = readText(snapshot);
     if (
       !element.isConnected ||
-      element.closest(`${excluded}, .is-typewriting`) ||
+      element.closest(excluded) ||
       snapshot.text.trim() === translated.trim()
     )
       continue;
@@ -84,11 +71,9 @@ export function transitionLocaleText(snapshots: TextSnapshot[]) {
       animation.onfinish = null;
       animation.cancel();
       writeText(snapshot, translated);
-      element.removeEventListener('input', finish);
       active.delete(finish);
     };
     active.add(finish);
-    if (snapshot.attribute) element.addEventListener('input', finish);
 
     animation.onfinish = () => {
       writeText(snapshot, translated);

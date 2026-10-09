@@ -2,6 +2,7 @@
 
 :root {
   color-scheme: dark;
+  scrollbar-gutter: stable;
   --background: #50505c;
   --surface: #484854;
   --foreground: #f5f5f8;
@@ -246,21 +247,34 @@ main:focus {
   visibility: visible;
 }
 
-.conversation {
-  padding-top: clamp(48px, 9vh, 108px);
+.personal-space {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--preferences-height, 76px));
+  padding-top: clamp(32px, 7vh, 72px);
+}
+
+.space-stage {
+  min-height: 340px;
+  overflow: clip;
+}
+
+.space-panel {
+  max-width: 860px;
+  padding-bottom: 24px;
+  overflow-wrap: anywhere;
+}
+
+.space-panel h1 {
+  margin-bottom: 29px;
+}
+
+.space-panel h1:focus {
+  outline: none;
 }
 
 .welcome {
-  overflow: hidden;
-  opacity: 1;
-  transition:
-    height 320ms ease,
-    opacity 200ms ease,
-    transform 320ms ease;
-}
-
-.welcome-inner {
-  padding-bottom: 55px;
+  padding-top: 15px;
 }
 
 .greeting {
@@ -279,65 +293,94 @@ main:focus {
   line-height: 1.5;
 }
 
-.welcome-hint {
-  margin-top: 27px;
-  color: var(--quiet);
-  transition: opacity 250ms ease;
-}
-
-.welcome.is-leaving {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-
-.inline-command {
+.home-button {
+  --icon-size: 18px;
+  min-height: 44px;
+  margin-bottom: 20px;
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--interactive);
-  text-underline-offset: 0.22em;
+  color: var(--muted);
+  font-size: 18px;
+  transition: color 160ms ease;
 }
 
-.inline-command:hover {
-  color: var(--interactive-hover);
-  text-decoration: underline;
+.home-button:hover {
+  color: var(--accent);
 }
 
-.composer-area {
+.navigation-dock {
   position: sticky;
-  bottom: var(--keyboard-inset, 0px);
+  bottom: 0;
   z-index: 2;
-  padding-top: 14px;
+  margin-top: auto;
+  padding-top: 24px;
   padding-bottom: max(24px, env(safe-area-inset-bottom));
+  pointer-events: none;
 }
 
-.composer {
-  display: flex;
-  border: 1px solid var(--control-border);
-  border-radius: 12px;
-  min-height: 67px;
+.section-navigation {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px;
+  border-radius: 18px;
   background: var(--surface);
+  color: var(--foreground);
   box-shadow:
     0 8px 24px var(--shadow),
-    inset 0 1px 0 var(--highlight);
-  transition: border-color 160ms ease;
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 35%, transparent);
+  pointer-events: auto;
+}
+
+.section-navigation a {
+  --icon-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 12px 10px;
+  border-radius: 11px;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.3;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.section-navigation a[aria-current='page'] {
+  background: color-mix(in srgb, var(--foreground) 14%, transparent);
+  color: var(--accent);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
+@media (hover: hover) {
+  .section-navigation a:hover {
+    background: color-mix(in srgb, var(--foreground) 9%, transparent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+}
+
+.section-navigation a:active {
+  transform: scale(0.97);
 }
 
 @supports (background: color-mix(in srgb, black, transparent)) and
   ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .composer {
+  .section-navigation {
     background: color-mix(in srgb, var(--surface) 58%, transparent);
-    border-color: color-mix(in srgb, var(--control-border) 80%, transparent);
     -webkit-backdrop-filter: blur(20px) saturate(115%);
     backdrop-filter: blur(20px) saturate(115%);
   }
 
   .preference-button {
     background: color-mix(in srgb, var(--button-surface) 66%, transparent);
-  }
-
-  .preference-button,
-  .composer .send-button {
     -webkit-backdrop-filter: blur(20px) saturate(115%);
     backdrop-filter: blur(20px) saturate(115%);
   }
@@ -347,121 +390,6 @@ main:focus {
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
   }
-}
-
-.composer:focus-within {
-  border-color: var(--accent);
-}
-
-.composer input {
-  flex: 1;
-  min-width: 0;
-  width: 0;
-  border: 0;
-  border-radius: 0;
-  outline: none;
-  background: transparent;
-  color: var(--foreground);
-  padding: 18px 21px;
-  font-size: 20px;
-}
-
-.composer input::placeholder {
-  color: var(--muted);
-  opacity: 1;
-}
-
-.composer .send-button {
-  --icon-size: 24px;
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  align-self: center;
-  width: 48px;
-  height: 48px;
-  margin-right: 9px;
-  padding: 0;
-  border: 0;
-  border-radius: 11px;
-  background: color-mix(in srgb, var(--foreground) 12%, transparent);
-  color: var(--accent);
-  box-shadow:
-    0 4px 14px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 30%, transparent);
-  transition:
-    background-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease;
-}
-
-.send-button .icon {
-  transform: rotate(-18deg);
-  transition: transform 180ms ease;
-}
-
-.composer .send-button:disabled {
-  background: color-mix(in srgb, var(--foreground) 7%, transparent);
-  cursor: default;
-}
-
-@media (hover: hover) {
-  .composer .send-button:not(:disabled):hover {
-    background: color-mix(in srgb, var(--foreground) 20%, transparent);
-    box-shadow: 0 5px 16px var(--shadow);
-    transform: translateY(-1px);
-  }
-
-  .send-button:not(:disabled):hover .icon {
-    transform: translate(2px, -2px) rotate(-24deg);
-  }
-}
-
-.composer .send-button:not(:disabled):active {
-  box-shadow: none;
-  transform: scale(0.94);
-}
-
-.conversation-history {
-  list-style: none;
-  padding: 0;
-}
-
-.conversation-entry {
-  padding-block: 0 36px;
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--line);
-  scroll-margin-top: calc(var(--preferences-height, 82px) + 16px);
-  animation: response-in 220ms ease both;
-}
-
-.request-line {
-  display: flex;
-  gap: 22px;
-  align-items: baseline;
-  overflow-wrap: anywhere;
-  margin-bottom: 27px;
-}
-
-.speaker-label {
-  color: var(--quiet);
-  font-size: 15px;
-}
-
-.response-label {
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.response {
-  max-width: 840px;
-  overflow-wrap: anywhere;
-}
-
-.empty-history {
-  color: var(--muted);
-  padding-bottom: 32px;
-  font-size: 24px;
 }
 
 .section-lead {
@@ -556,40 +484,6 @@ main:focus {
   color: var(--muted);
 }
 
-.help-content > p:not(.section-lead) {
-  color: var(--muted);
-}
-
-.help-list {
-  margin-block: 25px;
-}
-
-.help-list > div {
-  display: grid;
-  grid-template-columns: 125px 1fr;
-  column-gap: 20px;
-  align-items: baseline;
-}
-
-.help-list button {
-  --icon-size: 18px;
-  min-height: 44px;
-  padding: 5px 0;
-  color: var(--interactive);
-  background: transparent;
-  border: 0;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.help-list button:hover {
-  color: var(--interactive-hover);
-}
-
-.help-list dd {
-  color: var(--muted);
-}
-
 .document-page {
   padding-top: 54px;
   padding-bottom: 60px;
@@ -621,19 +515,6 @@ main:focus {
   font-size: 20px;
 }
 
-.no-script {
-  color: var(--muted);
-  padding-block: 16px;
-}
-
-.no-script-links {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -644,67 +525,6 @@ main:focus {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-
-.typing-character,
-.typing-decoration {
-  opacity: 0;
-  transition: opacity 160ms ease;
-}
-
-.typing-run > .visually-hidden {
-  user-select: none;
-}
-
-.typing-row.is-revealed {
-  transition: border-color 160ms ease;
-}
-
-.typing-row:not(.is-revealed),
-.typing-border-pending {
-  border-color: transparent;
-}
-
-.is-typewriting .typing-underlined,
-.is-typewriting.typing-underlined,
-.is-typewriting .profile-link:hover .profile-name,
-.is-typewriting .inline-command:hover {
-  text-decoration-line: none;
-}
-
-.typing-underlined .typing-character.is-revealed,
-.is-typewriting .profile-link:hover .profile-name .typing-character.is-revealed,
-.is-typewriting .inline-command:hover .typing-character.is-revealed {
-  text-decoration-line: underline;
-  text-decoration-thickness: inherit;
-  text-underline-offset: inherit;
-}
-
-.typing-character.is-revealed,
-.typing-decoration.is-revealed {
-  opacity: 1;
-}
-
-.typing-caret {
-  position: relative;
-}
-
-.typing-caret::after {
-  content: '';
-  position: absolute;
-  inset-inline-start: 100%;
-  top: 0.08em;
-  width: 1px;
-  height: 0.9em;
-  background: currentColor;
-  animation: typing-caret 700ms step-end infinite;
-  pointer-events: none;
-}
-
-@keyframes typing-caret {
-  50% {
-    opacity: 0;
-  }
 }
 
 .skip-link {
@@ -722,54 +542,37 @@ main:focus {
   transform: translateY(0);
 }
 
-@keyframes response-in {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 600px) {
   .page-shell {
     width: calc(100% - 36px);
   }
 
   .preferences-bar {
-    justify-content: flex-end;
     gap: 8px;
     padding-block: 12px;
   }
 
-  .conversation {
-    padding-top: 49px;
+  .personal-space {
+    padding-top: 32px;
   }
 
-  .welcome-inner {
-    padding-bottom: 35px;
+  .space-stage {
+    min-height: 320px;
   }
 
-  .welcome-description {
-    max-width: 440px;
+  .section-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    padding: 6px;
   }
 
-  .composer input {
-    padding-inline: 15px;
-    font-size: 18px;
+  .section-navigation a {
+    min-height: 48px;
+    font-size: 17px;
   }
 
-  .composer .send-button {
-    width: 44px;
-    height: 44px;
-    margin-right: 7px;
-  }
-
-  .help-list > div {
-    grid-template-columns: 110px 1fr;
-    column-gap: 12px;
+  .navigation-dock {
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
   }
 
   .profile-link {
@@ -796,18 +599,8 @@ main:focus {
     scroll-behavior: auto !important;
   }
 
-  .composer .send-button:not(:disabled):hover,
-  .composer .send-button:not(:disabled):active {
+  .section-navigation a:hover,
+  .section-navigation a:active {
     transform: none;
-  }
-
-  .send-button:not(:disabled):hover .icon {
-    transform: rotate(-18deg);
-  }
-}
-
-@media (max-width: 360px) {
-  .composer input {
-    font-size: 16px;
   }
 }

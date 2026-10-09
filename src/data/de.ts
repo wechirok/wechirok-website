@@ -13,25 +13,11 @@ export const introduction = {
   heading: 'Ich bin Wechirok.',
   description:
     'Das ist meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite.',
-  hintBefore: 'Gib ',
-  hintAfter: ' ein, um die verfügbaren Befehle zu sehen.',
 };
 
-export const interfaceCopy = {
-  commandLabel: 'Gib einen Befehl ein',
-  placeholder: 'Deine Befehle hier, bitte :)',
-  submit: 'Senden',
-  historyLabel: 'Chat',
-  userLabel: 'Du',
-  responseLabel: 'Wechirok',
-  helpTitle: 'Ein paar Möglichkeiten, dich umzusehen.',
-  helpDescription: 'Gib einen Befehl ein oder wähle unten einen aus.',
-  unknownBefore: 'Den Befehl „',
-  unknownAfter: '“ kenne ich nicht. Mit help siehst du, was geht.',
-  cleared: 'Chat geleert.',
-  clearHint: 'Wohin jetzt? Gib „help“ ein, um die Befehle zu sehen.',
-  noScript:
-    'Für den Chat brauchst du JavaScript. Du kannst die Inhalte auch als Textseiten lesen:',
+export const navigation = {
+  label: 'Navigation',
+  home: 'Zurück zur Startseite',
 };
 
 export const sections = {
@@ -161,15 +147,6 @@ export const notFound = {
   description:
     'Vielleicht ist die Seite umgezogen oder die Adresse stimmt nicht ganz.',
   link: 'Zurück zu meiner Ecke im Netz',
-};
-
-export const commandDescriptions = {
-  help: 'Alle Befehle anzeigen.',
-  about: 'Ein bisschen über mich.',
-  work: 'Was ich so mache.',
-  projects: 'Was ich entwickle und pflege.',
-  links: 'Wo du mich sonst findest.',
-  clear: 'Diesen Chat leeren.',
 };
 
 export const preferences = {
