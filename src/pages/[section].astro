@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionContent from '../components/SectionContent.astro';
 import Icon from '../components/Icon.astro';
-import { sections, site, type SectionName } from '../data/en';
+import { navigation, sections, site, type SectionName } from '../data/en';
 import { withBase } from '../lib/paths';
 
 export function getStaticPaths() {
@@ -26,7 +26,7 @@ const section = sections[name];
       rel="noopener"
     >
       <Icon name="arrow-left" />
-      <span>{site.name}</span>
+      <span data-i18n="navigation.home">{navigation.home}</span>
     </a>
     <h1 data-i18n={`sections.${name}.title`}>{section.title}</h1>
     <SectionContent name={name} />

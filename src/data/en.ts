@@ -16,7 +16,7 @@ export const introduction = {
 
 export const navigation = {
   label: 'Explore',
-  home: 'Back to home',
+  home: 'Home',
 };
 
 export const sections = {

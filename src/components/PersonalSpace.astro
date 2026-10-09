@@ -3,7 +3,6 @@ import {
   introduction,
   navigation,
   sections,
-  site,
   type SectionName,
 } from '../data/en';
 import Icon from './Icon.astro';
@@ -44,7 +43,7 @@ const destinations = Object.keys(sections) as SectionName[];
           data-i18n-aria-label="navigation.home"
         >
           <Icon name="arrow-left" />
-          <span>{site.name}</span>
+          <span data-i18n="navigation.home">{navigation.home}</span>
         </button>
         <h1
           id={`${name}-heading`}
