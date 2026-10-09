@@ -1,15 +1,15 @@
 ---
-import { introduction, navigation, sections, site } from '../data/en';
-import { withBase } from '../lib/paths';
+import {
+  introduction,
+  navigation,
+  sections,
+  site,
+  type SectionName,
+} from '../data/en';
 import Icon from './Icon.astro';
 import SectionContent from './SectionContent.astro';
 
-const destinations = [
-  { name: 'about', icon: 'user-round' },
-  { name: 'work', icon: 'briefcase-business' },
-  { name: 'projects', icon: 'folder-code' },
-  { name: 'links', icon: 'link' },
-] as const;
+const destinations = Object.keys(sections) as SectionName[];
 ---
 
 <div class="personal-space" data-personal-space>
@@ -29,7 +29,7 @@ const destinations = [
         {introduction.description}
       </p>
     </section>
-    {destinations.map(({ name }) => (
+    {destinations.map((name) => (
       <article
         class="space-panel"
         data-panel={name}
@@ -56,28 +56,6 @@ const destinations = [
         <SectionContent name={name} />
       </article>
     ))}
-  </div>
-  <div class="navigation-dock">
-    <nav
-      class="section-navigation"
-      aria-label={navigation.label}
-      data-i18n-aria-label="navigation.label"
-    >
-      {destinations.map(({ name, icon }) => (
-        <a
-          href={withBase(`${name}/`)}
-          target="_blank"
-          rel="noopener"
-          data-section={name}
-          aria-controls={`${name}-heading`}
-        >
-          <Icon name={icon} />
-          <span data-i18n={`sections.${name}.title`}>
-            {sections[name].title}
-          </span>
-        </a>
-      ))}
-    </nav>
   </div>
 </div>
 

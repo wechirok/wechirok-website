@@ -1,0 +1,31 @@
+---
+import { navigation, sections } from '../data/en';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+
+const destinations = [
+  { name: 'about', icon: 'user-round' },
+  { name: 'work', icon: 'briefcase-business' },
+  { name: 'projects', icon: 'folder-code' },
+  { name: 'links', icon: 'link' },
+] as const;
+---
+
+<nav
+  class="section-navigation"
+  aria-label={navigation.label}
+  data-i18n-aria-label="navigation.label"
+>
+  {destinations.map(({ name, icon }) => (
+    <a
+      href={withBase(`${name}/`)}
+      target="_blank"
+      rel="noopener"
+      data-section={name}
+      aria-controls={`${name}-heading`}
+    >
+      <Icon name={icon} />
+      <span data-i18n={`sections.${name}.title`}>{sections[name].title}</span>
+    </a>
+  ))}
+</nav>

@@ -54,7 +54,7 @@ const canonical = Astro.site
     <a class="skip-link" href="#main" data-i18n="site.skipLink">
       {site.skipLink}
     </a>
-    <Preferences />
+    <Preferences showNavigation={!page} />
     <main id="main" class="page-shell" tabindex="-1">
       <slot />
     </main>
