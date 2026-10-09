@@ -3,10 +3,10 @@ import { preferences } from '../data/en';
 import Icon from './Icon.astro';
 
 const languages = [
-  { locale: 'en', name: 'English', mark: 'EN' },
-  { locale: 'de', name: 'Deutsch', mark: 'DE' },
-  { locale: 'uk', name: 'Українська', mark: 'UK' },
-  { locale: 'ru', name: 'Русский', mark: 'RU' },
+  { locale: 'en', name: 'English' },
+  { locale: 'de', name: 'Deutsch' },
+  { locale: 'uk', name: 'Українська' },
+  { locale: 'ru', name: 'Русский' },
 ] as const;
 ---
 
@@ -44,7 +44,7 @@ const languages = [
   </div>
   <div class="language-picker" data-language-picker>
     <button
-      class="preference-button language-toggle"
+      class="preference-button"
       type="button"
       data-language-toggle
       aria-label={preferences.language}
@@ -55,19 +55,7 @@ const languages = [
       aria-expanded="false"
       aria-controls="language-menu"
     >
-      {languages.map((language) => (
-        <span
-          class="language-mark"
-          data-current-language={language.locale}
-          hidden={language.locale !== 'en'}
-          aria-hidden="true"
-        >
-          {language.mark}
-        </span>
-      ))}
-      <span class="language-chevron">
-        <Icon name="chevron-down" />
-      </span>
+      <Icon name="languages" />
     </button>
     <div
       id="language-menu"
@@ -87,9 +75,6 @@ const languages = [
           aria-checked={language.locale === 'en' ? 'true' : 'false'}
           tabindex="-1"
         >
-          <span class="language-mark" aria-hidden="true">
-            {language.mark}
-          </span>
           <span>{language.name}</span>
           <span class="language-check">
             <Icon name="check" />

@@ -53,31 +53,58 @@ if (preferences) {
     const items = Array.from(
       menu.querySelectorAll<HTMLButtonElement>('[data-locale]'),
     );
-    const updateLanguageIndicator = () => {
-      for (const mark of toggle.querySelectorAll<HTMLElement>(
-        '[data-current-language]',
-      )) {
-        mark.hidden = mark.dataset.currentLanguage !== getLocale();
-      }
+    let menuOpen = false;
+    let menuAnimation: Animation | undefined;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const finishMenuAnimation = () => {
+      if (!menuOpen) menu.hidden = true;
+      menuAnimation?.cancel();
+      menuAnimation = undefined;
     };
-    updateLanguageIndicator();
-    document.addEventListener('localechange', updateLanguageIndicator);
+    motion.addEventListener('change', () => {
+      if (motion.matches) finishMenuAnimation();
+    });
+    const setMenuOpen = (open: boolean) => {
+      if (menuOpen === open) return;
+      const collapsed = {
+        opacity: '0',
+        transform: 'translateY(-6px) scale(0.98)',
+      };
+      const expanded = { opacity: '1', transform: 'translateY(0) scale(1)' };
+      const style = getComputedStyle(menu);
+      const from = menu.hidden
+        ? collapsed
+        : { opacity: style.opacity, transform: style.transform };
+      menuAnimation?.cancel();
+      menuOpen = open;
+      menu.hidden = false;
+      menu.inert = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      if (motion.matches || typeof menu.animate !== 'function') {
+        finishMenuAnimation();
+        return;
+      }
+      menuAnimation = menu.animate([from, open ? expanded : collapsed], {
+        duration: open ? 200 : 160,
+        easing: open ? 'cubic-bezier(0.16, 1, 0.3, 1)' : 'ease-in',
+        fill: 'both',
+      });
+      menuAnimation.onfinish = finishMenuAnimation;
+    };
 
     const openMenu = (
       index = items.findIndex((item) => item.dataset.locale === getLocale()),
     ) => {
-      menu.hidden = false;
-      toggle.setAttribute('aria-expanded', 'true');
+      setMenuOpen(true);
       items[Math.max(0, index)]?.focus({ preventScroll: true });
     };
     closeLanguageMenu = (restoreFocus = false) => {
-      menu.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
+      setMenuOpen(false);
       if (restoreFocus) toggle.focus({ preventScroll: true });
     };
 
     toggle.addEventListener('click', () => {
-      if (menu.hidden) openMenu();
+      if (!menuOpen) openMenu();
       else closeLanguageMenu?.();
     });
     picker.addEventListener('keydown', (event) => {
@@ -89,7 +116,7 @@ if (preferences) {
         openMenu(event.key === 'ArrowDown' ? 0 : items.length - 1);
         return;
       }
-      if (menu.hidden) return;
+      if (!menuOpen) return;
       if (event.key === 'Escape') {
         event.preventDefault();
         event.stopPropagation();
