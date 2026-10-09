@@ -2,7 +2,6 @@ import * as en from '../data/en';
 import * as de from '../data/de';
 import * as uk from '../data/uk';
 import * as ru from '../data/ru';
-import { finishAllTyping } from './typewriter';
 import {
   captureLocaleText,
   finishLocaleTransitions,
@@ -62,7 +61,6 @@ export function localize(scope: ParentNode = document) {
   const attributes = ['aria-label', 'placeholder', 'title'] as const;
   const selector = [
     '[data-i18n]',
-    '[data-unknown-command]',
     ...attributes.map((attribute) => `[data-i18n-${attribute}]`),
   ].join(',');
   const elements = Array.from(scope.querySelectorAll<HTMLElement>(selector));
@@ -82,18 +80,12 @@ export function localize(scope: ParentNode = document) {
       const text = dictionary.get(key) ?? dictionaries.en.get(key);
       if (text !== undefined) element.setAttribute(attribute, text);
     }
-    const unknown = element.dataset.unknownCommand;
-    if (unknown !== undefined) {
-      const copy = getCopy().interfaceCopy;
-      element.textContent = `${copy.unknownBefore}${unknown}${copy.unknownAfter}`;
-    }
   }
 }
 
 export function setLocale(locale: Locale, options: { animate?: boolean } = {}) {
   finishLocaleTransitions();
   if (options.animate && locale === getLocale()) return;
-  finishAllTyping();
   const snapshots = options.animate ? captureLocaleText() : [];
   document.documentElement.lang = locale;
   localize();

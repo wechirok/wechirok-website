@@ -13,25 +13,11 @@ export const introduction = {
   heading: 'Я Wechirok.',
   description:
     'Это моё личное пространство для всего, что я создаю, поддерживаю и над чем работаю.',
-  hintBefore: 'Введи ',
-  hintAfter: ', чтобы увидеть доступные команды.',
 };
 
-export const interfaceCopy = {
-  commandLabel: 'Введи команду',
-  placeholder: 'Твои команды сюда, пожалуйста :)',
-  submit: 'Отправить',
-  historyLabel: 'Разговор',
-  userLabel: 'Ты',
-  responseLabel: 'Wechirok',
-  helpTitle: 'Несколько способов осмотреться.',
-  helpDescription: 'Введи команду или выбери одну ниже.',
-  unknownBefore: 'Я не знаю команды «',
-  unknownAfter: '». Попробуй help, чтобы увидеть доступные команды.',
-  cleared: 'Разговор очищен.',
-  clearHint: 'Куда дальше? Введи «help», чтобы увидеть команды.',
-  noScript:
-    'Для разговора нужен JavaScript. Также можно прочитать текстовые страницы:',
+export const navigation = {
+  label: 'Разделы',
+  home: 'На главную',
 };
 
 export const sections = {
@@ -46,7 +32,7 @@ export const sections = {
     ],
   },
   work: {
-    title: 'Занятия',
+    title: 'Чем занимаюсь',
     lead: 'То, чему я уделяю время.',
     description:
       'Системное администрирование, программное обеспечение, локализация, дизайн, видео и аудио.',
@@ -157,15 +143,6 @@ export const notFound = {
   heading: 'Здесь ничего нет, незнакомец.',
   description: 'Возможно, страница переехала или в адресе есть ошибка.',
   link: 'Назад в моё личное пространство',
-};
-
-export const commandDescriptions = {
-  help: 'Посмотреть доступные команды.',
-  about: 'Немного обо мне.',
-  work: 'То, чему я уделяю время.',
-  projects: 'То, что я создаю и поддерживаю.',
-  links: 'Найти меня где-нибудь ещё.',
-  clear: 'Очистить этот разговор.',
 };
 
 export const preferences = {

@@ -13,25 +13,11 @@ export const introduction = {
   heading: 'Я Wechirok.',
   description:
     'Це мій особистий простір для всього, що я створюю, підтримую й над чим працюю.',
-  hintBefore: 'Введи ',
-  hintAfter: ', щоб побачити доступні команди.',
 };
 
-export const interfaceCopy = {
-  commandLabel: 'Введи команду',
-  placeholder: 'Твої команди сюди, будь ласка :)',
-  submit: 'Надіслати',
-  historyLabel: 'Розмова',
-  userLabel: 'Ти',
-  responseLabel: 'Wechirok',
-  helpTitle: 'Кілька способів озирнутися.',
-  helpDescription: 'Введи команду або обери одну нижче.',
-  unknownBefore: 'Я не знаю команди «',
-  unknownAfter: '». Спробуй help, щоб побачити доступні команди.',
-  cleared: 'Розмову очищено.',
-  clearHint: 'Куди далі? Введи «help», щоб побачити команди.',
-  noScript:
-    'Для розмови потрібен JavaScript. Також можна прочитати текстові сторінки:',
+export const navigation = {
+  label: 'Розділи',
+  home: 'На головну',
 };
 
 export const sections = {
@@ -46,7 +32,7 @@ export const sections = {
     ],
   },
   work: {
-    title: 'Заняття',
+    title: 'Чим займаюся',
     lead: 'Те, чому я приділяю час.',
     description:
       'Системне адміністрування, програмне забезпечення, локалізація, дизайн, відео та аудіо.',
@@ -157,15 +143,6 @@ export const notFound = {
   heading: 'Тут нічого немає, незнайомцю.',
   description: 'Можливо, сторінка переїхала або в адресі є помилка.',
   link: 'Назад до мого особистого простору',
-};
-
-export const commandDescriptions = {
-  help: 'Переглянути доступні команди.',
-  about: 'Трохи про мене.',
-  work: 'Те, чому я приділяю час.',
-  projects: 'Те, що я створюю та підтримую.',
-  links: 'Знайти мене деінде.',
-  clear: 'Очистити цю розмову.',
 };
 
 export const preferences = {

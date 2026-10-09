@@ -1,0 +1,86 @@
+---
+import { introduction, navigation, sections, site } from '../data/en';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+import SectionContent from './SectionContent.astro';
+
+const destinations = [
+  { name: 'about', icon: 'user-round' },
+  { name: 'work', icon: 'briefcase-business' },
+  { name: 'projects', icon: 'folder-code' },
+  { name: 'links', icon: 'link' },
+] as const;
+---
+
+<div class="personal-space" data-personal-space>
+  <div class="space-stage" data-space-stage>
+    <section
+      class="space-panel welcome"
+      data-panel="home"
+      aria-labelledby="home-heading"
+    >
+      <p class="greeting" data-i18n="introduction.greeting">
+        {introduction.greeting}
+      </p>
+      <h1 id="home-heading" tabindex="-1" data-i18n="introduction.heading">
+        {introduction.heading}
+      </h1>
+      <p class="welcome-description" data-i18n="introduction.description">
+        {introduction.description}
+      </p>
+    </section>
+    {destinations.map(({ name }) => (
+      <article
+        class="space-panel"
+        data-panel={name}
+        aria-labelledby={`${name}-heading`}
+        hidden
+      >
+        <button
+          class="home-button with-icon"
+          type="button"
+          data-home
+          aria-label={navigation.home}
+          data-i18n-aria-label="navigation.home"
+        >
+          <Icon name="arrow-left" />
+          <span>{site.name}</span>
+        </button>
+        <h1
+          id={`${name}-heading`}
+          tabindex="-1"
+          data-i18n={`sections.${name}.title`}
+        >
+          {sections[name].title}
+        </h1>
+        <SectionContent name={name} />
+      </article>
+    ))}
+  </div>
+  <div class="navigation-dock">
+    <nav
+      class="section-navigation"
+      aria-label={navigation.label}
+      data-i18n-aria-label="navigation.label"
+    >
+      {destinations.map(({ name, icon }) => (
+        <a
+          href={withBase(`${name}/`)}
+          target="_blank"
+          rel="noopener"
+          data-section={name}
+          aria-controls={`${name}-heading`}
+        >
+          <Icon name={icon} />
+          <span data-i18n={`sections.${name}.title`}>
+            {sections[name].title}
+          </span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<script>
+  import '../scripts/navigation';
+</script>
