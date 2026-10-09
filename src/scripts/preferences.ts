@@ -40,6 +40,7 @@ if (preferences) {
   setLocale(isLocale(language) ? language : 'en');
   setTheme(readPreference('wechirok.theme') === 'light' ? 'light' : 'dark');
   preferences.hidden = false;
+  preferences.closest('header')?.removeAttribute('hidden');
 
   let closeLanguageMenu: ((restoreFocus?: boolean) => void) | undefined;
   const picker = preferences.querySelector<HTMLElement>(
@@ -151,20 +152,6 @@ if (preferences) {
       )
         closeLanguageMenu?.();
     });
-  }
-
-  const updateHeaderHeight = () => {
-    document.documentElement.style.setProperty(
-      '--preferences-height',
-      `${preferences.getBoundingClientRect().height}px`,
-    );
-  };
-  updateHeaderHeight();
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(updateHeaderHeight).observe(preferences);
-  } else {
-    window.addEventListener('resize', updateHeaderHeight);
-    document.addEventListener('localechange', updateHeaderHeight);
   }
 
   preferences.addEventListener('click', (event) => {

@@ -1,6 +1,12 @@
 ---
 import { preferences } from '../data/en';
 import Icon from './Icon.astro';
+import SectionNavigation from './SectionNavigation.astro';
+
+interface Props {
+  showNavigation?: boolean;
+}
+const { showNavigation = false } = Astro.props;
 
 const languages = [
   { locale: 'en', name: 'English' },
@@ -10,77 +16,80 @@ const languages = [
 ] as const;
 ---
 
-<header class="preferences-bar page-shell" data-preferences hidden>
-  <div
-    class="preference-group"
-    role="group"
-    aria-label={preferences.theme}
-    data-i18n-aria-label="preferences.theme"
-  >
-    <button
-      class="preference-button"
-      type="button"
-      data-theme-choice="dark"
-      aria-pressed="true"
-      aria-label={preferences.dark}
-      title={preferences.dark}
-      data-i18n-aria-label="preferences.dark"
-      data-i18n-title="preferences.dark"
-    >
-      <Icon name="moon" />
-    </button>
-    <button
-      class="preference-button"
-      type="button"
-      data-theme-choice="light"
-      aria-pressed="false"
-      aria-label={preferences.light}
-      title={preferences.light}
-      data-i18n-aria-label="preferences.light"
-      data-i18n-title="preferences.light"
-    >
-      <Icon name="sun" />
-    </button>
-  </div>
-  <div class="language-picker" data-language-picker>
-    <button
-      class="preference-button"
-      type="button"
-      data-language-toggle
-      aria-label={preferences.language}
-      title={preferences.language}
-      data-i18n-aria-label="preferences.language"
-      data-i18n-title="preferences.language"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-controls="language-menu"
-    >
-      <Icon name="languages" />
-    </button>
+<header class="preferences-bar page-shell" hidden={!showNavigation}>
+  {showNavigation && <SectionNavigation />}
+  <div class="preferences-controls" data-preferences hidden>
     <div
-      id="language-menu"
-      class="language-menu"
-      role="menu"
-      aria-label={preferences.language}
-      data-i18n-aria-label="preferences.language"
-      data-language-menu
-      hidden
+      class="preference-group"
+      role="group"
+      aria-label={preferences.theme}
+      data-i18n-aria-label="preferences.theme"
     >
-      {languages.map((language) => (
-        <button
-          type="button"
-          role="menuitemradio"
-          data-locale={language.locale}
-          lang={language.locale}
-          aria-checked={language.locale === 'en' ? 'true' : 'false'}
-          tabindex="-1"
-        >
-          <span>{language.name}</span>
-          <span class="language-check">
-            <Icon name="check" />
-          </span>
-        </button>
-      ))}
+      <button
+        class="preference-button"
+        type="button"
+        data-theme-choice="dark"
+        aria-pressed="true"
+        aria-label={preferences.dark}
+        title={preferences.dark}
+        data-i18n-aria-label="preferences.dark"
+        data-i18n-title="preferences.dark"
+      >
+        <Icon name="moon" />
+      </button>
+      <button
+        class="preference-button"
+        type="button"
+        data-theme-choice="light"
+        aria-pressed="false"
+        aria-label={preferences.light}
+        title={preferences.light}
+        data-i18n-aria-label="preferences.light"
+        data-i18n-title="preferences.light"
+      >
+        <Icon name="sun" />
+      </button>
+    </div>
+    <div class="language-picker" data-language-picker>
+      <button
+        class="preference-button"
+        type="button"
+        data-language-toggle
+        aria-label={preferences.language}
+        title={preferences.language}
+        data-i18n-aria-label="preferences.language"
+        data-i18n-title="preferences.language"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-controls="language-menu"
+      >
+        <Icon name="languages" />
+      </button>
+      <div
+        id="language-menu"
+        class="language-menu"
+        role="menu"
+        aria-label={preferences.language}
+        data-i18n-aria-label="preferences.language"
+        data-language-menu
+        hidden
+      >
+        {languages.map((language) => (
+          <button
+            type="button"
+            role="menuitemradio"
+            data-locale={language.locale}
+            lang={language.locale}
+            aria-checked={language.locale === 'en' ? 'true' : 'false'}
+            tabindex="-1"
+          >
+            <span>{language.name}</span>
+            <span class="language-check">
+              <Icon name="check" />
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 </header>

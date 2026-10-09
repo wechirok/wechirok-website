@@ -149,11 +149,20 @@ main:focus {
   top: 0;
   z-index: 3;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 8px 12px;
   padding-block: 16px;
   pointer-events: none;
+}
+
+.preferences-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  pointer-events: auto;
 }
 
 .preference-group {
@@ -248,10 +257,8 @@ main:focus {
 }
 
 .personal-space {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100svh - var(--preferences-height, 76px));
-  padding-top: clamp(32px, 7vh, 72px);
+  padding-top: clamp(32px, 5vw, 56px);
+  padding-bottom: 48px;
 }
 
 .space-stage {
@@ -309,22 +316,12 @@ main:focus {
   color: var(--accent);
 }
 
-.navigation-dock {
-  position: sticky;
-  bottom: 0;
-  z-index: 2;
-  margin-top: auto;
-  padding-top: 24px;
-  padding-bottom: max(24px, env(safe-area-inset-bottom));
-  pointer-events: none;
-}
-
 .section-navigation {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  padding: 8px;
-  border-radius: 18px;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
   background: var(--surface);
   color: var(--foreground);
   box-shadow:
@@ -335,18 +332,19 @@ main:focus {
 }
 
 .section-navigation a {
-  --icon-size: 21px;
+  --icon-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  min-height: 54px;
-  padding: 12px 10px;
-  border-radius: 11px;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
   color: inherit;
   text-decoration: none;
   text-align: center;
   line-height: 1.3;
+  font-size: 17px;
   transition:
     background-color 180ms ease,
     color 180ms ease,
@@ -542,6 +540,17 @@ main:focus {
   transform: translateY(0);
 }
 
+@media (max-width: 800px) {
+  .preferences-controls {
+    order: 1;
+  }
+
+  .section-navigation {
+    order: 2;
+    width: 100%;
+  }
+}
+
 @media (max-width: 600px) {
   .page-shell {
     width: calc(100% - 36px);
@@ -562,17 +571,11 @@ main:focus {
 
   .section-navigation {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4px;
-    padding: 6px;
   }
 
   .section-navigation a {
-    min-height: 48px;
-    font-size: 17px;
-  }
-
-  .navigation-dock {
-    padding-bottom: max(18px, env(safe-area-inset-bottom));
+    padding: 9px 10px;
+    font-size: 16px;
   }
 
   .profile-link {

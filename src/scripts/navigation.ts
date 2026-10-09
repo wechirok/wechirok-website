@@ -10,7 +10,7 @@ if (root && stage) {
     ),
   );
   const links = Array.from(
-    root.querySelectorAll<HTMLAnchorElement>('[data-section]'),
+    document.querySelectorAll<HTMLAnchorElement>('[data-section]'),
   );
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 'home';
@@ -119,20 +119,22 @@ if (root && stage) {
       );
     void show(name);
   };
+  for (const link of links)
+    link.addEventListener('click', (event) => {
+      if (
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        !event.altKey &&
+        event.button === 0
+      ) {
+        event.preventDefault();
+        navigate(link.dataset.section!);
+      }
+    });
   root.addEventListener('click', (event) => {
-    if (!(event.target instanceof Element)) return;
-    const link = event.target.closest<HTMLAnchorElement>('[data-section]');
-    if (
-      link &&
-      !event.ctrlKey &&
-      !event.metaKey &&
-      !event.shiftKey &&
-      !event.altKey &&
-      event.button === 0
-    ) {
-      event.preventDefault();
-      navigate(link.dataset.section!);
-    } else if (event.target.closest('[data-home]')) navigate('home');
+    if (event.target instanceof Element && event.target.closest('[data-home]'))
+      navigate('home');
   });
 
   const fromAddress = () => {
