@@ -18,14 +18,23 @@ const destinations = [
 >
   {destinations.map(({ name, icon }) => (
     <a
+      class="preference-button navigation-button"
       href={withBase(`${name}/`)}
       target="_blank"
       rel="noopener"
       data-section={name}
       aria-controls={`${name}-heading`}
+      aria-label={sections[name].title}
+      data-i18n-aria-label={`sections.${name}.title`}
     >
       <Icon name={icon} />
-      <span data-i18n={`sections.${name}.title`}>{sections[name].title}</span>
+      <span
+        class="navigation-label"
+        aria-hidden="true"
+        data-i18n={`sections.${name}.title`}
+      >
+        {sections[name].title}
+      </span>
     </a>
   ))}
 </nav>

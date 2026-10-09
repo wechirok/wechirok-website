@@ -13,6 +13,54 @@ if (root && stage) {
     document.querySelectorAll<HTMLAnchorElement>('[data-section]'),
   );
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const touchLayout = window.matchMedia(
+    '(hover: none), (pointer: coarse), (max-width: 600px)',
+  );
+  const labelTimers = new Set<number>();
+  const clearLabels = () => {
+    for (const timer of labelTimers) window.clearTimeout(timer);
+    labelTimers.clear();
+    for (const link of links) link.removeAttribute('data-label-visible');
+  };
+  const later = (callback: () => void, delay: number) => {
+    const timer = window.setTimeout(() => {
+      labelTimers.delete(timer);
+      callback();
+    }, delay);
+    labelTimers.add(timer);
+  };
+  const revealLabel = (link: HTMLAnchorElement, duration = 1600) => {
+    clearLabels();
+    link.setAttribute('data-label-visible', '');
+    later(() => link.removeAttribute('data-label-visible'), duration);
+  };
+  const introduceLabels = () => {
+    clearLabels();
+    if (!touchLayout.matches) return;
+    if (document.activeElement?.closest('.section-navigation')) return;
+    links.forEach((link, index) => {
+      later(
+        () => {
+          for (const item of links) item.removeAttribute('data-label-visible');
+          link.setAttribute('data-label-visible', '');
+        },
+        250 + index * 1450,
+      );
+    });
+    later(clearLabels, 250 + links.length * 1450);
+  };
+  touchLayout.addEventListener('change', () => {
+    if (touchLayout.matches) introduceLabels();
+    else clearLabels();
+  });
+  for (const link of links) link.addEventListener('focus', clearLabels);
+  document.addEventListener('pointerdown', (event) => {
+    if (
+      event.target instanceof Element &&
+      event.target.closest('[data-preferences], [data-home]')
+    )
+      clearLabels();
+  });
   let current = 'home';
   let requested = current;
   let revision = 0;
@@ -129,6 +177,7 @@ if (root && stage) {
         event.button === 0
       ) {
         event.preventDefault();
+        if (touchLayout.matches) revealLabel(link);
         navigate(link.dataset.section!);
       }
     });
@@ -158,4 +207,5 @@ if (root && stage) {
     }
   });
   void show(fromAddress(), { focus: false, animate: false });
+  introduceLabels();
 }
