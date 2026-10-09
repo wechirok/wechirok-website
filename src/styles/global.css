@@ -317,6 +317,12 @@ main:focus {
   color: var(--accent);
 }
 
+.home-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .section-navigation {
   display: flex;
   gap: 4px;

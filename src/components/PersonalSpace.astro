@@ -43,8 +43,10 @@ const destinations = Object.keys(sections) as SectionName[];
           data-i18n-aria-label="navigation.home"
         >
           <Icon name="arrow-left" />
-          <Icon name="house" />
-          <span data-i18n="navigation.home">{navigation.home}</span>
+          <span class="home-label">
+            <Icon name="house" />
+            <span data-i18n="navigation.home">{navigation.home}</span>
+          </span>
         </button>
         <h1
           id={`${name}-heading`}
