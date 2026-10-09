@@ -17,6 +17,7 @@ import Languages from '../assets/icons/interface/languages.svg';
 import Palette from '../assets/icons/interface/palette.svg';
 import Send from '../assets/icons/interface/send-horizontal.svg';
 import ArrowLeft from '../assets/icons/interface/arrow-left.svg';
+import House from '../assets/icons/interface/house.svg';
 import ArrowRight from '../assets/icons/interface/arrow-right.svg';
 import Moon from '../assets/icons/interface/moon.svg';
 import Sun from '../assets/icons/interface/sun.svg';
@@ -44,6 +45,7 @@ export const icons = {
   palette: Palette,
   'send-horizontal': Send,
   'arrow-left': ArrowLeft,
+  house: House,
   'arrow-right': ArrowRight,
   moon: Moon,
   sun: Sun,
