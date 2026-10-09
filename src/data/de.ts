@@ -17,7 +17,7 @@ export const introduction = {
 
 export const navigation = {
   label: 'Navigation',
-  home: 'Zurück zur Startseite',
+  home: 'Startseite',
 };
 
 export const sections = {
