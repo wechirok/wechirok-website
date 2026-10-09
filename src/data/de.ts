@@ -27,9 +27,9 @@ export const sections = {
     description:
       'Ein bisschen über Wechirok und das, womit ich mich beschäftige.',
     paragraphs: [
-      'Ich bin Wechirok, manchmal auch als Katzeyoru unterwegs. Ich beschäftige mich mit Systemadministration (oder versuche es zumindest), lerne und bastle an allem Möglichen.',
-      'Ich entwickle und pflege eigene Projekte, arbeite an Mods und Modpacks für Spiele wie Minecraft und wirke an verschiedenen ukrainischen Lokalisierungen mit. Ab und zu bearbeite ich auch Fotos, Videos und Audiodateien.',
-      'Ich gehöre zu den Leuten, die am liebsten alles auf dem einfachen Weg erreichen wollen. Ich nutze LLMs zum Coden (sogar für diese Seite, lol), merke dann, dass der ganze Ansatz scheiße ist, und bessere am Ende alles selbst aus. Daraus werden Nächte voller Recherche und Überarbeitung, bis das Ergebnis stimmt. Also widerspreche ich mir selbst und nehme am Ende doch den schweren Weg, denn so sehr ich mir auch wünsche, dass alles einfach und unkompliziert ist, zählt für mich ein richtig gutes Ergebnis. Ich muss nur vorher durch alle neun Kreise der Hölle.',
+      'Ich bin Wechirok, manchmal auch als Katzeyoru unterwegs. Ich beschäftige mich mit Systemadministration, Software und Infrastruktur. Ich finde gerne heraus, wie Dinge funktionieren, probiere Neues aus und setze es in meinen eigenen Projekten ein.',
+      'Ich entwickle und pflege eigene Projekte und meine Serverinfrastruktur zu Hause. Dienste, Bots und Spielserver verbinde ich zu einem durchdachten System und achte dabei auf ihre Konfiguration, Stabilität und Backups. Ich arbeite an Mods und Modpacks für Spiele wie Minecraft und wirke an verschiedenen ukrainischen Lokalisierungen mit. Ab und zu bearbeite ich auch Fotos, Videos und Audiodateien.',
+      'Bei der Arbeit mit Code und Logik nutze ich LLMs zum Lernen und als Unterstützung bei der Entwicklung und ziehe Dokumentation und Wikis heran. Oft hilft auch die Community: Sie teilt Erfahrungen, schlägt Lösungen vor und hilft mir, Ideen durch den gemeinsamen Austausch umzusetzen. Ich gehe den Code durch und prüfe ihn, um zu verstehen, was gemacht wurde und wie es funktioniert. Für Lokalisierungen, das Schreiben von Dokumentation und das Erstellen von Assets ist der Einsatz von KI ausgeschlossen.',
     ],
   },
   work: {

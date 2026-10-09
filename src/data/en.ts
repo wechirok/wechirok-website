@@ -25,9 +25,9 @@ export const sections = {
     lead: 'I do a little bit of this and that.',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
-      'I’m Wechirok, sometimes also known as Katzeyoru. I do system administration (or at least I’m trying to), and I learn and make all sorts of things.',
-      'I build and maintain personal projects, work on mods and modpacks for games like Minecraft, and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
-      'I’m one of those people who want everything the easy way. I use LLMs for code (even this site, lol), then realize the whole approach is shit and end up fixing everything myself. That turns into nights of research and reworking things until I get a good result. So I contradict myself and take the hard way anyway, because however much I want things to be easy and simple, getting a great result matters to me. I just have to go through all nine circles of hell first.',
+      'I’m Wechirok, sometimes also known as Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
+      'I build and maintain personal projects and my home server infrastructure. I bring services, bots and game servers together in a carefully planned setup, paying attention to their configuration, stability and backups. I work on mods and modpacks for games like Minecraft and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
+      'When working with code and logic, I use LLMs to learn and help with development, and refer to documentation and wikis. The community often helps too, sharing experience, suggesting solutions and helping bring ideas to life through everyday conversations. I go through the code and check it to understand what has been done and how it works. I do not use AI for localization, writing documentation or creating assets.',
     ],
   },
   work: {
