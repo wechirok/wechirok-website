@@ -193,7 +193,8 @@ main:focus {
     color 160ms ease;
 }
 
-.preference-button:hover {
+.preference-button:hover,
+.navigation-button[data-label-visible] {
   --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 18%);
   color: var(--interactive-hover);
 }
@@ -371,6 +372,10 @@ main:focus {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
+}
+
+.navigation-button[data-label-visible] {
+  transform: translateY(-2px);
 }
 
 @media (hover: hover) {
@@ -616,6 +621,7 @@ main:focus {
   }
 
   .navigation-button:hover,
+  .navigation-button[data-label-visible],
   .navigation-button:active {
     transform: none;
   }

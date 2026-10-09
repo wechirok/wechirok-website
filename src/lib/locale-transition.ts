@@ -4,7 +4,8 @@ interface TextSnapshot {
 }
 
 const active = new Set<() => void>();
-const excluded = '.visually-hidden, [hidden], [data-language-picker]';
+const excluded =
+  '.visually-hidden, [hidden], [data-language-picker], .navigation-label';
 let motion: MediaQueryList | undefined;
 
 export function finishLocaleTransitions() {
