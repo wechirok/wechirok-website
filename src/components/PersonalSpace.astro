@@ -30,6 +30,7 @@ const destinations = Object.keys(sections) as SectionName[];
     </section>
     {destinations.map((name) => (
       <article
+        id={`${name}-panel`}
         class="space-panel"
         data-panel={name}
         aria-labelledby={`${name}-heading`}
