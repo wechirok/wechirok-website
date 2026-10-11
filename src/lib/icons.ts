@@ -12,6 +12,16 @@ import Html5 from '../assets/icons/brands/html5.svg';
 import Css3 from '../assets/icons/brands/css3.svg';
 import PostgreSql from '../assets/icons/brands/postgresql.svg';
 import MySql from '../assets/icons/brands/mysql.svg';
+import Blender from '../assets/icons/brands/blender.svg';
+import Blockbench from '../assets/icons/brands/blockbench.svg';
+import Aseprite from '../assets/icons/brands/aseprite.svg';
+import Photoshop from '../assets/icons/brands/adobephotoshop.svg';
+import Illustrator from '../assets/icons/brands/adobeillustrator.svg';
+import MediaComposer from '../assets/icons/brands/media-composer.svg';
+import DaVinciResolve from '../assets/icons/brands/davinciresolve.svg';
+import Premiere from '../assets/icons/brands/adobepremierepro.svg';
+import AfterEffects from '../assets/icons/brands/adobeaftereffects.svg';
+import Audition from '../assets/icons/brands/adobeaudition.svg';
 import CircleHelp from '../assets/icons/interface/circle-help.svg';
 import UserRound from '../assets/icons/interface/user-round.svg';
 import BriefcaseBusiness from '../assets/icons/interface/briefcase-business.svg';
@@ -47,6 +57,16 @@ export const icons = {
   css3: Css3,
   postgresql: PostgreSql,
   mysql: MySql,
+  blender: Blender,
+  blockbench: Blockbench,
+  aseprite: Aseprite,
+  adobephotoshop: Photoshop,
+  adobeillustrator: Illustrator,
+  'media-composer': MediaComposer,
+  davinciresolve: DaVinciResolve,
+  adobepremierepro: Premiere,
+  adobeaftereffects: AfterEffects,
+  adobeaudition: Audition,
   'circle-help': CircleHelp,
   'user-round': UserRound,
   'briefcase-business': BriefcaseBusiness,

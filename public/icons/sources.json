@@ -12,7 +12,11 @@
         "crowdin",
         "weblate",
         "modrinth",
-        "curseforge"
+        "curseforge",
+        "blender",
+        "blockbench",
+        "aseprite",
+        "davinciresolve"
       ]
     },
     {
@@ -53,6 +57,19 @@
         "css3",
         "postgresql",
         "mysql"
+      ]
+    },
+    {
+      "name": "simple-icons",
+      "version": "11.15.0",
+      "source": "https://registry.npmjs.org/simple-icons/-/simple-icons-11.15.0.tgz",
+      "license": "licenses/simple-icons-11.15.txt",
+      "icons": [
+        "adobephotoshop",
+        "adobeillustrator",
+        "adobepremierepro",
+        "adobeaftereffects",
+        "adobeaudition"
       ]
     }
   ],
@@ -159,6 +176,77 @@
       "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/mysql/mysql-original.svg",
       "license": {
         "type": "MIT"
+      }
+    },
+    {
+      "title": "Blender",
+      "slug": "blender",
+      "hex": "E87D0D",
+      "source": "https://www.blender.org/about/logo",
+      "guidelines": "https://www.blender.org/about/logo"
+    },
+    {
+      "title": "Blockbench",
+      "slug": "blockbench",
+      "hex": "1E93D9",
+      "source": "https://www.blockbench.net/wiki/blockbench/logos",
+      "guidelines": "https://www.blockbench.net/wiki/blockbench/logos"
+    },
+    {
+      "title": "Aseprite",
+      "slug": "aseprite",
+      "hex": "7D929E",
+      "source": "https://www.aseprite.org"
+    },
+    {
+      "title": "DaVinci Resolve",
+      "slug": "davinciresolve",
+      "hex": "233A51",
+      "source": "https://www.blackmagicdesign.com/media/images/davinci-resolve-logo-square"
+    },
+    {
+      "title": "Adobe Photoshop",
+      "hex": "31A8FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobephotoshop"
+    },
+    {
+      "title": "Adobe Illustrator",
+      "hex": "FF9A00",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeillustrator"
+    },
+    {
+      "title": "Adobe Premiere Pro",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobepremierepro"
+    },
+    {
+      "title": "Adobe After Effects",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeaftereffects"
+    },
+    {
+      "title": "Adobe Audition",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeaudition"
+    },
+    {
+      "title": "Media Composer",
+      "slug": "media-composer",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/0/03/Avid_Media_Composer_Logo.svg",
+      "guidelines": "https://www.avid.com/legal/trademarks-and-other-notices",
+      "license": {
+        "type": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Avid_Media_Composer_Logo.svg"
       }
     }
   ]
