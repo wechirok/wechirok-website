@@ -194,7 +194,8 @@ main:focus {
 }
 
 .preference-button:hover,
-.navigation-button[data-label-visible] {
+.navigation-button[data-label-visible],
+.navigation-button[data-entry-active] {
   --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 18%);
   color: var(--interactive-hover);
 }
@@ -374,7 +375,8 @@ main:focus {
   transform: translateY(0) scale(1);
 }
 
-.navigation-button[data-label-visible] {
+.navigation-button[data-label-visible],
+.navigation-button[data-entry-active] {
   transform: translateY(-2px);
 }
 
@@ -433,7 +435,8 @@ main:focus {
   margin-top: 17px;
 }
 
-.toolkit {
+.toolkit,
+.translation-contributions {
   margin-top: 36px;
 }
 
@@ -736,6 +739,7 @@ main:focus {
 
   .navigation-button:hover,
   .navigation-button[data-label-visible],
+  .navigation-button[data-entry-active],
   .navigation-button:active,
   .profile-link:hover {
     transform: none;

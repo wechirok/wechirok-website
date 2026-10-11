@@ -50,6 +50,28 @@ export const sections = {
 
 export type SectionName = keyof typeof sections;
 
+export const translationContributions = {
+  title: 'My translation contributions.',
+  description:
+    'I contribute to Ukrainian localization and translation for a few projects.',
+  projects: [
+    {
+      name: 'Prism Launcher',
+      category: 'Launcher',
+      description:
+        'An open-source Minecraft launcher for managing instances, accounts and mods.',
+      url: 'https://hosted.weblate.org/projects/prismlauncher/launcher/',
+    },
+    {
+      name: 'Fabulously Optimized',
+      category: 'Modpack',
+      description:
+        'A Minecraft modpack focused on performance and graphics improvements.',
+      url: 'https://crowdin.com/project/fabulously-optimized',
+    },
+  ],
+} as const;
+
 export const toolkit = {
   title: 'Toolkit',
   items: [

@@ -25,7 +25,10 @@ if (root && stage) {
   const clearLabels = () => {
     for (const timer of labelTimers) window.clearTimeout(timer);
     labelTimers.clear();
-    for (const link of links) link.removeAttribute('data-label-visible');
+    for (const link of links) {
+      link.removeAttribute('data-label-visible');
+      link.removeAttribute('data-entry-active');
+    }
   };
   const later = (callback: () => void, delay: number) => {
     const timer = window.setTimeout(() => {
@@ -34,10 +37,10 @@ if (root && stage) {
     }, delay);
     labelTimers.add(timer);
   };
-  const revealLabel = (link: HTMLAnchorElement, duration = 1600) => {
+  const highlightEntry = (link: HTMLAnchorElement, duration = 1600) => {
     clearLabels();
-    link.setAttribute('data-label-visible', '');
-    later(() => link.removeAttribute('data-label-visible'), duration);
+    link.setAttribute('data-entry-active', '');
+    later(() => link.removeAttribute('data-entry-active'), duration);
   };
   const introduceLabels = () => {
     clearLabels();
@@ -153,7 +156,7 @@ if (root && stage) {
       });
     }
     const activeLink = links.find((link) => link.dataset.section === name);
-    if (activeLink) revealLabel(activeLink);
+    if (activeLink) highlightEntry(activeLink);
 
     if (animated) {
       await Promise.all([
