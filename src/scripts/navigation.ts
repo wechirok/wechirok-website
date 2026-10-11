@@ -1,4 +1,12 @@
 import { finishLocaleTransitions } from '../lib/locale-transition';
+import { attachSectionGestures } from '../lib/section-gestures';
+
+interface TransitionOptions {
+  focus?: boolean;
+  animate?: boolean;
+  scroll?: 'top' | 'bottom';
+  instantScroll?: boolean;
+}
 
 const root = document.querySelector<HTMLElement>('[data-personal-space]');
 const stage = root?.querySelector<HTMLElement>('[data-space-stage]');
@@ -93,7 +101,12 @@ if (root && stage) {
 
   const show = async (
     name: string,
-    { focus = true, animate: useMotion = true } = {},
+    {
+      focus = true,
+      animate: useMotion = true,
+      scroll = 'top',
+      instantScroll = false,
+    }: TransitionOptions = {},
   ) => {
     const next = panels.get(name);
     if (!next || (name === current && name === requested)) return;
@@ -134,18 +147,24 @@ if (root && stage) {
     if (focus) {
       next.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
       window.scrollTo({
-        top: 0,
-        behavior: motion.matches ? 'instant' : 'smooth',
+        top:
+          scroll === 'bottom'
+            ? (document.scrollingElement?.scrollHeight ?? 0)
+            : 0,
+        behavior: instantScroll || motion.matches ? 'instant' : 'smooth',
       });
     }
 
     if (animated) {
       await Promise.all([
-        animate(
-          stage,
-          [{ height: `${height}px` }, { height: `${nextHeight}px` }],
-          { duration: 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-        ),
+        // Resizing the document would clamp the scroll position at its bottom.
+        scroll === 'bottom'
+          ? Promise.resolve()
+          : animate(
+              stage,
+              [{ height: `${height}px` }, { height: `${nextHeight}px` }],
+              { duration: 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+            ),
         animate(
           next,
           [
@@ -158,7 +177,7 @@ if (root && stage) {
     }
   };
 
-  const navigate = (name: string) => {
+  const navigate = (name: string, options?: TransitionOptions) => {
     const hash = name === 'home' ? '' : `#${name}`;
     if (location.hash !== hash)
       history.pushState(
@@ -166,8 +185,24 @@ if (root && stage) {
         '',
         `${location.pathname}${location.search}${hash}`,
       );
-    void show(name);
+    void show(name, options);
   };
+  const sectionOrder = Array.from(panels.keys());
+  attachSectionGestures(root, {
+    section: () => current,
+    busy: () => requested !== current || animations.size > 0,
+    canNavigate: (direction) =>
+      !!sectionOrder[sectionOrder.indexOf(current) + direction],
+    navigate: (direction, axis) => {
+      const name = sectionOrder[sectionOrder.indexOf(current) + direction];
+      if (!name) return;
+      clearLabels();
+      navigate(name, {
+        scroll: axis === 'vertical' && direction < 0 ? 'bottom' : 'top',
+        instantScroll: true,
+      });
+    },
+  });
   for (const link of links)
     link.addEventListener('click', (event) => {
       if (
