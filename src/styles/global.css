@@ -504,10 +504,6 @@ main:focus {
   list-style: none;
 }
 
-.profile-list li:first-child {
-  grid-column: 1 / -1;
-}
-
 .profile-link {
   --profile-surface: color-mix(in srgb, var(--surface), var(--foreground) 10%);
   display: grid;
@@ -528,12 +524,6 @@ main:focus {
     background-color 180ms ease,
     color 180ms ease,
     transform 180ms ease;
-}
-
-.profile-list li:first-child .profile-link {
-  grid-template-columns: 180px minmax(0, 1fr);
-  align-items: center;
-  min-height: 68px;
 }
 
 .profile-link:hover {
@@ -671,9 +661,7 @@ main:focus {
     gap: 10px;
   }
 
-  .profile-link,
-  .profile-list li:first-child .profile-link {
-    grid-template-columns: minmax(0, 1fr);
+  .profile-link {
     min-height: 0;
     gap: 6px;
     padding: 14px 16px;
