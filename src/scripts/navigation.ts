@@ -64,10 +64,7 @@ if (root && stage && homeButton) {
     });
   }
   document.addEventListener('pointerdown', (event) => {
-    if (
-      event.target instanceof Element &&
-      event.target.closest('[data-preferences], [data-home]')
-    )
+    if (event.target instanceof Element && event.target.closest('[data-home]'))
       clearLabels();
   });
   let current = 'home';
