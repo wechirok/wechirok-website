@@ -64,7 +64,7 @@ export const translationContributions = {
       name: 'Fabulously Optimized',
       category: 'Modpack',
       description:
-        'A Minecraft modpack focused on performance and graphics improvements.',
+        'A Minecraft modpack focused on performance and graphics improvements, aka an OptiFine alternative.',
       url: 'https://crowdin.com/project/fabulously-optimized',
     },
   ],
