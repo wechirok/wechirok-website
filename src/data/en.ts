@@ -11,8 +11,7 @@ export const introduction = {
   greeting: 'Hello there!',
   heading: "I'm Artur Vechir.",
   profilesHeading: 'Find me online.',
-  description:
-    'This is my personal space for things I build, maintain and work on.',
+  description: 'Building projects and maintaining systems.',
 };
 
 export const navigation = {

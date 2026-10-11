@@ -12,8 +12,7 @@ export const introduction = {
   greeting: 'Wie geht’s denn so?',
   heading: 'Ich bin Artur Vechir.',
   profilesHeading: 'Hier findest du mich.',
-  description:
-    'Das ist meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite.',
+  description: 'Ich entwickle Projekte und betreue Systeme.',
 };
 
 export const navigation = {
