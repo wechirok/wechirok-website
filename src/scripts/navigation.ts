@@ -5,7 +5,6 @@ interface TransitionOptions {
   focus?: boolean;
   animate?: boolean;
   scroll?: 'top' | 'bottom';
-  instantScroll?: boolean;
 }
 
 const root = document.querySelector<HTMLElement>('[data-personal-space]');
@@ -78,7 +77,6 @@ if (root && stage) {
   const cancelAnimations = () => {
     for (const animation of animations) animation.cancel();
     animations.clear();
-    stage.style.height = '';
     for (const panel of panels.values()) panel.inert = false;
   };
 
@@ -105,7 +103,6 @@ if (root && stage) {
       focus = true,
       animate: useMotion = true,
       scroll = 'top',
-      instantScroll = false,
     }: TransitionOptions = {},
   ) => {
     const next = panels.get(name);
@@ -116,20 +113,18 @@ if (root && stage) {
     finishLocaleTransitions();
     cancelAnimations();
     const previous = panels.get(current)!;
-    const height = stage.getBoundingClientRect().height;
     const animated =
       useMotion && !motion.matches && typeof stage.animate === 'function';
 
     if (animated) {
-      stage.style.height = `${height}px`;
       previous.inert = true;
       await animate(
         previous,
         [
-          { opacity: 1, transform: 'translateY(0)' },
-          { opacity: 0, transform: 'translateY(-6px)' },
+          { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+          { opacity: 0, transform: 'translateY(-4px)', filter: 'blur(3px)' },
         ],
-        { duration: 130, easing: 'ease-in', fill: 'forwards' },
+        { duration: 150, easing: 'ease-in', fill: 'forwards' },
       );
       if (ticket !== revision) return;
     }
@@ -143,8 +138,6 @@ if (root && stage) {
         link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     }
-    stage.style.height = '';
-    const nextHeight = stage.getBoundingClientRect().height;
     if (focus) {
       next.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
       window.scrollTo({
@@ -152,31 +145,22 @@ if (root && stage) {
           scroll === 'bottom'
             ? (document.scrollingElement?.scrollHeight ?? 0)
             : 0,
-        behavior: instantScroll || motion.matches ? 'instant' : 'smooth',
+        // Position the page before its entrance, so scrolling cannot reveal it in slices.
+        behavior: 'instant',
       });
     }
     const activeLink = links.find((link) => link.dataset.section === name);
     if (activeLink) highlightEntry(activeLink);
 
     if (animated) {
-      await Promise.all([
-        // Resizing the document would clamp the scroll position at its bottom.
-        scroll === 'bottom'
-          ? Promise.resolve()
-          : animate(
-              stage,
-              [{ height: `${height}px` }, { height: `${nextHeight}px` }],
-              { duration: 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-            ),
-        animate(
-          next,
-          [
-            { opacity: 0, transform: 'translateY(8px)' },
-            { opacity: 1, transform: 'translateY(0)' },
-          ],
-          { duration: 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-        ),
-      ]);
+      await animate(
+        next,
+        [
+          { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
+          { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+        ],
+        { duration: 340, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+      );
     }
   };
 
@@ -201,7 +185,6 @@ if (root && stage) {
       if (!name) return;
       navigate(name, {
         scroll: axis === 'vertical' && direction < 0 ? 'bottom' : 'top',
-        instantScroll: true,
       });
     },
   });
