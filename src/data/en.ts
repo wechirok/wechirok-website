@@ -132,9 +132,14 @@ export const workAreas = [
   },
 ] as const;
 
+export const projectActivity = {
+  present: 'present',
+};
+
 export const projects = [
   {
     name: 'Renice Cubed',
+    startYear: '2024',
     category: 'Modpack',
     description:
       'A Fabric modpack focused on gameplay tweaks for a smoother, more enjoyable Minecraft experience.',
@@ -142,6 +147,7 @@ export const projects = [
   },
   {
     name: 'Renice Squared',
+    startYear: '2026',
     category: 'Modpack',
     description:
       'A variation of Renice Cubed that removes features which give players an advantage.',
@@ -149,6 +155,7 @@ export const projects = [
   },
   {
     name: 'Renice Shot',
+    startYear: '2026',
     category: 'Mod',
     description:
       'A Fabric client mod for taking high-resolution Minecraft screenshots.',
@@ -156,6 +163,7 @@ export const projects = [
   },
   {
     name: 'Better Selective Combat',
+    startYear: '2026',
     category: 'Mod',
     description:
       'A Minecraft mod that lets you choose which weapons should ignore Better Combat.',
@@ -163,12 +171,14 @@ export const projects = [
   },
   {
     name: 'Shelley',
+    startYear: '2025',
     category: 'Community tool',
     description: 'A Discord bot built for a private community’s needs.',
     url: 'https://github.com/METHADRENALINE/Shelley',
   },
   {
     name: 'SMP & Creative',
+    startYear: '2023',
     category: 'Server content',
     description: 'Minecraft server content made for a private community.',
     url: 'https://github.com/METHADRENALINE/SMP-Creative',
