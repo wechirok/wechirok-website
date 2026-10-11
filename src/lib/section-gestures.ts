@@ -58,7 +58,7 @@ export class WheelGesture {
       return { consume: false, direction: null };
     }
     this.distance += Math.abs(delta);
-    if (this.distance < 90) return { consume: true, direction: null };
+    if (this.distance < 40) return { consume: true, direction: null };
     this.consumed = true;
     return { consume: true, direction };
   }
@@ -250,7 +250,7 @@ export function attachSectionGestures(
       const intent = swipeIntent(
         point.clientX - gesture.x,
         point.clientY - gesture.y,
-        Math.min(72, window.innerWidth * 0.2),
+        Math.min(36, window.innerWidth * 0.12),
       );
       if (
         !intent ||

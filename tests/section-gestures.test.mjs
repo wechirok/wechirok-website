@@ -9,8 +9,8 @@ import {
 
 test('one wheel gesture switches once, including its momentum and reversal', () => {
   const wheel = new WheelGesture();
-  assert.equal(wheel.update(45, 0, true).direction, null);
-  assert.equal(wheel.update(50, 30, true).direction, 1);
+  assert.equal(wheel.update(15, 0, true).direction, null);
+  assert.equal(wheel.update(25, 30, true).direction, 1);
   for (const [delta, time] of [
     [120, 60],
     [80, 120],
@@ -33,9 +33,9 @@ test('reaching the bottom while scrolling requires a fresh gesture', () => {
 
 test('reversing before the threshold discards accumulated movement', () => {
   const wheel = new WheelGesture();
-  wheel.update(80, 0, true);
-  assert.equal(wheel.update(-30, 30, true).direction, null);
-  assert.equal(wheel.update(-60, 60, true).direction, -1);
+  wheel.update(30, 0, true);
+  assert.equal(wheel.update(-10, 30, true).direction, null);
+  assert.equal(wheel.update(-35, 60, true).direction, -1);
 });
 
 test('a transition consumes wheel momentum until the next gesture', () => {
@@ -186,12 +186,12 @@ function browser(t) {
   };
 }
 
-test('horizontal swipes navigate from the middle of a long page', (t) => {
+test('short horizontal swipes navigate from the middle of a long page', (t) => {
   const b = browser(t);
   b.page.scrollTop = 400;
   b.start();
   assert.equal(b.move(190, 301).defaultPrevented, true);
-  b.end(80, 310);
+  b.end(160, 310);
   assert.deepEqual(b.moves, [{ direction: 1, axis: 'horizontal' }]);
 });
 
@@ -206,16 +206,16 @@ test('vertical swipes inside content remain native even when they reach the bott
   assert.deepEqual(b.moves, []);
 });
 
-test('vertical swipes switch at the bottom and top', (t) => {
+test('short vertical swipes switch at the bottom and top', (t) => {
   const b = browser(t);
   b.page.scrollTop = 1200;
   b.start();
   b.move(200, 290);
-  b.end(200, 180);
+  b.end(200, 260);
   b.page.scrollTop = 0;
   b.start();
   b.move(200, 310);
-  b.end(200, 420);
+  b.end(200, 340);
   assert.deepEqual(b.moves, [
     { direction: 1, axis: 'vertical' },
     { direction: -1, axis: 'vertical' },
@@ -228,7 +228,7 @@ test('taps, short gestures, diagonals and canceled touches do not navigate', (t)
   b.end(200, 300);
   b.start();
   b.move(190, 300);
-  b.end(160, 300);
+  b.end(180, 300);
   b.start();
   b.move(100, 200);
   b.end(100, 200);
