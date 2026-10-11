@@ -100,6 +100,46 @@ export const toolkit = {
       ],
       details: '',
     },
+    {
+      technologies: [{ name: 'Blender', icon: 'blender' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Blockbench', icon: 'blockbench' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Aseprite', icon: 'aseprite' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Photoshop', icon: 'adobephotoshop' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Illustrator', icon: 'adobeillustrator' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Media Composer', icon: 'media-composer' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'DaVinci Resolve', icon: 'davinciresolve' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Premiere', icon: 'adobepremierepro' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'After Effects', icon: 'adobeaftereffects' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'Audition', icon: 'adobeaudition' }],
+      details: '',
+    },
   ],
 } as const;
 
