@@ -266,7 +266,6 @@ main:focus {
 
 .space-stage {
   min-height: 340px;
-  overflow: clip;
 }
 
 .space-panel {
