@@ -55,6 +55,7 @@ export const translationContributions = {
   projects: [
     {
       name: 'Prism Launcher',
+      platform: 'Weblate',
       category: 'Launcher',
       description:
         'An open-source Minecraft launcher for managing instances, accounts and mods.',
@@ -62,6 +63,7 @@ export const translationContributions = {
     },
     {
       name: 'Fabulously Optimized',
+      platform: 'Crowdin',
       category: 'Modpack',
       description:
         'A Minecraft modpack focused on performance and graphics improvements, aka an OptiFine alternative.',
@@ -164,6 +166,12 @@ export const workAreas = [
 
 export const projectActivity = {
   present: 'present',
+};
+
+export const projectActions = {
+  repository: 'Repository',
+  downloads: 'Downloads',
+  lastAvailable: 'Last available count',
 };
 
 export const projects = [

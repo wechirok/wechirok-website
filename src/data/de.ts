@@ -112,6 +112,12 @@ export const projectActivity = {
   present: 'heute',
 };
 
+export const projectActions = {
+  repository: 'Repository',
+  downloads: 'Downloads',
+  lastAvailable: 'Zuletzt verfügbare Anzahl',
+};
+
 const projectCopy = {
   'Renice Cubed': {
     category: 'Modpack',

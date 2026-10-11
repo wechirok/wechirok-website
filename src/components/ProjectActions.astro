@@ -1,0 +1,55 @@
+---
+import { projectActions } from '../data/en';
+import type { ProjectLink } from '../lib/project-downloads';
+import Icon from './Icon.astro';
+
+interface Props {
+  links: readonly ProjectLink[];
+}
+
+const { links } = Astro.props;
+const icons = {
+  repository: 'github',
+  Modrinth: 'modrinth',
+  CurseForge: 'curseforge',
+  Crowdin: 'crowdin',
+  Weblate: 'weblate',
+} as const;
+---
+
+<div class="project-actions">
+  {links.map((link) => (
+    <a class="project-action" href={link.url} target="_blank" rel="noopener">
+      <Icon name={icons[link.platform]} brand />
+      <span
+        data-i18n={
+          link.platform === 'repository'
+            ? 'projectActions.repository'
+            : undefined
+        }
+      >
+        {link.platform === 'repository'
+          ? projectActions.repository
+          : link.platform}
+      </span>
+      {link.downloads && (
+        <span
+          class="project-downloads"
+          data-download-provider={link.downloads.provider}
+          data-download-id={link.downloads.id}
+          hidden
+        >
+          <span class="download-symbol">
+            <Icon name="arrow-right" />
+          </span>
+          <span data-download-count aria-hidden="true" />
+          <span class="visually-hidden" data-download-label />
+        </span>
+      )}
+    </a>
+  ))}
+</div>
+
+<script>
+  import '../scripts/project-downloads';
+</script>

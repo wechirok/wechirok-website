@@ -9,6 +9,8 @@ import {
 import Icon from './Icon.astro';
 import Toolkit from './Toolkit.astro';
 import TranslationContributions from './TranslationContributions.astro';
+import ProjectActions from './ProjectActions.astro';
+import { projectLinks } from '../data/project-links';
 
 interface Props {
   name: SectionName;
@@ -53,9 +55,7 @@ const section = sections[name];
       {projects.map((project, index) => (
         <li class="text-row">
           <div class="row-title">
-            <a href={project.url} target="_blank" rel="noopener">
-              {project.name}
-            </a>
+            <span class="project-name">{project.name}</span>
             <span class="row-detail project-meta">
               <span data-i18n={`projects.${index}.category`}>
                 {project.category}
@@ -72,6 +72,12 @@ const section = sections[name];
           <p data-i18n={`projects.${index}.description`}>
             {project.description}
           </p>
+          <ProjectActions
+            links={[
+              { platform: 'repository', url: project.url },
+              ...(projectLinks[project.name] ?? []),
+            ]}
+          />
         </li>
       ))}
     </ul>
