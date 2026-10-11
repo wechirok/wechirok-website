@@ -127,7 +127,6 @@ export const projects = en.projects.map((project) => ({
 const profileDescriptions = {
   GitHub: 'Код, проєкти й обговорення проблем.',
   Discord: 'Місце, де можна зі мною зв’язатися.',
-  Steam: 'Мій профіль Steam.',
   Crowdin: 'Участь у локалізації та перекладах.',
   Weblate: 'Ще одне місце для участі в локалізації та перекладах.',
   Modrinth: 'Модинг і проєкти.',
