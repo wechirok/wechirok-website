@@ -1,0 +1,11 @@
+---
+interface Props {
+  i18n?: string;
+}
+
+const { i18n } = Astro.props;
+---
+
+<span class="tooltip-label" aria-hidden="true" data-i18n={i18n}>
+  <slot />
+</span>

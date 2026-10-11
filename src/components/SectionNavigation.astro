@@ -2,6 +2,7 @@
 import { navigation, sections } from '../data/en';
 import { withBase } from '../lib/paths';
 import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
 
 const destinations = [
   { name: 'projects', icon: 'folder-code' },
@@ -17,7 +18,7 @@ const destinations = [
 >
   {destinations.map(({ name, icon }) => (
     <a
-      class="preference-button navigation-button"
+      class="preference-button navigation-button tooltip-trigger"
       href={withBase(`${name}/`)}
       target="_blank"
       rel="noopener"
@@ -27,13 +28,7 @@ const destinations = [
       data-i18n-aria-label={`sections.${name}.title`}
     >
       <Icon name={icon} />
-      <span
-        class="navigation-label"
-        aria-hidden="true"
-        data-i18n={`sections.${name}.title`}
-      >
-        {sections[name].title}
-      </span>
+      <Tooltip i18n={`sections.${name}.title`}>{sections[name].title}</Tooltip>
     </a>
   ))}
 </nav>

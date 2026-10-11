@@ -52,9 +52,16 @@ function render(counter: Counter) {
   }
   const copy = getCopy().projectActions;
   const exact = new Intl.NumberFormat(locale).format(counter.total);
-  counter.element.title = `${copy.downloads}: ${exact}${counter.stale ? ` · ${copy.lastAvailable}` : ''}`;
+  const description = `${copy.downloads}: ${exact}${counter.stale ? ` · ${copy.lastAvailable}` : ''}`;
   const label = counter.element.querySelector('[data-download-label]');
-  if (label) label.textContent = counter.element.title;
+  if (label) label.textContent = description;
+  const tooltip = counter.element.parentElement?.querySelector<HTMLElement>(
+    '[data-download-tooltip]',
+  );
+  if (tooltip) {
+    tooltip.textContent = description;
+    tooltip.hidden = false;
+  }
   counter.element.hidden = false;
 }
 
