@@ -121,14 +121,6 @@ export const toolkit = {
       details: '',
     },
     {
-      technologies: [{ name: 'Media Composer', icon: 'media-composer' }],
-      details: '',
-    },
-    {
-      technologies: [{ name: 'DaVinci Resolve', icon: 'davinciresolve' }],
-      details: '',
-    },
-    {
       technologies: [{ name: 'Premiere', icon: 'adobepremierepro' }],
       details: '',
     },
