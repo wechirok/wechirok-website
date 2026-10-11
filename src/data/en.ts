@@ -9,7 +9,7 @@ export const site = {
 
 export const introduction = {
   greeting: "What's up, stranger.",
-  heading: "I'm Wechirok.",
+  heading: "I'm Artur Vechir.",
   description:
     'This is my personal space for things I build, maintain and work on.',
 };
@@ -25,7 +25,7 @@ export const sections = {
     lead: 'I do a little bit of this and that.',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
-      'I’m Wechirok, sometimes also known as Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
+      'I’m Artur Vechir, sometimes also known as Wechirok / Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
       'I build and maintain personal projects and my home server infrastructure. I bring services, bots and game servers together in a carefully planned setup, paying attention to their configuration, stability and backups. I work on mods and modpacks for games like Minecraft and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
       'When working with code and logic, I use LLMs to learn and help with development, and refer to documentation and wikis. The community often helps too, sharing experience, suggesting solutions and helping bring ideas to life through everyday conversations. I go through the code and check it to understand what has been done and how it works. I do not use AI for localization, writing documentation or creating assets.',
     ],
