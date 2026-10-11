@@ -529,6 +529,20 @@ main:focus {
   flex-shrink: 0;
 }
 
+.project-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 2px 12px;
+  max-width: 100%;
+}
+
+.project-period {
+  white-space: nowrap;
+}
+
 .home-profiles {
   margin-top: 44px;
   scroll-margin-top: 100px;

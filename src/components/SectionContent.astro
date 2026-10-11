@@ -1,5 +1,11 @@
 ---
-import { sections, workAreas, projects, type SectionName } from '../data/en';
+import {
+  sections,
+  workAreas,
+  projects,
+  projectActivity,
+  type SectionName,
+} from '../data/en';
 import Icon from './Icon.astro';
 import Toolkit from './Toolkit.astro';
 import TranslationContributions from './TranslationContributions.astro';
@@ -49,8 +55,17 @@ const LeadTag = name === 'about' ? 'p' : 'h2';
             <a href={project.url} target="_blank" rel="noopener">
               {project.name}
             </a>
-            <span class="row-detail" data-i18n={`projects.${index}.category`}>
-              {project.category}
+            <span class="row-detail project-meta">
+              <span data-i18n={`projects.${index}.category`}>
+                {project.category}
+              </span>
+              <span class="project-period">
+                <time datetime={project.startYear}>{project.startYear}</time>
+                {' - '}
+                <span data-i18n="projectActivity.present">
+                  {projectActivity.present}
+                </span>
+              </span>
             </span>
           </div>
           <p data-i18n={`projects.${index}.description`}>

@@ -110,6 +110,10 @@ export const workAreas = en.workAreas.map((area) => ({
   ...workCopy[area.icon],
 }));
 
+export const projectActivity = {
+  present: 'heute',
+};
+
 const projectCopy = {
   'Renice Cubed': {
     category: 'Modpack',
