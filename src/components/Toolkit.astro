@@ -7,7 +7,10 @@ import Icon from './Icon.astro';
   <h2 id="toolkit-heading" data-i18n="toolkit.title">
     {toolkit.title}
   </h2>
-  <ul class="toolkit-list">
+  <ul
+    class="toolkit-list"
+    style={`--toolkit-rows: ${Math.ceil(toolkit.items.length / 2)}`}
+  >
     {toolkit.items.map((item) => (
       <li>
         <h3 class="toolkit-names">
