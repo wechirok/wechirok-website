@@ -79,18 +79,17 @@ if (root && stage && homeButton) {
     for (const panel of panels.values()) panel.inert = false;
   };
 
-  const animate = async (
+  const animate = (
     element: HTMLElement,
     frames: Keyframe[],
     options: KeyframeAnimationOptions,
   ) => {
     const animation = element.animate(frames, options);
     animations.add(animation);
-    try {
-      await animation.finished;
-    } catch {
-      // A newer selection or reduced-motion setting supersedes this transition.
-    } finally {
+    return animation;
+  };
+  const finishAnimations = (active: Animation[]) => {
+    for (const animation of active) {
       animation.cancel();
       animations.delete(animation);
     }
@@ -114,6 +113,7 @@ if (root && stage && homeButton) {
     const previous = panels.get(current)!;
     const animated =
       useMotion && !motion.matches && typeof stage.animate === 'function';
+    const outgoing: Animation[] = [];
 
     if (animated) {
       previous.inert = true;
@@ -126,12 +126,13 @@ if (root && stage && homeButton) {
         easing: 'ease-in',
         fill: 'forwards',
       } as const;
-      const outgoing = [animate(previous, exitFrames, exitOptions)];
+      outgoing.push(animate(previous, exitFrames, exitOptions));
       if (name === 'home' && !homeButton.hidden) {
         homeButton.inert = true;
         outgoing.push(animate(homeButton, exitFrames, exitOptions));
       }
-      await Promise.all(outgoing);
+      // Keep the final exit frame until the old panel is hidden.
+      await Promise.allSettled(outgoing.map((animation) => animation.finished));
       if (ticket !== revision) return;
     }
 
@@ -142,25 +143,14 @@ if (root && stage && homeButton) {
     previous.inert = false;
     next.hidden = false;
     current = name;
-    for (const link of links) {
-      if (link.dataset.section === name)
-        link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
-    }
-    if (focus) {
-      next.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
-      window.scrollTo({
-        top:
-          scroll === 'bottom'
-            ? (document.scrollingElement?.scrollHeight ?? 0)
-            : 0,
-        // Position the page before its entrance, so scrolling cannot reveal it in slices.
-        behavior: 'instant',
-      });
-    }
-    const activeLink = links.find((link) => link.dataset.section === name);
-    if (activeLink) highlightEntry(activeLink);
-
+    const scrollTop =
+      focus && scroll === 'bottom'
+        ? Math.max(
+            0,
+            (document.scrollingElement?.scrollHeight ?? 0) - window.innerHeight,
+          )
+        : 0;
+    const incoming: Animation[] = [];
     if (animated) {
       const entryFrames = [
         { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
@@ -169,13 +159,32 @@ if (root && stage && homeButton) {
       const entryOptions = {
         duration: 340,
         easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      };
-      const incoming = [animate(next, entryFrames, entryOptions)];
-      // Keep this shared control stationary when moving between sections.
+        fill: 'both',
+      } as const;
+      // Apply the first entry frame before focus or scrolling can force layout.
+      incoming.push(animate(next, entryFrames, entryOptions));
       if (enteringHomeButton)
         incoming.push(animate(homeButton, entryFrames, entryOptions));
-      await Promise.all(incoming);
     }
+    finishAnimations(outgoing);
+    for (const link of links) {
+      if (link.dataset.section === name)
+        link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+    if (focus) {
+      next.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
+      window.scrollTo({
+        top: scrollTop,
+        // Position the page before its entrance, so scrolling cannot reveal it in slices.
+        behavior: 'instant',
+      });
+    }
+    const activeLink = links.find((link) => link.dataset.section === name);
+    if (activeLink) highlightEntry(activeLink);
+
+    await Promise.allSettled(incoming.map((animation) => animation.finished));
+    finishAnimations(incoming);
   };
 
   const navigate = (name: string, options?: TransitionOptions) => {
