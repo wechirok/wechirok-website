@@ -18,6 +18,12 @@ function rememberPreference(key: string, value: string) {
 
 function setTheme(theme: 'dark' | 'light') {
   document.documentElement.dataset.theme = theme;
+  const favicon = document.querySelector<HTMLLinkElement>(
+    '[data-theme-favicon]',
+  );
+  const iconUrl =
+    theme === 'light' ? favicon?.dataset.iconLight : favicon?.dataset.iconDark;
+  if (favicon && iconUrl) favicon.href = iconUrl;
   document
     .querySelector('meta[name="theme-color"]')
     ?.setAttribute('content', theme === 'dark' ? '#50505c' : '#eeeef3');
