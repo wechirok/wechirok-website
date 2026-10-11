@@ -45,7 +45,7 @@ function render(counter: Counter) {
   const locale = getLocale();
   const count = counter.element.querySelector('[data-download-count]');
   if (count) {
-    count.textContent = new Intl.NumberFormat(locale, {
+    count.textContent = new Intl.NumberFormat('en', {
       notation: 'compact',
       maximumFractionDigits: 1,
     }).format(counter.total);
