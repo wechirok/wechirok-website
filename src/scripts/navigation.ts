@@ -21,9 +21,6 @@ if (root && stage) {
     document.querySelectorAll<HTMLAnchorElement>('[data-section]'),
   );
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const touchLayout = window.matchMedia(
-    '(hover: none), (pointer: coarse), (max-width: 600px)',
-  );
   const labelTimers = new Set<number>();
   const clearLabels = () => {
     for (const timer of labelTimers) window.clearTimeout(timer);
@@ -112,6 +109,7 @@ if (root && stage) {
     if (!next || (name === current && name === requested)) return;
     requested = name;
     const ticket = ++revision;
+    clearLabels();
     finishLocaleTransitions();
     cancelAnimations();
     const previous = panels.get(current)!;
@@ -154,6 +152,8 @@ if (root && stage) {
         behavior: instantScroll || motion.matches ? 'instant' : 'smooth',
       });
     }
+    const activeLink = links.find((link) => link.dataset.section === name);
+    if (activeLink) revealLabel(activeLink);
 
     if (animated) {
       await Promise.all([
@@ -196,7 +196,6 @@ if (root && stage) {
     navigate: (direction, axis) => {
       const name = sectionOrder[sectionOrder.indexOf(current) + direction];
       if (!name) return;
-      clearLabels();
       navigate(name, {
         scroll: axis === 'vertical' && direction < 0 ? 'bottom' : 'top',
         instantScroll: true,
@@ -213,8 +212,6 @@ if (root && stage) {
         event.button === 0
       ) {
         event.preventDefault();
-        if (touchLayout.matches) revealLabel(link);
-        else clearLabels();
         navigate(link.dataset.section!);
       }
     });
@@ -232,7 +229,6 @@ if (root && stage) {
   window.addEventListener('popstate', () => void show(fromAddress()));
   window.addEventListener('hashchange', () => void show(fromAddress()));
   document.addEventListener('localechange', () => {
-    clearLabels();
     void show(requested, { focus: false, animate: false });
     if (current === 'home' && requested === 'home') introduceLabels();
   });
@@ -246,5 +242,5 @@ if (root && stage) {
     }
   });
   void show(fromAddress(), { focus: false, animate: false });
-  introduceLabels();
+  if (current === 'home') introduceLabels();
 }
