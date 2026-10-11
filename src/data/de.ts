@@ -132,7 +132,6 @@ const profileDescriptions = {
   Modrinth: 'Modding-Projekte.',
   CurseForge: 'Noch ein Ort für Modding-Projekte.',
   Discord: 'Hier kannst du mich erreichen.',
-  Steam: 'Mein Steam-Profil.',
 } satisfies Record<(typeof en.profiles)[number]['name'], string>;
 export const profiles = en.profiles.map((profile) => ({
   ...profile,

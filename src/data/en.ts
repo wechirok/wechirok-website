@@ -192,12 +192,6 @@ export const profiles = [
     description: 'A place to get in touch.',
     url: 'https://discord.com/users/526310915549691905',
   },
-  {
-    name: 'Steam',
-    icon: 'steam',
-    description: 'My Steam profile.',
-    url: 'https://steamcommunity.com/id/wechirok/',
-  },
 ] as const;
 
 export const notFound = {
