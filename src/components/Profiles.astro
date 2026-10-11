@@ -1,12 +1,9 @@
 ---
-import { introduction, profiles } from '../data/en';
+import { profiles } from '../data/en';
 import Icon from './Icon.astro';
 ---
 
-<section class="home-profiles" id="profiles" aria-labelledby="profiles-heading">
-  <h2 id="profiles-heading" data-i18n="introduction.profilesHeading">
-    {introduction.profilesHeading}
-  </h2>
+<div class="home-profiles" id="profiles">
   <ul
     class="profile-list"
     style={`--profile-rows: ${Math.ceil(profiles.length / 2)}`}
@@ -33,4 +30,4 @@ import Icon from './Icon.astro';
       </li>
     ))}
   </ul>
-</section>
+</div>

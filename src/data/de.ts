@@ -11,7 +11,6 @@ export const site = {
 export const introduction = {
   greeting: 'Wie geht’s denn so?',
   heading: 'Ich bin Artur Vechir.',
-  profilesHeading: 'Hier findest du mich.',
   description: 'Ich entwickle Projekte und betreue Systeme.',
 };
 

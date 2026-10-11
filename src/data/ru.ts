@@ -11,7 +11,6 @@ export const site = {
 export const introduction = {
   greeting: 'Приветствую!',
   heading: 'Я Артур Вечир.',
-  profilesHeading: 'Где меня найти.',
   description: 'Создаю проекты и поддерживаю системы.',
 };
 
