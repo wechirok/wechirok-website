@@ -9,7 +9,7 @@ export const site = {
 };
 
 export const introduction = {
-  greeting: 'Опа, незнакомец!',
+  greeting: 'Приветствую!',
   heading: 'Я Артур Вечир.',
   profilesHeading: 'Где меня найти.',
   description:
