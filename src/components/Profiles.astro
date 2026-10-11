@@ -1,0 +1,33 @@
+---
+import { introduction, profiles } from '../data/en';
+import Icon from './Icon.astro';
+---
+
+<section class="home-profiles" id="profiles" aria-labelledby="profiles-heading">
+  <h2 id="profiles-heading" data-i18n="introduction.profilesHeading">
+    {introduction.profilesHeading}
+  </h2>
+  <ul class="profile-list">
+    {profiles.map((profile, index) => (
+      <li>
+        <a
+          class="profile-link"
+          href={profile.url}
+          target="_blank"
+          rel="me noopener"
+        >
+          <span class="profile-name with-icon">
+            <Icon name={profile.icon} brand />
+            <span>{profile.name}</span>
+          </span>
+          <span
+            class="profile-description"
+            data-i18n={`profiles.${index}.description`}
+          >
+            {profile.description}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

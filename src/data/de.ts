@@ -11,6 +11,7 @@ export const site = {
 export const introduction = {
   greeting: 'Na, Fremder?',
   heading: 'Ich bin Artur Vechir.',
+  profilesHeading: 'Hier findest du mich.',
   description:
     'Das ist meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite.',
 };
@@ -46,14 +47,6 @@ export const sections = {
     lead: 'Was ich entwickle und pflege.',
     description: 'Minecraft-Mods, Modpacks und Community-Tools von Wechirok.',
     paragraphs: ['Eigene Projekte, Modding und ein paar Tools.'],
-  },
-  links: {
-    title: 'Links',
-    lead: 'Anderswo im Internet.',
-    description: 'Öffentliche Profile und Orte, an denen du Wechirok findest.',
-    paragraphs: [
-      'Meine Profile, Projekte und Möglichkeiten, mich zu erreichen.',
-    ],
   },
 };
 

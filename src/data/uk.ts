@@ -11,6 +11,7 @@ export const site = {
 export const introduction = {
   greeting: 'Ну шо ти?',
   heading: 'Я Артур Вечір.',
+  profilesHeading: 'Де мене знайти.',
   description:
     'Це мій особистий простір для всього, що я створюю, підтримую й над чим працюю.',
 };
@@ -46,12 +47,6 @@ export const sections = {
     description:
       'Моди, модпаки для Minecraft і спільнотні інструменти від Wechirok.',
     paragraphs: ['Особисті проєкти, модинг і кілька інструментів.'],
-  },
-  links: {
-    title: 'Посилання',
-    lead: 'Де ще мене знайти в інтернеті.',
-    description: 'Публічні профілі й місця, де можна знайти Wechirok онлайн.',
-    paragraphs: ['Мої профілі, проєкти й способи зв’язатися зі мною.'],
   },
 };
 

@@ -190,6 +190,7 @@ if (root && stage) {
 
   const fromAddress = () => {
     const name = location.hash.slice(1);
+    if (name === 'links' || name === 'profiles') return 'home';
     // Utility anchors such as the skip link should keep the current section.
     return panels.has(name) ? name : name ? current : 'home';
   };

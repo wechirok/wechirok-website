@@ -7,6 +7,7 @@ import {
 } from '../data/en';
 import Icon from './Icon.astro';
 import SectionContent from './SectionContent.astro';
+import Profiles from './Profiles.astro';
 
 const destinations = Object.keys(sections) as SectionName[];
 ---
@@ -27,6 +28,7 @@ const destinations = Object.keys(sections) as SectionName[];
       <p class="welcome-description" data-i18n="introduction.description">
         {introduction.description}
       </p>
+      <Profiles />
     </section>
     {destinations.map((name) => (
       <article

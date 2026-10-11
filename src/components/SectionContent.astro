@@ -1,11 +1,5 @@
 ---
-import {
-  sections,
-  workAreas,
-  projects,
-  profiles,
-  type SectionName,
-} from '../data/en';
+import { sections, workAreas, projects, type SectionName } from '../data/en';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -57,32 +51,6 @@ const section = sections[name];
           <p data-i18n={`projects.${index}.description`}>
             {project.description}
           </p>
-        </li>
-      ))}
-    </ul>
-  )}
-
-  {name === 'links' && (
-    <ul class="text-list profile-list">
-      {profiles.map((profile, index) => (
-        <li>
-          <a
-            class="profile-link"
-            href={profile.url}
-            target="_blank"
-            rel="me noopener"
-          >
-            <span class="profile-name with-icon">
-              <Icon name={profile.icon} brand />
-              <span>{profile.name}</span>
-            </span>
-            <span
-              class="profile-description"
-              data-i18n={`profiles.${index}.description`}
-            >
-              {profile.description}
-            </span>
-          </a>
         </li>
       ))}
     </ul>
