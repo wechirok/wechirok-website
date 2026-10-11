@@ -3,23 +3,58 @@ import { test } from 'node:test';
 import {
   attachSectionGestures,
   swipeIntent,
-  GestureProgress,
+  WheelGesture,
   wheelPixels,
 } from '../src/lib/section-gestures.ts';
 
-test('transition progress follows movement and reverses without a reset or lock', () => {
-  const gesture = new GestureProgress();
-  gesture.move(30);
-  assert.equal(gesture.progress, 0.25);
-  gesture.move(30);
-  assert.equal(gesture.progress, 0.5);
-  gesture.move(-45);
-  assert.equal(gesture.progress, 0.125);
-  gesture.move(-45);
-  assert.equal(gesture.direction, -1);
-  assert.equal(gesture.progress, 0.25);
-  gesture.move(-500);
-  assert.equal(gesture.progress, 1);
+test('one wheel gesture switches once, including its momentum and reversal', () => {
+  const wheel = new WheelGesture();
+  assert.equal(wheel.update(15, 0, true).direction, null);
+  assert.equal(wheel.update(25, 30, true).direction, 1);
+  for (const [delta, time] of [
+    [120, 60],
+    [80, 120],
+    [-110, 180],
+  ]) {
+    assert.deepEqual(wheel.update(delta, time, true), {
+      consume: true,
+      direction: null,
+    });
+  }
+  assert.equal(wheel.update(-100, 500, true).direction, -1);
+});
+
+test('reaching the bottom while scrolling requires a fresh gesture', () => {
+  const wheel = new WheelGesture();
+  assert.equal(wheel.update(120, 0, false).consume, false);
+  assert.equal(wheel.update(120, 100, true).consume, false);
+  assert.equal(wheel.update(100, 500, true).direction, 1);
+});
+
+test('reversing before the threshold discards accumulated movement', () => {
+  const wheel = new WheelGesture();
+  wheel.update(30, 0, true);
+  assert.equal(wheel.update(-10, 30, true).direction, null);
+  assert.equal(wheel.update(-35, 60, true).direction, -1);
+});
+
+test('a transition consumes wheel momentum until the next gesture', () => {
+  const wheel = new WheelGesture();
+  assert.equal(wheel.update(100, 0, true, true).direction, null);
+  assert.equal(wheel.update(100, 100, true, false).direction, null);
+  assert.equal(wheel.update(100, 500, true, false).direction, 1);
+});
+
+test('the first and last sections keep ordinary scrolling', () => {
+  const wheel = new WheelGesture();
+  assert.deepEqual(wheel.update(-200, 0, false), {
+    consume: false,
+    direction: null,
+  });
+  assert.deepEqual(wheel.update(0, 50, true), {
+    consume: false,
+    direction: null,
+  });
 });
 
 test('wheel units and dominant swipe axes are normalized', () => {
@@ -81,31 +116,13 @@ function browser(t) {
   const viewport = new Surface();
   const page = { scrollTop: 0, scrollHeight: 2000 };
   let section = 'about';
+  let busy = false;
   let menu = false;
   let selection = false;
-  let available = true;
   const moves = [];
-  const steps = [];
-  const gesture = new GestureProgress();
-  let axis;
-  let timerId = 0;
-  const timers = new Map();
-  const finish = (commit = Math.abs(gesture.distance) >= 40) => {
-    if (commit && gesture.direction)
-      moves.push({ direction: gesture.direction, axis });
-    gesture.distance = 0;
-  };
   viewport.innerHeight = 800;
   viewport.innerWidth = 390;
   viewport.getSelection = () => ({ isCollapsed: !selection });
-  viewport.scrollBy = ({ top }) => {
-    page.scrollTop += top;
-  };
-  viewport.setTimeout = (callback) => {
-    timers.set(++timerId, callback);
-    return timerId;
-  };
-  viewport.clearTimeout = (id) => timers.delete(id);
   for (const [name, value] of Object.entries({
     Element: Surface,
     window: viewport,
@@ -130,21 +147,9 @@ function browser(t) {
   }
   attachSectionGestures(root, {
     section: () => section,
-    active: () => gesture.distance !== 0,
-    canNavigate: () => available,
-    progress: (delta, nextAxis, complete) => {
-      axis = nextAxis;
-      gesture.move(delta);
-      steps.push(gesture.distance);
-      if (complete && gesture.progress === 1) finish(true);
-    },
-    finish,
-    start: () => {
-      gesture.distance = 0;
-    },
-    cancel: () => {
-      gesture.distance = 0;
-    },
+    busy: () => busy,
+    canNavigate: () => true,
+    navigate: (direction, axis) => moves.push({ direction, axis }),
   });
   const point = (x, y, identifier = 1) => ({
     clientX: x,
@@ -162,17 +167,13 @@ function browser(t) {
     viewport,
     page,
     moves,
-    steps,
-    idle: () => {
-      for (const callback of timers.values()) callback();
-      timers.clear();
-    },
-    wheel: (deltaY) =>
-      viewport.emit('wheel', { target: root, deltaY, deltaX: 0, deltaMode: 0 }),
     point,
     start,
     move,
     end,
+    busy: () => {
+      busy = true;
+    },
     change: () => {
       section = 'work';
     },
@@ -182,111 +183,19 @@ function browser(t) {
     select: () => {
       selection = true;
     },
-    last: () => {
-      available = false;
-    },
   };
 }
-
-test('wheel movement continues across transitions without waiting for a new gesture', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 1200;
-  b.wheel(30);
-  b.wheel(90);
-  b.wheel(120);
-  assert.deepEqual(b.steps, [30, 120, 120]);
-  assert.equal(b.moves.length, 2);
-});
-
-test('the same wheel gesture starts a transition as soon as content reaches its edge', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 400;
-  assert.equal(b.wheel(100).defaultPrevented, false);
-  b.page.scrollTop = 1200;
-  assert.equal(b.wheel(40).defaultPrevented, true);
-  assert.deepEqual(b.steps, [40]);
-  b.idle();
-  assert.deepEqual(b.moves, [{ direction: 1, axis: 'vertical' }]);
-});
-
-test('wheel reversal rolls back progress and tiny movements settle without navigation', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 1200;
-  b.wheel(60);
-  b.wheel(-40);
-  assert.deepEqual(b.steps, [60, 20]);
-  b.idle();
-  assert.deepEqual(b.moves, []);
-});
-
-test('only wheel movement beyond the content boundary drives the transition', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 1180;
-  assert.equal(b.wheel(60).defaultPrevented, true);
-  assert.equal(b.page.scrollTop, 1200);
-  assert.deepEqual(b.steps, [40]);
-  b.idle();
-  assert.equal(b.moves.length, 1);
-});
-
-test('the end of the section list keeps native scrolling', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 1200;
-  b.last();
-  assert.equal(b.wheel(100).defaultPrevented, false);
-  assert.deepEqual(b.steps, []);
-});
-
-test('wheel progress is canceled when controls or zoom take over', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 1200;
-  b.wheel(50);
-  b.viewport.emit('wheel', {
-    target: b.root,
-    deltaY: 100,
-    deltaX: 0,
-    ctrlKey: true,
-  });
-  b.idle();
-  assert.deepEqual(b.moves, []);
-});
 
 test('short horizontal swipes navigate from the middle of a long page', (t) => {
   const b = browser(t);
   b.page.scrollTop = 400;
   b.start();
   assert.equal(b.move(190, 301).defaultPrevented, true);
-  assert.deepEqual(b.steps, [10]);
-  assert.deepEqual(b.moves, []);
   b.end(160, 310);
   assert.deepEqual(b.moves, [{ direction: 1, axis: 'horizontal' }]);
 });
 
-test('a long swipe follows the finger and can be reversed before release', (t) => {
-  const b = browser(t);
-  b.start();
-  b.move(20, 300);
-  b.move(80, 300);
-  b.move(180, 300);
-  assert.deepEqual(b.steps, [180, 120, 20]);
-  assert.deepEqual(b.moves, []);
-  b.end(180, 300);
-  assert.deepEqual(b.moves, []);
-});
-
-test('native content scrolling does not count toward the swipe commit threshold', (t) => {
-  const b = browser(t);
-  b.page.scrollTop = 400;
-  b.start();
-  b.move(200, 210);
-  b.page.scrollTop = 1200;
-  b.move(200, 200);
-  b.end(200, 190);
-  assert.deepEqual(b.steps, [10]);
-  assert.deepEqual(b.moves, []);
-});
-
-test('vertical swipes scroll content natively then track only movement beyond its edge', (t) => {
+test('vertical swipes inside content remain native even when they reach the bottom', (t) => {
   const b = browser(t);
   b.page.scrollTop = 400;
   b.start();
@@ -294,8 +203,7 @@ test('vertical swipes scroll content natively then track only movement beyond it
   b.page.scrollTop = 1200;
   b.move(200, 200);
   b.end(200, 150);
-  assert.deepEqual(b.steps, [90, 140]);
-  assert.deepEqual(b.moves, [{ direction: 1, axis: 'vertical' }]);
+  assert.deepEqual(b.moves, []);
 });
 
 test('short vertical swipes switch at the bottom and top', (t) => {
@@ -346,7 +254,7 @@ test('pinch gestures and noncancelable native scrolling do not navigate', (t) =>
   assert.deepEqual(b.moves, []);
 });
 
-for (const state of ['change', 'menu', 'select']) {
+for (const state of ['busy', 'change', 'menu', 'select']) {
   test(`a swipe is canceled when ${state} changes during it`, (t) => {
     const b = browser(t);
     b.start();

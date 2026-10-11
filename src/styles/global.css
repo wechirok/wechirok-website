@@ -265,7 +265,6 @@ main:focus {
 }
 
 .space-stage {
-  overflow-anchor: none;
   min-height: 340px;
 }
 
