@@ -78,12 +78,12 @@ export const toolkit = {
       details: 'Fabric, Forge, NeoForge, Paper, Velocity',
     },
     {
-      technologies: [{ name: 'Python 3', icon: 'python' }],
-      details: 'discord.py, aiohttp, Pydantic',
-    },
-    {
       technologies: [{ name: 'JavaScript', icon: 'javascript' }],
       details: 'Astro, TypeScript',
+    },
+    {
+      technologies: [{ name: 'Python 3', icon: 'python' }],
+      details: 'discord.py, aiohttp, Pydantic',
     },
     {
       technologies: [{ name: 'HTML5', icon: 'html5' }],
@@ -113,11 +113,11 @@ export const toolkit = {
       details: '',
     },
     {
-      technologies: [{ name: 'Photoshop', icon: 'adobephotoshop' }],
+      technologies: [{ name: 'Illustrator', icon: 'adobeillustrator' }],
       details: '',
     },
     {
-      technologies: [{ name: 'Illustrator', icon: 'adobeillustrator' }],
+      technologies: [{ name: 'Photoshop', icon: 'adobephotoshop' }],
       details: '',
     },
     {
