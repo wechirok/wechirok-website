@@ -9,13 +9,13 @@ interface Props {
 
 const { name } = Astro.props;
 const section = sections[name];
+const LeadTag = name === 'work' ? 'h2' : 'p';
 ---
 
 <div class="section-content">
-  <p class="section-lead" data-i18n={`sections.${name}.lead`}>
+  <LeadTag class="section-lead" data-i18n={`sections.${name}.lead`}>
     {section.lead}
-  </p>
-  {name === 'work' && <Toolkit />}
+  </LeadTag>
   <div class="section-prose">
     {section.paragraphs.map((paragraph, index) => (
       <p data-i18n={`sections.${name}.paragraphs.${index}`}>{paragraph}</p>
@@ -37,6 +37,8 @@ const section = sections[name];
       ))}
     </dl>
   )}
+
+  {name === 'work' && <Toolkit />}
 
   {name === 'projects' && (
     <ul class="text-list project-list">
