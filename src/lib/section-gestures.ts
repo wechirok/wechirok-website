@@ -24,63 +24,47 @@ export function wheelPixels(
   return delta * (mode === 1 ? lineHeight : mode === 2 ? pageHeight : 1);
 }
 
-export class WheelGesture {
-  private lastTime = -Infinity;
-  private direction = 0;
-  private distance = 0;
-  private eligible = false;
-  private consumed = false;
+export class GestureProgress {
+  distance = 0;
+  readonly travel = 120;
 
-  reset() {
-    this.lastTime = -Infinity;
-    this.distance = 0;
-    this.eligible = false;
-    this.consumed = false;
+  move(delta: number) {
+    this.distance += delta;
   }
 
-  update(delta: number, time: number, canNavigate: boolean, busy = false) {
-    const direction = Math.sign(delta) as GestureDirection;
-    if (!direction) return { consume: false, direction: null };
-    if (time - this.lastTime > 280) {
-      this.distance = 0;
-      this.eligible = canNavigate && !busy;
-      this.consumed = false;
-    } else if (direction !== this.direction) {
-      this.distance = 0;
-    }
-    this.lastTime = time;
-    this.direction = direction;
-    if (busy) this.consumed = true;
-    if (this.consumed) return { consume: true, direction: null };
-    // A gesture that started inside the content must finish scrolling it first.
-    if (!this.eligible || !canNavigate) {
-      this.eligible = false;
-      return { consume: false, direction: null };
-    }
-    this.distance += Math.abs(delta);
-    if (this.distance < 40) return { consume: true, direction: null };
-    this.consumed = true;
-    return { consume: true, direction };
+  get direction() {
+    return Math.sign(this.distance) as GestureDirection;
+  }
+
+  get progress() {
+    return Math.min(1, Math.abs(this.distance) / this.travel);
   }
 }
 
 interface GestureNavigation {
   section: () => string;
-  busy: () => boolean;
+  active: () => boolean;
   canNavigate: (direction: GestureDirection) => boolean;
-  navigate: (direction: GestureDirection, axis: GestureAxis) => void;
+  progress: (delta: number, axis: GestureAxis, complete?: boolean) => void;
+  finish: (commit?: boolean) => void;
+  start: () => void;
+  cancel: () => void;
 }
 
 export function attachSectionGestures(
   root: HTMLElement,
   navigation: GestureNavigation,
 ) {
-  const wheel = new WheelGesture();
-  const boundary = (direction: GestureDirection) => {
+  let wheelTimer: number | undefined;
+  const clearWheel = () => {
+    window.clearTimeout(wheelTimer);
+    wheelTimer = undefined;
+  };
+  const distanceToBoundary = (direction: GestureDirection) => {
     const page = document.scrollingElement;
-    if (!page) return false;
+    if (!page) return Infinity;
     const limit = Math.max(0, page.scrollHeight - window.innerHeight);
-    return direction < 0 ? page.scrollTop <= 3 : page.scrollTop >= limit - 3;
+    return Math.max(0, direction < 0 ? page.scrollTop : limit - page.scrollTop);
   };
   const ignored = (target: EventTarget | null) => {
     if (
@@ -125,7 +109,8 @@ export function attachSectionGestures(
         Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
         ignored(event.target)
       ) {
-        wheel.reset();
+        clearWheel();
+        navigation.cancel();
         return;
       }
       const lineHeight =
@@ -137,15 +122,29 @@ export function attachSectionGestures(
         window.innerHeight,
       );
       const direction = Math.sign(delta) as GestureDirection;
-      const decision = wheel.update(
-        delta,
-        performance.now(),
-        boundary(direction) && navigation.canNavigate(direction),
-        navigation.busy(),
-      );
-      if (decision.consume && event.cancelable) event.preventDefault();
-      if (decision.direction)
-        navigation.navigate(decision.direction, 'vertical');
+      if (!delta) return;
+      const room = distanceToBoundary(direction);
+      if (
+        !event.cancelable ||
+        (!navigation.active() &&
+          !(Math.abs(delta) > room && navigation.canNavigate(direction)))
+      ) {
+        clearWheel();
+        if (!event.cancelable) navigation.cancel();
+        return;
+      }
+      event.preventDefault();
+      let movement = delta;
+      if (!navigation.active() && room > 0) {
+        window.scrollBy({ top: direction * room, behavior: 'instant' });
+        movement -= direction * room;
+      }
+      navigation.progress(movement, 'vertical', true);
+      window.clearTimeout(wheelTimer);
+      wheelTimer = window.setTimeout(() => {
+        navigation.finish();
+        clearWheel();
+      }, 160);
     },
     { passive: false },
   );
@@ -154,35 +153,30 @@ export function attachSectionGestures(
     id: number;
     x: number;
     y: number;
-    time: number;
     section: string;
-    previous: boolean;
-    next: boolean;
     claimed: boolean;
+    axis: GestureAxis | null;
+    last: number;
+    offset: number;
   } | null = null;
 
   root.addEventListener(
     'touchstart',
     (event) => {
       touch = null;
-      wheel.reset();
+      clearWheel();
+      navigation.start();
       const point = event.touches[0];
-      if (
-        event.touches.length !== 1 ||
-        !point ||
-        navigation.busy() ||
-        ignored(event.target)
-      )
-        return;
+      if (event.touches.length !== 1 || !point || ignored(event.target)) return;
       touch = {
         id: point.identifier,
         x: point.clientX,
         y: point.clientY,
-        time: performance.now(),
         section: navigation.section(),
-        previous: boundary(-1),
-        next: boundary(1),
         claimed: false,
+        axis: null,
+        last: 0,
+        offset: 0,
       };
     },
     { passive: true },
@@ -198,33 +192,66 @@ export function attachSectionGestures(
         event.touches.length !== 1 ||
         !point ||
         ignored(event.target) ||
-        navigation.busy() ||
-        navigation.section() !== touch.section ||
-        performance.now() - touch.time > 800
+        navigation.section() !== touch.section
       ) {
         touch = null;
+        navigation.cancel();
+        return;
+      }
+      if (!event.cancelable) {
+        touch = null;
+        navigation.cancel();
         return;
       }
       const intent = swipeIntent(
         point.clientX - touch.x,
         point.clientY - touch.y,
-        1,
+        6,
       );
-      if (!intent) return;
-      if (
-        !navigation.canNavigate(intent.direction) ||
-        (intent.axis === 'vertical' &&
-          !(intent.direction < 0 ? touch.previous : touch.next))
-      ) {
-        touch = null;
+      if (!intent) {
+        if (touch.claimed && event.cancelable) {
+          event.preventDefault();
+          const distance =
+            touch.axis === 'horizontal'
+              ? touch.x - point.clientX
+              : touch.y - point.clientY;
+          navigation.progress(distance - touch.last, touch.axis!);
+          touch.last = distance;
+        }
         return;
       }
-      if (!event.cancelable) {
+      if (
+        (!navigation.active() && !navigation.canNavigate(intent.direction)) ||
+        (intent.axis === 'vertical' &&
+          !navigation.active() &&
+          distanceToBoundary(intent.direction) > 3)
+      ) {
+        // Keep native scrolling, and track it so only movement beyond the edge
+        // participates in the transition if the browser lets us claim it later.
+        touch.last =
+          touch.axis === 'horizontal' || intent.axis === 'horizontal'
+            ? touch.x - point.clientX
+            : touch.y - point.clientY;
+        return;
+      }
+      if (touch.axis && touch.axis !== intent.axis) {
         touch = null;
+        navigation.finish(false);
         return;
       }
       event.preventDefault();
+      if (!touch.claimed) {
+        touch.offset = intent.axis === 'vertical' ? touch.last : 0;
+        if (intent.axis === 'horizontal') touch.last = 0;
+      }
       touch.claimed = true;
+      touch.axis ??= intent.axis;
+      const distance =
+        touch.axis === 'horizontal'
+          ? touch.x - point.clientX
+          : touch.y - point.clientY;
+      navigation.progress(distance - touch.last, touch.axis);
+      touch.last = distance;
     },
     { passive: false },
   );
@@ -237,30 +264,41 @@ export function attachSectionGestures(
         !gesture ||
         !gesture.claimed ||
         event.touches.length ||
-        navigation.busy() ||
         navigation.section() !== gesture.section ||
-        ignored(event.target) ||
-        performance.now() - gesture.time > 800
-      )
+        ignored(event.target)
+      ) {
+        navigation.cancel();
         return;
+      }
       const point = Array.from(event.changedTouches).find(
         (point) => point.identifier === gesture.id,
       );
-      if (!point) return;
+      if (!point) {
+        navigation.cancel();
+        return;
+      }
       const intent = swipeIntent(
         point.clientX - gesture.x,
         point.clientY - gesture.y,
         Math.min(36, window.innerWidth * 0.12),
       );
+      const distance =
+        gesture.axis === 'horizontal'
+          ? gesture.x - point.clientX
+          : gesture.y - point.clientY;
       if (
         !intent ||
         !navigation.canNavigate(intent.direction) ||
-        (intent.axis === 'vertical' &&
-          !(intent.direction < 0 ? gesture.previous : gesture.next))
-      )
+        intent.axis !== gesture.axis ||
+        Math.abs(distance - gesture.offset) <
+          Math.min(36, window.innerWidth * 0.12)
+      ) {
+        navigation.finish(false);
         return;
+      }
       if (event.cancelable) event.preventDefault();
-      navigation.navigate(intent.direction, intent.axis);
+      navigation.progress(distance - gesture.last, intent.axis);
+      navigation.finish(true);
     },
     { passive: false },
   );
@@ -268,6 +306,7 @@ export function attachSectionGestures(
     'touchcancel',
     () => {
       touch = null;
+      navigation.cancel();
     },
     { passive: true },
   );
