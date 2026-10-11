@@ -591,22 +591,6 @@ main:focus {
   transform: scale(0.97);
 }
 
-.project-action--download {
-  --icon-size: 20px;
-  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 20%);
-  min-width: 96px;
-  justify-content: center;
-  color: var(--accent);
-  box-shadow:
-    0 4px 14px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 45%, transparent);
-}
-
-.project-action--download:hover {
-  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 28%);
-}
-
 .project-downloads {
   display: inline-flex;
   align-items: center;
@@ -614,15 +598,19 @@ main:focus {
   padding-left: 8px;
   border-left: 1px solid
     color-mix(in srgb, var(--control-border) 35%, transparent);
-  color: var(--accent);
-  font-size: 18px;
-  font-weight: 500;
+  color: var(--muted);
+  font-size: 14px;
   font-variant-numeric: tabular-nums;
 }
 
 .download-symbol {
-  --icon-size: 13px;
+  --icon-size: 17px;
+  color: var(--accent);
   transform: rotate(90deg);
+}
+
+.download-symbol .icon {
+  stroke-width: 2.2;
 }
 
 @supports (background: color-mix(in srgb, black, transparent)) and
