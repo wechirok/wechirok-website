@@ -13,6 +13,20 @@ const destinations = Object.keys(sections) as SectionName[];
 ---
 
 <div class="personal-space" data-personal-space>
+  <button
+    class="home-button with-icon"
+    type="button"
+    data-home
+    aria-label={navigation.home}
+    data-i18n-aria-label="navigation.home"
+    hidden
+  >
+    <Icon name="arrow-left" />
+    <span class="home-label">
+      <Icon name="house" />
+      <span data-i18n="navigation.home">{navigation.home}</span>
+    </span>
+  </button>
   <div class="space-stage" data-space-stage>
     <section
       class="space-panel welcome"
@@ -38,19 +52,6 @@ const destinations = Object.keys(sections) as SectionName[];
         aria-labelledby={`${name}-heading`}
         hidden
       >
-        <button
-          class="home-button with-icon"
-          type="button"
-          data-home
-          aria-label={navigation.home}
-          data-i18n-aria-label="navigation.home"
-        >
-          <Icon name="arrow-left" />
-          <span class="home-label">
-            <Icon name="house" />
-            <span data-i18n="navigation.home">{navigation.home}</span>
-          </span>
-        </button>
         <h1
           id={`${name}-heading`}
           tabindex="-1"

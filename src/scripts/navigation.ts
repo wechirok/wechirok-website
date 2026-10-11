@@ -9,8 +9,9 @@ interface TransitionOptions {
 
 const root = document.querySelector<HTMLElement>('[data-personal-space]');
 const stage = root?.querySelector<HTMLElement>('[data-space-stage]');
+const homeButton = root?.querySelector<HTMLButtonElement>('[data-home]');
 
-if (root && stage) {
+if (root && stage && homeButton) {
   const panels = new Map(
     Array.from(root.querySelectorAll<HTMLElement>('[data-panel]')).map(
       (panel) => [panel.dataset.panel!, panel],
@@ -77,6 +78,7 @@ if (root && stage) {
   const cancelAnimations = () => {
     for (const animation of animations) animation.cancel();
     animations.clear();
+    homeButton.inert = false;
     for (const panel of panels.values()) panel.inert = false;
   };
 
@@ -118,17 +120,27 @@ if (root && stage) {
 
     if (animated) {
       previous.inert = true;
-      await animate(
-        previous,
-        [
-          { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
-          { opacity: 0, transform: 'translateY(-4px)', filter: 'blur(3px)' },
-        ],
-        { duration: 150, easing: 'ease-in', fill: 'forwards' },
-      );
+      const exitFrames = [
+        { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+        { opacity: 0, transform: 'translateY(-4px)', filter: 'blur(3px)' },
+      ];
+      const exitOptions = {
+        duration: 150,
+        easing: 'ease-in',
+        fill: 'forwards',
+      } as const;
+      const outgoing = [animate(previous, exitFrames, exitOptions)];
+      if (name === 'home' && !homeButton.hidden) {
+        homeButton.inert = true;
+        outgoing.push(animate(homeButton, exitFrames, exitOptions));
+      }
+      await Promise.all(outgoing);
       if (ticket !== revision) return;
     }
 
+    const enteringHomeButton = homeButton.hidden && name !== 'home';
+    homeButton.hidden = name === 'home';
+    homeButton.inert = false;
     previous.hidden = true;
     previous.inert = false;
     next.hidden = false;
@@ -153,14 +165,19 @@ if (root && stage) {
     if (activeLink) highlightEntry(activeLink);
 
     if (animated) {
-      await animate(
-        next,
-        [
-          { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
-          { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
-        ],
-        { duration: 340, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
-      );
+      const entryFrames = [
+        { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
+        { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+      ];
+      const entryOptions = {
+        duration: 340,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      };
+      const incoming = [animate(next, entryFrames, entryOptions)];
+      // Keep this shared control stationary when moving between sections.
+      if (enteringHomeButton)
+        incoming.push(animate(homeButton, entryFrames, entryOptions));
+      await Promise.all(incoming);
     }
   };
 
