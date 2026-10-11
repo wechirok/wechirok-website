@@ -128,6 +128,18 @@ export function attachSectionGestures(
         wheel.reset();
         return;
       }
+      if (navigation.busy()) {
+        // Momentum only needs its direction while the current transition runs.
+        // Avoid measuring the document on every wheel event during animation.
+        const decision = wheel.update(
+          event.deltaY,
+          performance.now(),
+          false,
+          true,
+        );
+        if (decision.consume && event.cancelable) event.preventDefault();
+        return;
+      }
       const lineHeight =
         parseFloat(getComputedStyle(document.body).lineHeight) || 24;
       const delta = wheelPixels(
@@ -141,7 +153,7 @@ export function attachSectionGestures(
         delta,
         performance.now(),
         boundary(direction) && navigation.canNavigate(direction),
-        navigation.busy(),
+        false,
       );
       if (decision.consume && event.cancelable) event.preventDefault();
       if (decision.direction)
