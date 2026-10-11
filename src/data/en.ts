@@ -10,6 +10,7 @@ export const site = {
 export const introduction = {
   greeting: "What's up, stranger.",
   heading: "I'm Artur Vechir.",
+  profilesHeading: 'Find me online.',
   description:
     'This is my personal space for things I build, maintain and work on.',
 };
@@ -44,12 +45,6 @@ export const sections = {
     lead: 'Things I build and look after.',
     description: 'Minecraft mods, modpacks and community tools by Wechirok.',
     paragraphs: ['Personal projects, modding, and a few tools.'],
-  },
-  links: {
-    title: 'Links',
-    lead: 'Elsewhere on the internet.',
-    description: 'Public profiles and places to find Wechirok online.',
-    paragraphs: ['My profiles, projects and places to get in touch.'],
   },
 } as const;
 

@@ -482,29 +482,89 @@ main:focus {
   flex-shrink: 0;
 }
 
-.profile-list li {
-  border-top: 1px solid var(--line);
+.home-profiles {
+  margin-top: 44px;
+  scroll-margin-top: 100px;
+}
+
+.home-profiles h2 {
+  margin: 0;
+  color: var(--accent);
+  font-size: 23px;
+  font-weight: var(--heading-weight);
+  line-height: 1.3;
+}
+
+.profile-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-list li:first-child {
+  grid-column: 1 / -1;
 }
 
 .profile-link {
+  --profile-surface: color-mix(in srgb, var(--surface), var(--foreground) 10%);
   display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 12px 20px;
-  align-items: baseline;
-  padding-block: 21px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  align-content: start;
+  height: 100%;
+  min-height: 104px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: var(--profile-surface);
+  box-shadow:
+    0 4px 14px var(--shadow),
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
   text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
-.profile-link:hover .profile-name {
-  text-decoration: underline;
+.profile-list li:first-child .profile-link {
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  min-height: 68px;
+}
+
+.profile-link:hover {
+  --profile-surface: color-mix(in srgb, var(--surface), var(--foreground) 16%);
+  transform: translateY(-2px);
+}
+
+.profile-link:focus-visible {
+  outline-offset: -3px;
 }
 
 .profile-name {
-  font-size: 22px;
+  --icon-size: 21px;
+  gap: 10px;
+  font-size: 21px;
+  line-height: 1.3;
 }
 
 .profile-description {
   color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+@supports (background: color-mix(in srgb, black, transparent)) and
+  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .profile-link {
+    background: color-mix(in srgb, var(--profile-surface) 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+  }
 }
 
 .document-page {
@@ -565,13 +625,19 @@ main:focus {
   transform: translateY(0);
 }
 
+@media (max-width: 900px) {
+  .profile-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
   .page-shell {
     width: calc(100% - 36px);
   }
 
   .preferences-bar {
-    --control-size: clamp(28px, calc((100vw - 68px) / 7), 44px);
+    --control-size: clamp(28px, calc((100vw - 64px) / 6), 44px);
     gap: 8px;
     padding-block: 12px;
   }
@@ -596,9 +662,21 @@ main:focus {
     min-height: 320px;
   }
 
-  .profile-link {
-    grid-template-columns: 1fr;
-    row-gap: 2px;
+  .home-profiles {
+    margin-top: 36px;
+  }
+
+  .profile-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .profile-link,
+  .profile-list li:first-child .profile-link {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 6px;
+    padding: 14px 16px;
   }
 
   .row-title {
@@ -622,7 +700,8 @@ main:focus {
 
   .navigation-button:hover,
   .navigation-button[data-label-visible],
-  .navigation-button:active {
+  .navigation-button:active,
+  .profile-link:hover {
     transform: none;
   }
 }
