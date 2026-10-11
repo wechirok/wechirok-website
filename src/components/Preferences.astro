@@ -2,6 +2,7 @@
 import { preferences } from '../data/en';
 import Icon from './Icon.astro';
 import SectionNavigation from './SectionNavigation.astro';
+import Tooltip from './Tooltip.astro';
 
 interface Props {
   showNavigation?: boolean;
@@ -26,44 +27,41 @@ const languages = [
       data-i18n-aria-label="preferences.theme"
     >
       <button
-        class="preference-button"
+        class="preference-button tooltip-trigger"
         type="button"
         data-theme-choice="dark"
         aria-pressed="true"
         aria-label={preferences.dark}
-        title={preferences.dark}
         data-i18n-aria-label="preferences.dark"
-        data-i18n-title="preferences.dark"
       >
         <Icon name="moon" />
+        <Tooltip i18n="preferences.dark">{preferences.dark}</Tooltip>
       </button>
       <button
-        class="preference-button"
+        class="preference-button tooltip-trigger"
         type="button"
         data-theme-choice="light"
         aria-pressed="false"
         aria-label={preferences.light}
-        title={preferences.light}
         data-i18n-aria-label="preferences.light"
-        data-i18n-title="preferences.light"
       >
         <Icon name="sun" />
+        <Tooltip i18n="preferences.light">{preferences.light}</Tooltip>
       </button>
     </div>
     <div class="language-picker" data-language-picker>
       <button
-        class="preference-button"
+        class="preference-button tooltip-trigger"
         type="button"
         data-language-toggle
         aria-label={preferences.language}
-        title={preferences.language}
         data-i18n-aria-label="preferences.language"
-        data-i18n-title="preferences.language"
         aria-haspopup="menu"
         aria-expanded="false"
         aria-controls="language-menu"
       >
         <Icon name="languages" />
+        <Tooltip i18n="preferences.language">{preferences.language}</Tooltip>
       </button>
       <div
         id="language-menu"

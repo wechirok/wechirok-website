@@ -190,7 +190,8 @@ main:focus {
     inset 0 0 0 1px color-mix(in srgb, var(--control-border) 30%, transparent);
   transition:
     background-color 160ms ease,
-    color 160ms ease;
+    color 160ms ease,
+    transform 180ms ease;
 }
 
 .preference-button:hover,
@@ -341,12 +342,16 @@ main:focus {
     transform 180ms ease;
 }
 
-.navigation-label {
+.tooltip-trigger {
+  position: relative;
+}
+
+.tooltip-label {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
   width: max-content;
-  max-width: 180px;
+  max-width: min(260px, calc(100vw - 36px));
   padding: 7px 11px;
   border-radius: 9px;
   background: var(--surface);
@@ -356,6 +361,8 @@ main:focus {
     inset 0 1px 0 var(--highlight);
   font-size: 16px;
   line-height: 1.3;
+  font-weight: var(--text-weight);
+  text-align: left;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px) scale(0.96);
@@ -367,31 +374,51 @@ main:focus {
     visibility 180ms;
 }
 
-.navigation-button:focus-visible .navigation-label,
-.navigation-button[data-label-visible] .navigation-label {
+.tooltip-trigger:focus-visible > .tooltip-label,
+.navigation-button[data-label-visible] > .tooltip-label {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
 }
 
+.preferences-controls .tooltip-label {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+.download-tooltip-detail {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.tooltip-trigger:focus-visible,
 .navigation-button[data-label-visible],
 .navigation-button[data-entry-active] {
+  z-index: 1;
   transform: translateY(-2px);
 }
 
 @media (hover: hover) {
-  .navigation-button:hover {
+  .tooltip-trigger:hover {
+    z-index: 1;
     transform: translateY(-2px);
   }
 
-  .navigation-button:hover .navigation-label {
+  .tooltip-trigger:hover > .tooltip-label {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
   }
 }
 
-.navigation-button:active {
+[data-language-toggle][aria-expanded='true'] > .tooltip-label {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preference-button:active {
   transform: scale(0.97);
 }
 
@@ -409,7 +436,7 @@ main:focus {
     backdrop-filter: blur(20px);
   }
 
-  .navigation-label {
+  .tooltip-label {
     background: color-mix(in srgb, var(--surface) 92%, transparent);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
@@ -837,10 +864,11 @@ main:focus {
     scroll-behavior: auto !important;
   }
 
-  .navigation-button:hover,
+  .tooltip-trigger:hover,
+  .tooltip-trigger:focus-visible,
   .navigation-button[data-label-visible],
   .navigation-button[data-entry-active],
-  .navigation-button:active,
+  .preference-button:active,
   .profile-link:hover,
   .project-action:hover,
   .project-action:active {

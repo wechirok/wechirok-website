@@ -2,6 +2,7 @@
 import { projectActions } from '../data/en';
 import type { ProjectLink } from '../lib/project-downloads';
 import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
 
 interface Props {
   links: readonly ProjectLink[];
@@ -20,11 +21,16 @@ const icons = {
 <div class="project-actions">
   {links.map((link) => (
     <a
-      class="project-action"
+      class:list={[
+        'project-action',
+        {
+          'tooltip-trigger':
+            link.platform === 'Modrinth' || link.platform === 'CurseForge',
+        },
+      ]}
       href={link.url}
       target="_blank"
       rel="noopener"
-      title={link.downloads ? link.platform : undefined}
     >
       <Icon name={icons[link.platform]} brand />
       <span
@@ -55,6 +61,12 @@ const icons = {
           <span data-download-count aria-hidden="true" />
           <span class="visually-hidden" data-download-label />
         </span>
+      )}
+      {(link.platform === 'Modrinth' || link.platform === 'CurseForge') && (
+        <Tooltip>
+          {link.platform}
+          <span class="download-tooltip-detail" data-download-tooltip hidden />
+        </Tooltip>
       )}
     </a>
   ))}
