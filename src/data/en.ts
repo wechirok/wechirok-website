@@ -10,7 +10,6 @@ export const site = {
 export const introduction = {
   greeting: 'Hello there!',
   heading: "I'm Artur Vechir.",
-  profilesHeading: 'Find me online.',
   description: 'Building projects and maintaining systems.',
 };
 
