@@ -1,6 +1,7 @@
 ---
 import { sections, workAreas, projects, type SectionName } from '../data/en';
 import Icon from './Icon.astro';
+import Toolkit from './Toolkit.astro';
 
 interface Props {
   name: SectionName;
@@ -14,6 +15,7 @@ const section = sections[name];
   <p class="section-lead" data-i18n={`sections.${name}.lead`}>
     {section.lead}
   </p>
+  {name === 'work' && <Toolkit />}
   <div class="section-prose">
     {section.paragraphs.map((paragraph, index) => (
       <p data-i18n={`sections.${name}.paragraphs.${index}`}>{paragraph}</p>

@@ -50,6 +50,39 @@ export const sections = {
 
 export type SectionName = keyof typeof sections;
 
+export const toolkit = {
+  title: 'Toolkit',
+  items: [
+    {
+      technologies: [{ name: 'Java', icon: 'java' }],
+      details: 'Fabric, Forge, NeoForge, Paper, Velocity',
+    },
+    {
+      technologies: [{ name: 'Python 3', icon: 'python' }],
+      details: 'discord.py, aiohttp, Pydantic',
+    },
+    {
+      technologies: [{ name: 'JavaScript', icon: 'javascript' }],
+      details: 'Astro, TypeScript',
+    },
+    {
+      technologies: [{ name: 'HTML5', icon: 'html5' }],
+      details: '',
+    },
+    {
+      technologies: [{ name: 'CSS3', icon: 'css3' }],
+      details: '',
+    },
+    {
+      technologies: [
+        { name: 'PostgreSQL', icon: 'postgresql' },
+        { name: 'MySQL', icon: 'mysql' },
+      ],
+      details: '',
+    },
+  ],
+} as const;
+
 export const workAreas = [
   {
     title: 'Systems & infrastructure',

@@ -39,6 +39,21 @@
         "chevron-down",
         "check"
       ]
+    },
+    {
+      "name": "devicon",
+      "version": "2.17.0",
+      "source": "https://registry.npmjs.org/devicon/-/devicon-2.17.0.tgz",
+      "license": "licenses/devicon.txt",
+      "icons": [
+        "java",
+        "python",
+        "javascript",
+        "html5",
+        "css3",
+        "postgresql",
+        "mysql"
+      ]
     }
   ],
   "brands": [
@@ -88,6 +103,62 @@
       "source": "https://github.com/WeblateOrg/graphics/blob/669e4f910abd9ec36fda172d2ea6f2f424a32ace/logo/weblate-black.svg",
       "license": {
         "type": "GPL-3.0-only"
+      }
+    },
+    {
+      "title": "Java",
+      "slug": "java",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/java/java-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "Python",
+      "slug": "python",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/python/python-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "JavaScript",
+      "slug": "javascript",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/javascript/javascript-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "HTML5",
+      "slug": "html5",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/html5/html5-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "CSS3",
+      "slug": "css3",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/css3/css3-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "PostgreSQL",
+      "slug": "postgresql",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/postgresql/postgresql-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "MySQL",
+      "slug": "mysql",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/mysql/mysql-original.svg",
+      "license": {
+        "type": "MIT"
       }
     }
   ]
