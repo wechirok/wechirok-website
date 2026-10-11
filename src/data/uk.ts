@@ -12,8 +12,7 @@ export const introduction = {
   greeting: 'Ну шо ти?',
   heading: 'Я Артур Вечір.',
   profilesHeading: 'Де мене знайти.',
-  description:
-    'Це мій особистий простір для всього, що я створюю, підтримую й над чим працюю.',
+  description: 'Створюю проєкти й підтримую системи.',
 };
 
 export const navigation = {
