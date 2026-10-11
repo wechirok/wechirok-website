@@ -8,7 +8,7 @@ export const site = {
 };
 
 export const introduction = {
-  greeting: "What's up, stranger.",
+  greeting: 'Hello there!',
   heading: "I'm Artur Vechir.",
   profilesHeading: 'Find me online.',
   description:

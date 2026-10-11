@@ -9,7 +9,7 @@ export const site = {
 };
 
 export const introduction = {
-  greeting: 'Na, Fremder?',
+  greeting: 'Wie geht’s denn so?',
   heading: 'Ich bin Artur Vechir.',
   profilesHeading: 'Hier findest du mich.',
   description:
