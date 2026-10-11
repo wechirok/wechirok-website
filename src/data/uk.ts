@@ -50,6 +50,11 @@ export const sections = {
   },
 };
 
+export const toolkit = {
+  ...en.toolkit,
+  title: 'Інструменти',
+};
+
 const workCopy = {
   server: {
     title: 'Системи та інфраструктура',

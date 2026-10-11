@@ -5,6 +5,13 @@ import Crowdin from '../assets/icons/brands/crowdin.svg';
 import Weblate from '../assets/icons/brands/weblate.svg';
 import Modrinth from '../assets/icons/brands/modrinth.svg';
 import CurseForge from '../assets/icons/brands/curseforge.svg';
+import Java from '../assets/icons/brands/java.svg';
+import Python from '../assets/icons/brands/python.svg';
+import JavaScript from '../assets/icons/brands/javascript.svg';
+import Html5 from '../assets/icons/brands/html5.svg';
+import Css3 from '../assets/icons/brands/css3.svg';
+import PostgreSql from '../assets/icons/brands/postgresql.svg';
+import MySql from '../assets/icons/brands/mysql.svg';
 import CircleHelp from '../assets/icons/interface/circle-help.svg';
 import UserRound from '../assets/icons/interface/user-round.svg';
 import BriefcaseBusiness from '../assets/icons/interface/briefcase-business.svg';
@@ -33,6 +40,13 @@ export const icons = {
   weblate: Weblate,
   modrinth: Modrinth,
   curseforge: CurseForge,
+  java: Java,
+  python: Python,
+  javascript: JavaScript,
+  html5: Html5,
+  css3: Css3,
+  postgresql: PostgreSql,
+  mysql: MySql,
   'circle-help': CircleHelp,
   'user-round': UserRound,
   'briefcase-business': BriefcaseBusiness,

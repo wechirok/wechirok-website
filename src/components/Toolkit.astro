@@ -1,0 +1,28 @@
+---
+import { toolkit } from '../data/en';
+import Icon from './Icon.astro';
+---
+
+<section class="toolkit" aria-labelledby="toolkit-heading">
+  <h2 id="toolkit-heading" data-i18n="toolkit.title">
+    {toolkit.title}
+  </h2>
+  <ul class="toolkit-list">
+    {toolkit.items.map((item) => (
+      <li>
+        <h3 class="toolkit-names">
+          {item.technologies.map((technology, index) => (
+            <span class="toolkit-technology with-icon">
+              <Icon name={technology.icon} brand />
+              <span>
+                {technology.name}
+                {index < item.technologies.length - 1 ? ',' : ''}
+              </span>
+            </span>
+          ))}
+        </h3>
+        {item.details && <p class="toolkit-detail">({item.details})</p>}
+      </li>
+    ))}
+  </ul>
+</section>
