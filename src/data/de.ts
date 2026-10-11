@@ -10,7 +10,7 @@ export const site = {
 
 export const introduction = {
   greeting: 'Na, Fremder?',
-  heading: 'Ich bin Wechirok.',
+  heading: 'Ich bin Artur Vechir.',
   description:
     'Das ist meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite.',
 };
@@ -27,7 +27,7 @@ export const sections = {
     description:
       'Ein bisschen über Wechirok und das, womit ich mich beschäftige.',
     paragraphs: [
-      'Ich bin Wechirok, manchmal auch als Katzeyoru unterwegs. Ich beschäftige mich mit Systemadministration, Software und Infrastruktur. Ich finde gerne heraus, wie Dinge funktionieren, probiere Neues aus und setze es in meinen eigenen Projekten ein.',
+      'Ich bin Artur Vechir, manchmal auch als Wechirok / Katzeyoru bekannt. Ich beschäftige mich mit Systemadministration, Software und Infrastruktur. Ich finde gerne heraus, wie Dinge funktionieren, probiere Neues aus und setze es in meinen eigenen Projekten ein.',
       'Ich entwickle und pflege eigene Projekte und meine Serverinfrastruktur zu Hause. Dienste, Bots und Spielserver verbinde ich zu einem durchdachten System und achte dabei auf ihre Konfiguration, Stabilität und Backups. Ich arbeite an Mods und Modpacks für Spiele wie Minecraft und wirke an verschiedenen ukrainischen Lokalisierungen mit. Ab und zu bearbeite ich auch Fotos, Videos und Audiodateien.',
       'Bei der Arbeit mit Code und Logik nutze ich LLMs zum Lernen und als Unterstützung bei der Entwicklung und ziehe Dokumentation und Wikis heran. Oft hilft auch die Community: Sie teilt Erfahrungen, schlägt Lösungen vor und hilft mir, Ideen durch den gemeinsamen Austausch umzusetzen. Ich gehe den Code durch und prüfe ihn, um zu verstehen, was gemacht wurde und wie es funktioniert. Für Lokalisierungen, das Schreiben von Dokumentation und das Erstellen von Assets ist der Einsatz von KI ausgeschlossen.',
     ],
