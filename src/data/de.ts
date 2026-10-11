@@ -57,7 +57,7 @@ const translationCopy = {
   'Fabulously Optimized': {
     category: 'Modpack',
     description:
-      'Ein Minecraft-Modpack mit Schwerpunkt auf besserer Leistung und Grafik.',
+      'Ein Minecraft-Modpack mit Fokus auf Performance und Grafikverbesserungen, aka eine OptiFine-Alternative.',
   },
 } satisfies Record<
   (typeof en.translationContributions.projects)[number]['name'],

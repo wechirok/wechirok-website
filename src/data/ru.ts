@@ -57,7 +57,7 @@ const translationCopy = {
   'Fabulously Optimized': {
     category: 'Модпак',
     description:
-      'Модпак для Minecraft с упором на улучшение производительности и графики.',
+      'Модпак для Minecraft с упором на производительность и улучшение графики, aka альтернатива OptiFine.',
   },
 } satisfies Record<
   (typeof en.translationContributions.projects)[number]['name'],
