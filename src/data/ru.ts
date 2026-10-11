@@ -50,6 +50,31 @@ export const sections = {
   },
 };
 
+const translationCopy = {
+  'Prism Launcher': {
+    category: 'Лаунчер',
+    description:
+      'Лаунчер Minecraft с открытым кодом для управления сборками, учётными записями и модами.',
+  },
+  'Fabulously Optimized': {
+    category: 'Модпак',
+    description:
+      'Модпак для Minecraft с упором на улучшение производительности и графики.',
+  },
+} satisfies Record<
+  (typeof en.translationContributions.projects)[number]['name'],
+  { category: string; description: string }
+>;
+export const translationContributions = {
+  title: 'Мой вклад в переводы.',
+  description:
+    'В некоторых проектах занимаюсь украинской локализацией и переводом.',
+  projects: en.translationContributions.projects.map((project) => ({
+    ...project,
+    ...translationCopy[project.name],
+  })),
+};
+
 export const toolkit = {
   ...en.toolkit,
   title: 'Инструменты',

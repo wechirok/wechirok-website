@@ -2,6 +2,7 @@
 import { sections, workAreas, projects, type SectionName } from '../data/en';
 import Icon from './Icon.astro';
 import Toolkit from './Toolkit.astro';
+import TranslationContributions from './TranslationContributions.astro';
 
 interface Props {
   name: SectionName;
@@ -9,7 +10,7 @@ interface Props {
 
 const { name } = Astro.props;
 const section = sections[name];
-const LeadTag = name === 'work' ? 'h2' : 'p';
+const LeadTag = name === 'about' ? 'p' : 'h2';
 ---
 
 <div class="section-content">
@@ -59,4 +60,6 @@ const LeadTag = name === 'work' ? 'h2' : 'p';
       ))}
     </ul>
   )}
+
+  {name === 'projects' && <TranslationContributions />}
 </div>
