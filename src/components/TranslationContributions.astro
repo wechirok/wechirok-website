@@ -1,5 +1,6 @@
 ---
 import { translationContributions } from '../data/en';
+import ProjectActions from './ProjectActions.astro';
 ---
 
 <section
@@ -22,9 +23,7 @@ import { translationContributions } from '../data/en';
     {translationContributions.projects.map((project, index) => (
       <li class="text-row">
         <div class="row-title">
-          <a href={project.url} target="_blank" rel="noopener">
-            {project.name}
-          </a>
+          <span class="project-name">{project.name}</span>
           <span
             class="row-detail"
             data-i18n={`translationContributions.projects.${index}.category`}
@@ -35,6 +34,9 @@ import { translationContributions } from '../data/en';
         <p data-i18n={`translationContributions.projects.${index}.description`}>
           {project.description}
         </p>
+        <ProjectActions
+          links={[{ platform: project.platform, url: project.url }]}
+        />
       </li>
     ))}
   </ul>

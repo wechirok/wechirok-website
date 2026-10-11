@@ -112,6 +112,12 @@ export const projectActivity = {
   present: 'дотепер',
 };
 
+export const projectActions = {
+  repository: 'Репозиторій',
+  downloads: 'Завантаження',
+  lastAvailable: 'Остання доступна кількість',
+};
+
 const projectCopy = {
   'Renice Cubed': {
     category: 'Модпак',

@@ -492,9 +492,14 @@ main:focus {
 }
 
 .text-row dt,
-.row-title > a {
+.row-title > a,
+.project-name {
   font-size: 22px;
   line-height: 1.4;
+}
+
+.project-name {
+  color: var(--accent);
 }
 
 .text-row dt {
@@ -543,6 +548,73 @@ main:focus {
 
 .project-period {
   white-space: nowrap;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.project-action {
+  --icon-size: 17px;
+  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 12%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: var(--button-surface);
+  color: var(--interactive);
+  box-shadow:
+    0 3px 10px var(--shadow),
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
+  font-size: 16px;
+  line-height: 1.25;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.project-action:hover {
+  --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 20%);
+  color: var(--interactive-hover);
+  transform: translateY(-2px);
+}
+
+.project-action:active {
+  transform: scale(0.97);
+}
+
+.project-downloads {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 8px;
+  border-left: 1px solid
+    color-mix(in srgb, var(--control-border) 35%, transparent);
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.download-symbol {
+  --icon-size: 13px;
+  transform: rotate(90deg);
+}
+
+@supports (background: color-mix(in srgb, black, transparent)) and
+  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .project-action {
+    background: color-mix(in srgb, var(--button-surface) 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+  }
 }
 
 .home-profiles {
@@ -773,7 +845,9 @@ main:focus {
   .navigation-button[data-label-visible],
   .navigation-button[data-entry-active],
   .navigation-button:active,
-  .profile-link:hover {
+  .profile-link:hover,
+  .project-action:hover,
+  .project-action:active {
     transform: none;
   }
 }
