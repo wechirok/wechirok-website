@@ -37,7 +37,7 @@ if (root && stage) {
     }, delay);
     labelTimers.add(timer);
   };
-  const highlightEntry = (link: HTMLAnchorElement, duration = 1600) => {
+  const highlightEntry = (link: HTMLAnchorElement, duration = 450) => {
     clearLabels();
     link.setAttribute('data-entry-active', '');
     later(() => link.removeAttribute('data-entry-active'), duration);
