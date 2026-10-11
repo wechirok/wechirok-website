@@ -19,9 +19,22 @@ const icons = {
 
 <div class="project-actions">
   {links.map((link) => (
-    <a class="project-action" href={link.url} target="_blank" rel="noopener">
+    <a
+      class:list={[
+        'project-action',
+        { 'project-action--download': link.downloads },
+      ]}
+      href={link.url}
+      target="_blank"
+      rel="noopener"
+      title={link.downloads ? link.platform : undefined}
+    >
       <Icon name={icons[link.platform]} brand />
       <span
+        class:list={{
+          'visually-hidden':
+            link.platform === 'Modrinth' || link.platform === 'CurseForge',
+        }}
         data-i18n={
           link.platform === 'repository'
             ? 'projectActions.repository'
