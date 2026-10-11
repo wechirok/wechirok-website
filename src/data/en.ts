@@ -22,7 +22,6 @@ export const navigation = {
 export const sections = {
   about: {
     title: 'About',
-    lead: 'I do a little bit of this and that.',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
       'I’m Artur Vechir, sometimes also known as Wechirok / Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',

@@ -23,7 +23,6 @@ export const navigation = {
 export const sections = {
   about: {
     title: 'Über mich',
-    lead: 'Ein bisschen hiervon, ein bisschen davon.',
     description:
       'Ein bisschen über Wechirok und das, womit ich mich beschäftige.',
     paragraphs: [
