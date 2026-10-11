@@ -20,10 +20,7 @@ const icons = {
 <div class="project-actions">
   {links.map((link) => (
     <a
-      class:list={[
-        'project-action',
-        { 'project-action--download': link.downloads },
-      ]}
+      class="project-action"
       href={link.url}
       target="_blank"
       rel="noopener"
