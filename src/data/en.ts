@@ -19,14 +19,11 @@ export const navigation = {
 };
 
 export const sections = {
-  about: {
-    title: 'About',
-    description: 'A little about Wechirok and the things I spend my time on.',
-    paragraphs: [
-      'I’m Artur Vechir, sometimes also known as Wechirok / Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
-      'I build and maintain personal projects and my home server infrastructure. I bring services, bots and game servers together in a carefully planned setup, paying attention to their configuration, stability and backups. I work on mods and modpacks for games like Minecraft and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
-      'When working with code and logic, I use LLMs to learn and help with development, and refer to documentation and wikis. The community often helps too, sharing experience, suggesting solutions and helping bring ideas to life through everyday conversations. I go through the code and check it to understand what has been done and how it works. I do not use AI for localization, writing documentation or creating assets.',
-    ],
+  projects: {
+    title: 'Projects',
+    lead: 'Things I build and look after.',
+    description: 'Minecraft mods, modpacks and community tools by Wechirok.',
+    paragraphs: ['Personal projects, modding, and a few tools.'],
   },
   work: {
     title: 'What I do',
@@ -37,11 +34,14 @@ export const sections = {
       'A few areas I keep coming back to through my own projects and hobbies.',
     ],
   },
-  projects: {
-    title: 'Projects',
-    lead: 'Things I build and look after.',
-    description: 'Minecraft mods, modpacks and community tools by Wechirok.',
-    paragraphs: ['Personal projects, modding, and a few tools.'],
+  about: {
+    title: 'About',
+    description: 'A little about Wechirok and the things I spend my time on.',
+    paragraphs: [
+      'I’m Artur Vechir, sometimes also known as Wechirok / Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
+      'I build and maintain personal projects and my home server infrastructure. I bring services, bots and game servers together in a carefully planned setup, paying attention to their configuration, stability and backups. I work on mods and modpacks for games like Minecraft and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
+      'When working with code and logic, I use LLMs to learn and help with development, and refer to documentation and wikis. The community often helps too, sharing experience, suggesting solutions and helping bring ideas to life through everyday conversations. I go through the code and check it to understand what has been done and how it works. I do not use AI for localization, writing documentation or creating assets.',
+    ],
   },
 } as const;
 
@@ -153,7 +153,7 @@ export const workAreas = [
     title: 'Localization',
     icon: 'languages',
     description:
-      'Contributing to software translations and helping projects reach more people.',
+      'Contributing to software translations into Ukrainian so projects are accessible to more people.',
   },
   {
     title: 'Design & media',

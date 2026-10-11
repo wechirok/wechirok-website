@@ -91,7 +91,7 @@ const workCopy = {
   languages: {
     title: 'Lokalisierung',
     description:
-      'Ich helfe bei Softwareübersetzungen, damit mehr Menschen die Projekte nutzen können.',
+      'Ich helfe bei Softwareübersetzungen ins Ukrainische, damit mehr Menschen die Projekte nutzen können.',
   },
   palette: {
     title: 'Design & Medien',
