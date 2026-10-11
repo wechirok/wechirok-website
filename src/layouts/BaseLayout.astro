@@ -2,6 +2,7 @@
 import { site } from '../data/en';
 import Preferences from '../components/Preferences.astro';
 import { withBase } from '../lib/paths';
+import interFontUrl from '../assets/fonts/inter-variable.woff2?url';
 import '../styles/global.css';
 
 interface Props {
@@ -31,6 +32,13 @@ const canonical = Astro.site
     <meta name="description" content={description} />
     <meta name="theme-color" content="#50505c" />
     <meta name="color-scheme" content="dark" />
+    <link
+      rel="preload"
+      href={interFontUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <script is:inline>
       try {
         const theme =
