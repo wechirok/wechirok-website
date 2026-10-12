@@ -18,12 +18,12 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "astro": "7.3.6"
+    "astro": "7.3.8"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "prettier": "3.9.9",
-    "prettier-plugin-astro": "1.1.0",
+    "prettier-plugin-astro": "1.1.1",
     "typescript": "6.0.3"
   }
 }
