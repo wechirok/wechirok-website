@@ -44,6 +44,11 @@ export const projectLinks: Record<
   ],
   'Better Selective Combat': [
     {
+      platform: 'Modrinth',
+      url: 'https://modrinth.com/mod/better-selective-combat',
+      downloads: { provider: 'modrinth', id: 'ARaBurjl' },
+    },
+    {
       platform: 'CurseForge',
       url: 'https://www.curseforge.com/minecraft/mc-mods/better-selective-combat',
       downloads: { provider: 'curseforge', id: '1664386' },
