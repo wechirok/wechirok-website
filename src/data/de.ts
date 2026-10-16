@@ -115,6 +115,8 @@ export const projectActions = {
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Zuletzt verfügbare Anzahl',
+  loading: 'Downloadzahl wird geladen',
+  unavailable: 'Nicht verfügbar',
 };
 
 const projectCopy = {

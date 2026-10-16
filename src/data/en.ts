@@ -171,6 +171,8 @@ export const projectActions = {
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Last available count',
+  loading: 'Loading download count',
+  unavailable: 'Unavailable',
 };
 
 export const projects = [

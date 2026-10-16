@@ -629,6 +629,96 @@ main:focus {
   font-variant-numeric: tabular-nums;
 }
 
+.download-number {
+  display: inline-grid;
+  width: 6ch;
+  height: 1.25em;
+  line-height: 1.25;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  vertical-align: bottom;
+  transition: opacity 500ms ease;
+}
+
+.download-number[data-state='loading'] {
+  opacity: 0.68;
+}
+
+.download-number-exact {
+  width: auto;
+  min-width: 8ch;
+  text-align: left;
+}
+
+.download-number-exact .download-roll-layer {
+  justify-content: flex-start;
+}
+
+.download-tooltip-detail {
+  white-space: nowrap;
+}
+
+.project-action > .tooltip-label {
+  left: var(--download-tooltip-offset, 0px);
+}
+
+.download-tooltip-status {
+  display: block;
+  white-space: normal;
+  font-size: 14px;
+}
+
+.download-roll-layer {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: center;
+}
+
+.download-roll-layer[data-incoming] {
+  animation: download-arrive 260ms ease both;
+}
+
+.download-roll-layer[data-outgoing] {
+  animation: download-depart 260ms ease both;
+}
+
+.download-digit {
+  width: 1ch;
+  height: 1.25em;
+  overflow: hidden;
+  mask-image: linear-gradient(transparent, black 12% 88%, transparent);
+}
+
+.download-digit-track,
+.download-digit-track > span {
+  display: block;
+}
+
+.download-digit-track > span {
+  height: 1.25em;
+}
+
+@keyframes download-arrive {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes download-depart {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
 .download-symbol {
   --icon-size: 17px;
   color: var(--accent);

@@ -115,6 +115,8 @@ export const projectActions = {
   repository: 'Репозиторій',
   downloads: 'Завантаження',
   lastAvailable: 'Остання доступна кількість',
+  loading: 'Отримання кількості завантажень',
+  unavailable: 'Недоступно',
 };
 
 const projectCopy = {
