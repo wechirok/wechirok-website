@@ -177,22 +177,6 @@ export const projectActions = {
 
 export const projects = [
   {
-    name: 'Renice Cubed',
-    startYear: '2024',
-    category: 'Modpack',
-    description:
-      'A Fabric modpack focused on gameplay tweaks for a smoother, more enjoyable Minecraft experience.',
-    url: 'https://github.com/ReniceMC/renice-cubed',
-  },
-  {
-    name: 'Renice Squared',
-    startYear: '2026',
-    category: 'Modpack',
-    description:
-      'A variation of Renice Cubed that removes features which give players an advantage.',
-    url: 'https://github.com/ReniceMC/renice-squared',
-  },
-  {
     name: 'Renice Shot',
     startYear: '2026',
     category: 'Mod',
@@ -207,6 +191,22 @@ export const projects = [
     description:
       'A Minecraft mod that lets you choose which weapons should ignore Better Combat.',
     url: 'https://github.com/wechirok/better-selective-combat',
+  },
+  {
+    name: 'Renice Cubed',
+    startYear: '2024',
+    category: 'Modpack',
+    description:
+      'A Fabric modpack focused on gameplay tweaks for a smoother, more enjoyable Minecraft experience.',
+    url: 'https://github.com/ReniceMC/renice-cubed',
+  },
+  {
+    name: 'Renice Squared',
+    startYear: '2026',
+    category: 'Modpack',
+    description:
+      'A variation of Renice Cubed that removes features which give players an advantage.',
+    url: 'https://github.com/ReniceMC/renice-squared',
   },
   {
     name: 'Shelley',
