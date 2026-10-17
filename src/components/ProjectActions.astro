@@ -53,19 +53,43 @@ const icons = {
           class="project-downloads"
           data-download-provider={link.downloads.provider}
           data-download-id={link.downloads.id}
-          hidden
+          aria-busy="true"
         >
           <span class="download-symbol">
             <Icon name="arrow-right" />
           </span>
-          <span data-download-count aria-hidden="true" />
-          <span class="visually-hidden" data-download-label />
+          <span class="download-number" data-download-count aria-hidden="true">
+            ······
+          </span>
+          <span
+            class="visually-hidden"
+            data-download-label
+            data-i18n="projectActions.loading"
+          >
+            {projectActions.loading}
+          </span>
         </span>
       )}
       {(link.platform === 'Modrinth' || link.platform === 'CurseForge') && (
         <Tooltip>
           {link.platform}
-          <span class="download-tooltip-detail" data-download-tooltip hidden />
+          <span class="download-tooltip-detail">
+            <span data-i18n="projectActions.downloads">
+              {projectActions.downloads}
+            </span>
+            :{' '}
+            <span
+              class="download-number download-number-exact"
+              data-download-tooltip-count
+            >
+              ······
+            </span>
+            <span
+              class="download-tooltip-status"
+              data-download-tooltip-status
+              hidden
+            />
+          </span>
         </Tooltip>
       )}
     </a>
