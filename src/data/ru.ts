@@ -140,6 +140,11 @@ const projectCopy = {
     description:
       'Мод для Minecraft, который позволяет выбрать оружие, на которое не должен влиять Better Combat.',
   },
+  Nekogenix: {
+    category: 'Мод',
+    description:
+      'Мод для Minecraft, который позволяет превратиться в кота и взглянуть на жизнь глазами неко.',
+  },
   Shelley: {
     category: 'Инструмент для сообщества',
     description: 'Discord-бот, созданный для нужд частного сообщества.',

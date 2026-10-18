@@ -193,6 +193,14 @@ export const projects = [
     url: 'https://github.com/wechirok/better-selective-combat',
   },
   {
+    name: 'Nekogenix',
+    startYear: '2026',
+    category: 'Mod',
+    description:
+      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective.',
+    url: 'https://github.com/nekogenix/nekogenix-mod',
+  },
+  {
     name: 'Renice Cubed',
     startYear: '2024',
     category: 'Modpack',

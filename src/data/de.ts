@@ -140,6 +140,11 @@ const projectCopy = {
     description:
       'Ein Minecraft-Mod, mit dem du festlegst, welche Waffen von Better Combat ausgenommen sein sollen.',
   },
+  Nekogenix: {
+    category: 'Mod',
+    description:
+      'Ein Minecraft-Mod, mit dem du dich in eine Katze verwandelst und das Leben aus der Perspektive eines Neko erlebst.',
+  },
   Shelley: {
     category: 'Community-Tool',
     description:
