@@ -54,6 +54,7 @@ export const projectLinks: Record<
       downloads: { provider: 'curseforge', id: '1664386' },
     },
   ],
+  Nekogenix: [],
   Shelley: [],
   'SMP & Creative': [],
 };
