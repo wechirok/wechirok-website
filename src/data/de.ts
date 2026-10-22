@@ -112,6 +112,7 @@ export const projectActivity = {
 };
 
 export const projectActions = {
+  website: 'Website',
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Zuletzt verfügbare Anzahl',

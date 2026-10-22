@@ -112,6 +112,7 @@ export const projectActivity = {
 };
 
 export const projectActions = {
+  website: 'Вебсайт',
   repository: 'Репозиторій',
   downloads: 'Завантаження',
   lastAvailable: 'Остання доступна кількість',
