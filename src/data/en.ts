@@ -197,7 +197,7 @@ export const projects = [
     startYear: '2026',
     category: 'Mod',
     description:
-      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective.',
+      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective. I also write documentation and built the mod’s website.',
     url: 'https://github.com/nekogenix/nekogenix-mod',
   },
   {

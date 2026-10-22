@@ -143,7 +143,7 @@ const projectCopy = {
   Nekogenix: {
     category: 'Mod',
     description:
-      'Ein Minecraft-Mod, mit dem du dich in eine Katze verwandelst und das Leben aus der Perspektive eines Neko erlebst.',
+      'Ein Minecraft-Mod, mit dem du dich in eine Katze verwandelst und das Leben aus der Perspektive eines Neko erlebst. Ich schreibe außerdem die Dokumentation und habe die Website für den Mod entwickelt.',
   },
   Shelley: {
     category: 'Community-Tool',
