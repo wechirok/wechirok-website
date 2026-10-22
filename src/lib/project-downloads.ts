@@ -2,7 +2,13 @@ export type DownloadProvider = 'modrinth' | 'curseforge';
 export const DOWNLOAD_REFRESH_INTERVAL = 5 * 60_000;
 
 export interface ProjectLink {
-  platform: 'repository' | 'Modrinth' | 'CurseForge' | 'Crowdin' | 'Weblate';
+  platform:
+    | 'website'
+    | 'repository'
+    | 'Modrinth'
+    | 'CurseForge'
+    | 'Crowdin'
+    | 'Weblate';
   url: string;
   downloads?: { provider: DownloadProvider; id: string };
 }

@@ -168,6 +168,7 @@ export const projectActivity = {
 };
 
 export const projectActions = {
+  website: 'Website',
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Last available count',
@@ -198,6 +199,7 @@ export const projects = [
     category: 'Mod',
     description:
       'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective. I also write documentation and built the mod’s website.',
+    website: 'https://nekogenix.github.io/',
     url: 'https://github.com/nekogenix/nekogenix-mod',
   },
   {

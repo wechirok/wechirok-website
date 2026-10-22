@@ -74,6 +74,9 @@ const section = sections[name];
           </p>
           <ProjectActions
             links={[
+              ...('website' in project
+                ? [{ platform: 'website' as const, url: project.website }]
+                : []),
               { platform: 'repository', url: project.url },
               ...(projectLinks[project.name] ?? []),
             ]}
