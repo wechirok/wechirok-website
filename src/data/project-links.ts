@@ -54,7 +54,13 @@ export const projectLinks: Record<
       downloads: { provider: 'curseforge', id: '1664386' },
     },
   ],
-  Nekogenix: [],
+  Nekogenix: [
+    {
+      platform: 'CurseForge',
+      url: 'https://www.curseforge.com/minecraft/mc-mods/nekogenix',
+      downloads: { provider: 'curseforge', id: '1762461' },
+    },
+  ],
   Shelley: [],
   'SMP & Creative': [],
 };
