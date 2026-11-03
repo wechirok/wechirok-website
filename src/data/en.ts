@@ -178,6 +178,15 @@ export const projectActions = {
 
 export const projects = [
   {
+    name: 'Nekogenix',
+    startYear: '2026',
+    category: 'Mod',
+    description:
+      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective. I also write documentation and built the mod’s website.',
+    website: 'https://nekogenix.github.io/',
+    url: 'https://github.com/nekogenix/nekogenix-mod',
+  },
+  {
     name: 'Renice Shot',
     startYear: '2026',
     category: 'Mod',
@@ -192,15 +201,6 @@ export const projects = [
     description:
       'A Minecraft mod that lets you choose which weapons should ignore Better Combat.',
     url: 'https://github.com/wechirok/better-selective-combat',
-  },
-  {
-    name: 'Nekogenix',
-    startYear: '2026',
-    category: 'Mod',
-    description:
-      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective. I also write documentation and built the mod’s website.',
-    website: 'https://nekogenix.github.io/',
-    url: 'https://github.com/nekogenix/nekogenix-mod',
   },
   {
     name: 'Renice Cubed',
