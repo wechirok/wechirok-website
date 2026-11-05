@@ -4,30 +4,35 @@ import Icon from './Icon.astro';
 ---
 
 <div class="home-profiles" id="profiles">
-  <ul
-    class="profile-list"
-    style={`--profile-rows: ${Math.ceil(profiles.length / 2)}`}
-  >
+  <ul class="profile-list">
     {profiles.map((profile, index) => (
       <li>
         <a
           class="profile-link"
+          data-profile-link
+          aria-label={profile.name}
+          aria-describedby={`profile-${profile.icon}-description`}
           href={profile.url}
           target="_blank"
           rel="me noopener"
         >
-          <span class="profile-name with-icon">
-            <Icon name={profile.icon} brand />
-            <span>{profile.name}</span>
-          </span>
-          <span
-            class="profile-description"
-            data-i18n={`profiles.${index}.description`}
-          >
-            {profile.description}
+          <Icon name={profile.icon} brand />
+          <span class="profile-preview" role="tooltip">
+            <span class="profile-preview-title">{profile.name}</span>
+            <span
+              class="profile-preview-description"
+              id={`profile-${profile.icon}-description`}
+              data-i18n={`profiles.${index}.description`}
+            >
+              {profile.description}
+            </span>
           </span>
         </a>
       </li>
     ))}
   </ul>
 </div>
+
+<script>
+  import '../scripts/profile-cards';
+</script>

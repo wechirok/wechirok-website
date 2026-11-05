@@ -4,6 +4,7 @@ export const DOWNLOAD_REFRESH_INTERVAL = 5 * 60_000;
 export interface ProjectLink {
   platform:
     | 'website'
+    | 'wiki'
     | 'repository'
     | 'Modrinth'
     | 'CurseForge'

@@ -7,11 +7,13 @@ import Modrinth from '../assets/icons/brands/modrinth.svg';
 import CurseForge from '../assets/icons/brands/curseforge.svg';
 import Java from '../assets/icons/brands/java.svg';
 import Python from '../assets/icons/brands/python.svg';
+import CSharp from '../assets/icons/brands/csharp.svg';
 import JavaScript from '../assets/icons/brands/javascript.svg';
 import Html5 from '../assets/icons/brands/html5.svg';
 import Css3 from '../assets/icons/brands/css3.svg';
 import PostgreSql from '../assets/icons/brands/postgresql.svg';
 import MySql from '../assets/icons/brands/mysql.svg';
+import Sqlite from '../assets/icons/brands/sqlite.svg';
 import Blender from '../assets/icons/brands/blender.svg';
 import Blockbench from '../assets/icons/brands/blockbench.svg';
 import Aseprite from '../assets/icons/brands/aseprite.svg';
@@ -27,6 +29,7 @@ import UserRound from '../assets/icons/interface/user-round.svg';
 import BriefcaseBusiness from '../assets/icons/interface/briefcase-business.svg';
 import FolderCode from '../assets/icons/interface/folder-code.svg';
 import Link from '../assets/icons/interface/link.svg';
+import BookOpen from '../assets/icons/interface/book-open.svg';
 import Trash from '../assets/icons/interface/trash-2.svg';
 import Server from '../assets/icons/interface/server.svg';
 import Code from '../assets/icons/interface/code-xml.svg';
@@ -52,11 +55,13 @@ export const icons = {
   curseforge: CurseForge,
   java: Java,
   python: Python,
+  csharp: CSharp,
   javascript: JavaScript,
   html5: Html5,
   css3: Css3,
   postgresql: PostgreSql,
   mysql: MySql,
+  sqlite: Sqlite,
   blender: Blender,
   blockbench: Blockbench,
   aseprite: Aseprite,
@@ -72,6 +77,7 @@ export const icons = {
   'briefcase-business': BriefcaseBusiness,
   'folder-code': FolderCode,
   link: Link,
+  'book-open': BookOpen,
   'trash-2': Trash,
   server: Server,
   'code-xml': Code,

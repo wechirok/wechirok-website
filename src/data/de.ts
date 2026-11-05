@@ -9,8 +9,8 @@ export const site = {
 };
 
 export const introduction = {
-  greeting: 'Wie geht’s denn so?',
-  heading: 'Ich bin Artur Vechir.',
+  greeting: 'Hallo!',
+  heading: 'Ich bin Artur Vechir',
   description: 'Ich entwickle Projekte und betreue Systeme.',
 };
 
@@ -25,14 +25,12 @@ export const sections = {
     description:
       'Ein bisschen über Wechirok und das, womit ich mich beschäftige.',
     paragraphs: [
-      'Ich bin Artur Vechir, manchmal auch als Wechirok / Katzeyoru bekannt. Ich beschäftige mich mit Systemadministration, Software und Infrastruktur. Ich finde gerne heraus, wie Dinge funktionieren, probiere Neues aus und setze es in meinen eigenen Projekten ein.',
-      'Ich entwickle und pflege eigene Projekte und meine Serverinfrastruktur zu Hause. Dienste, Bots und Spielserver verbinde ich zu einem durchdachten System und achte dabei auf ihre Konfiguration, Stabilität und Backups. Ich arbeite an Mods und Modpacks für Spiele wie Minecraft und wirke an verschiedenen ukrainischen Lokalisierungen mit. Ab und zu bearbeite ich auch Fotos, Videos und Audiodateien.',
-      'Bei der Arbeit mit Code und Logik nutze ich LLMs zum Lernen und als Unterstützung bei der Entwicklung und ziehe Dokumentation und Wikis heran. Oft hilft auch die Community: Sie teilt Erfahrungen, schlägt Lösungen vor und hilft mir, Ideen durch den gemeinsamen Austausch umzusetzen. Ich gehe den Code durch und prüfe ihn, um zu verstehen, was gemacht wurde und wie es funktioniert. Für Lokalisierungen, das Schreiben von Dokumentation und das Erstellen von Assets ist der Einsatz von KI ausgeschlossen.',
+      'Ich bin Artur Vechir, manchmal auch als Wechirok / Katzeyoru bekannt. Meine Interessen drehen sich um Systemadministration, Software und Infrastruktur, vor allem aus Neugier darauf, wie Dinge funktionieren, dem Wunsch, etwas Neues auszuprobieren, und der Suche nach Möglichkeiten, das Gelernte in eigenen Projekten anzuwenden.',
+      'Ein großer Teil meiner Erfahrung stammt aus eigenen Projekten und dem Betrieb meines Homelabs. Dazu gehören selbst gehostete Dienste, Bots und Spielserver, wobei ich darauf achte, wie alles eingerichtet, konfiguriert, gewartet und gesichert wird. Neben Infrastruktur beschäftige ich mich auch mit Minecraft-Modding und Modpacks, wirke an ukrainischen Lokalisierungsprojekten mit und bearbeite gelegentlich Fotos, Videos und Audio.',
     ],
   },
   work: {
     title: 'Was ich mache',
-    lead: 'Womit ich meine Zeit verbringe.',
     description:
       'Systemadministration, Software, Lokalisierung, Design, Video und Audio.',
     paragraphs: [
@@ -41,7 +39,6 @@ export const sections = {
   },
   projects: {
     title: 'Projekte',
-    lead: 'Was ich entwickle und pflege.',
     description: 'Minecraft-Mods, Modpacks und Community-Tools von Wechirok.',
     paragraphs: ['Eigene Projekte, Modding und ein paar Tools.'],
   },
@@ -63,9 +60,9 @@ const translationCopy = {
   { category: string; description: string }
 >;
 export const translationContributions = {
-  title: 'Meine Übersetzungsbeiträge.',
+  title: 'Meine Übersetzungsbeiträge',
   description:
-    'Bei einigen Projekten helfe ich mit ukrainischen Lokalisierungen und Übersetzungen.',
+    'Bei einigen Projekten helfe ich mit der ukrainischen Lokalisierung.',
   projects: en.translationContributions.projects.map((project) => ({
     ...project,
     ...translationCopy[project.name],
@@ -75,6 +72,15 @@ export const translationContributions = {
 export const toolkit = {
   ...en.toolkit,
   title: 'Werkzeuge',
+  description: 'Was ich früher verwendet habe / heute verwende.',
+  items: en.toolkit.items.map((item) =>
+    item.technologies[0].icon === 'csharp'
+      ? {
+          ...item,
+          details: 'Plugins für SCP SL: EXILED, LabAPI, Harmony',
+        }
+      : item,
+  ),
 };
 
 const workCopy = {
@@ -84,7 +90,7 @@ const workCopy = {
       'Linux-Administration, Serverinfrastruktur, Automatisierung und Datenbanken.',
   },
   'code-xml': {
-    title: 'Software & Minecraft',
+    title: 'Software & Modding',
     description:
       'Kleine Tools, Discord-Integrationen, Minecraft-Mods, Modpacks und Serverinhalte.',
   },
@@ -111,8 +117,13 @@ export const projectActivity = {
   present: 'heute',
 };
 
+export const projectAttribution = {
+  forkOf: 'Ein Fork von',
+};
+
 export const projectActions = {
   website: 'Website',
+  wiki: 'Wiki',
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Zuletzt verfügbare Anzahl',
@@ -124,40 +135,42 @@ const projectCopy = {
   'Renice Cubed': {
     category: 'Modpack',
     description:
-      'Ein Fabric-Modpack mit Gameplay-Anpassungen für ein flüssigeres und angenehmeres Minecraft-Erlebnis.',
+      'Ein Fabric-Modpack, das Performance- und Grafikverbesserungen mit Bauhilfen und mehr Komfort beim Spielen verbindet. Als Maintainer wähle ich die Mods aus, konfiguriere sie, passe Tastenbelegungen an, behebe Kompatibilitätsprobleme und bereite Releases für die neuesten Spielversionen vor. Auch das Wiki des Projekts betreue ich.',
   },
   'Renice Squared': {
     category: 'Modpack',
     description:
-      'Eine Variante von Renice Cubed ohne Funktionen, die Spielern einen Vorteil verschaffen.',
+      'Mein offizieller Fork von Renice Cubed verzichtet auf Funktionen, die Spielern einen spielerischen Vorteil verschaffen, und behält Performance- und Grafikverbesserungen bei. Dafür passe ich die Modauswahl und Standardeinstellungen an, aktualisiere Abhängigkeiten und bereite parallel zu Cubed Releases für die unterstützten Minecraft-Versionen vor.',
   },
   'Renice Shot': {
     category: 'Mod',
     description:
-      'Ein clientseitiger Fabric-Mod für hochauflösende Minecraft-Screenshots.',
+      'Hochauflösende Minecraft-Screenshots mit einstellbarer Ausgabegröße, verschiedenen Formaten und optional ausgeblendetem HUD. Ich passe den Fabric-Mod an neue Spielversionen an, behebe Probleme des Originals und ergänze',
+    featureLabel: 'nützliche neue Funktionen',
   },
   'Better Selective Combat': {
     category: 'Mod',
     description:
-      'Ein Minecraft-Mod, mit dem du festlegst, welche Waffen von Better Combat ausgenommen sein sollen.',
+      'Better Combat für jede Waffe einzeln steuern, mit persönlichen Schaltern und Serverbefehlen. Ich habe die Auswahl- und Einstellungsfunktionen für Spieler und Administratoren umgesetzt und anschließend die Unterstützung auf weitere Minecraft-Versionen sowie Fabric, Forge und NeoForge ausgeweitet.',
   },
   Nekogenix: {
     category: 'Mod',
     description:
-      'Ein Minecraft-Mod, mit dem du dich in eine Katze verwandelst und das Leben aus der Perspektive eines Neko erlebst. Ich schreibe außerdem die Dokumentation und habe die Website für den Mod entwickelt.',
+      'Ein NeoForge-Mod, der dir die Fähigkeiten und biologischen Eigenschaften einer Katze verleiht. Dadurch verändert sich dein Minecraft-Erlebnis und du entdeckst das Spiel aus einer völlig anderen Perspektive. Mit Laborausrüstung stellst du die Injektion her, die deine Verwandlung auslöst. Ich betreue das Projekt gemeinsam mit meinem besten Freund, der ebenfalls Entwickler ist. Außerdem entwickle ich die Website des Mods und schreibe das Wiki dazu.',
   },
   Shelley: {
-    category: 'Community-Tool',
+    category: 'Discord-Bot',
     description:
-      'Ein Discord-Bot für die Bedürfnisse einer privaten Community.',
+      'Buchstäblich die Seele des Discord-Servers einer der privaten Communitys, die ich betreue. Shelley vergibt Punkte für Aktivität in Text- und Sprachkanälen; bei uns hat die Erfassung der Sprachaktivität effizienter und zuverlässiger funktioniert als bei größeren Bots. Dazu kommen Ranglisten und eine eigene Verbindung zwischen Minecraft-Chat und Discord. Vieles andere läuft ebenfalls automatisch, aber die vollständige Liste wäre für diese Seite viel zu lang.',
   },
   'SMP & Creative': {
-    category: 'Serverinhalte',
-    description: 'Minecraft-Serverinhalte für eine private Community.',
+    category: 'PaperMC-Plugins, Ressourcen',
+    description:
+      'Eigene Plugins und ein Ressourcenpaket für ein privates Minecraft-Servernetzwerk. Das gesamte Netzwerk betreibe ich selbst auf Hardware bei mir zu Hause und kümmere mich um Einrichtung, Wartung und Backups. Ich habe den Chat zwischen den Servern eingerichtet und über Shelley mit Discord verbunden, damit man sich im Spiel und auf Discord miteinander unterhalten kann. Für Spielereinstellungen und kosmetische Daten habe ich eine gemeinsame PostgreSQL-Datenhaltung entworfen, in der Transaktionen zusammengehörige Änderungen konsistent halten. Die Plugins werden außerdem an Serverupdates angepasst.',
   },
 } satisfies Record<
   (typeof en.projects)[number]['name'],
-  { category: string; description: string }
+  { category: string; description: string; featureLabel?: string }
 >;
 export const projects = en.projects.map((project) => ({
   ...project,
@@ -180,7 +193,7 @@ export const profiles = en.profiles.map((profile) => ({
 
 export const notFound = {
   title: 'Seite nicht gefunden',
-  heading: 'Hier gibt’s nichts, Fremder.',
+  heading: 'Hier gibt’s nichts, Fremder',
   description:
     'Vielleicht ist die Seite umgezogen oder die Adresse stimmt nicht ganz.',
   link: 'Zurück zu meiner Ecke im Netz',
