@@ -157,11 +157,19 @@ function browser(t) {
     identifier,
   });
   const start = (x = 200, y = 300) =>
-    root.emit('touchstart', { touches: [point(x, y)] });
+    viewport.emit('touchstart', { target: root, touches: [point(x, y)] });
   const move = (x, y, properties = {}) =>
-    root.emit('touchmove', { touches: [point(x, y)], ...properties });
+    viewport.emit('touchmove', {
+      target: root,
+      touches: [point(x, y)],
+      ...properties,
+    });
   const end = (x, y) =>
-    root.emit('touchend', { touches: [], changedTouches: [point(x, y)] });
+    viewport.emit('touchend', {
+      target: root,
+      touches: [],
+      changedTouches: [point(x, y)],
+    });
   return {
     root,
     viewport,
@@ -193,6 +201,43 @@ test('short horizontal swipes navigate from the middle of a long page', (t) => {
   assert.equal(b.move(190, 301).defaultPrevented, true);
   b.end(160, 310);
   assert.deepEqual(b.moves, [{ direction: 1, axis: 'horizontal' }]);
+});
+
+test('a swipe starting in the blank viewport below the home content navigates', (t) => {
+  const b = browser(t);
+  b.page.scrollHeight = 800;
+  const target = document.body;
+  b.viewport.emit('touchstart', { target, touches: [b.point(200, 700)] });
+  assert.equal(
+    b.viewport.emit('touchmove', { target, touches: [b.point(200, 680)] })
+      .defaultPrevented,
+    true,
+  );
+  b.viewport.emit('touchend', {
+    target,
+    touches: [],
+    changedTouches: [b.point(200, 620)],
+  });
+  assert.deepEqual(b.moves, [{ direction: 1, axis: 'vertical' }]);
+});
+
+test('a noncancelable gesture on a short home page can still navigate on release', (t) => {
+  const b = browser(t);
+  b.page.scrollHeight = 800;
+  b.start();
+  assert.equal(b.move(200, 280, { cancelable: false }).defaultPrevented, false);
+  b.end(200, 230);
+  assert.deepEqual(b.moves, [{ direction: 1, axis: 'vertical' }]);
+});
+
+test('initial finger jitter does not cancel the intended boundary swipe', (t) => {
+  const b = browser(t);
+  b.page.scrollHeight = 800;
+  b.start();
+  b.move(201, 302);
+  b.move(200, 280);
+  b.end(200, 240);
+  assert.deepEqual(b.moves, [{ direction: 1, axis: 'vertical' }]);
 });
 
 test('vertical swipes inside content remain native even when they reach the bottom', (t) => {
@@ -234,7 +279,7 @@ test('taps, short gestures, diagonals and canceled touches do not navigate', (t)
   b.end(100, 200);
   b.start();
   b.move(190, 300);
-  b.root.emit('touchcancel', {});
+  b.viewport.emit('touchcancel', {});
   b.end(80, 300);
   assert.deepEqual(b.moves, []);
 });

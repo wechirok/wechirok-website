@@ -58,6 +58,16 @@
   }
 }
 
+/* Small controls keep their translucent tint without another live blur layer.
+   Header and popovers still blur the actual background on touch devices. */
+@media (max-width: 760px), (pointer: coarse) {
+  .preference-button > .glass-surface,
+  .project-action > .glass-surface {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
 @media (prefers-reduced-transparency: reduce) {
   .glass-surface {
     background: var(--glass-tint);

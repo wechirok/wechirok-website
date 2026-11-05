@@ -22,6 +22,7 @@ if (root && stage && homeButton) {
     document.querySelectorAll<HTMLAnchorElement>('[data-section]'),
   );
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = window.matchMedia('(max-width: 760px), (pointer: coarse)');
   let entryTimer: number | undefined;
   let entryLink: HTMLAnchorElement | undefined;
   const clearEntry = () => {
@@ -96,11 +97,19 @@ if (root && stage && homeButton) {
     if (animated) {
       previous.inert = true;
       const exitFrames = [
-        { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
-        { opacity: 0, transform: 'translateY(-4px)', filter: 'blur(3px)' },
+        {
+          opacity: 1,
+          transform: 'translateY(0)',
+          ...(!compact.matches && { filter: 'blur(0px)' }),
+        },
+        {
+          opacity: 0,
+          transform: 'translateY(-4px)',
+          ...(!compact.matches && { filter: 'blur(3px)' }),
+        },
       ];
       const exitOptions = {
-        duration: 150,
+        duration: compact.matches ? 100 : 150,
         easing: 'ease-in',
         fill: 'forwards',
       } as const;
@@ -131,11 +140,19 @@ if (root && stage && homeButton) {
     const incoming: Animation[] = [];
     if (animated) {
       const entryFrames = [
-        { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
-        { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+        {
+          opacity: 0,
+          transform: `translateY(${compact.matches ? 6 : 12}px)`,
+          ...(!compact.matches && { filter: 'blur(4px)' }),
+        },
+        {
+          opacity: 1,
+          transform: 'translateY(0)',
+          ...(!compact.matches && { filter: 'blur(0px)' }),
+        },
       ];
       const entryOptions = {
-        duration: 340,
+        duration: compact.matches ? 240 : 340,
         easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
         fill: 'both',
       } as const;

@@ -8,26 +8,23 @@ const stars = createStars().map((star, index) => ({
 ---
 
 <div class="site-starfield" aria-hidden="true">
-  {[0, 1, 2].map((layer) => (
-    <div class="starfield-drift" style={`--layer:${layer}`}>
-      <div class="starfield-float">
-        <svg xmlns="http://www.w3.org/2000/svg">
-          {stars
-            .filter((star) => star.index % 3 === layer)
-            .map((star) => (
-              <circle
-                cx={`${star.projected.x}%`}
-                cy={`${star.projected.y}%`}
-                r={star.radius * Math.min(star.projected.scale, 1.6)}
-                opacity={star.projected.opacity}
-                data-star-tone={star.tone}
-                data-star-index={star.index}
-              />
-            ))}
-        </svg>
-      </div>
+  <div class="starfield-drift">
+    <div class="starfield-float">
+      <svg xmlns="http://www.w3.org/2000/svg">
+        {stars.map((star) => (
+          <circle
+            cx={`${star.projected.x}%`}
+            cy={`${star.projected.y}%`}
+            r={star.radius * Math.min(star.projected.scale, 1.6)}
+            opacity={star.projected.opacity}
+            data-star-tone={star.tone}
+            data-star-index={star.index}
+            data-star-extra={star.index >= 72 ? '' : undefined}
+          />
+        ))}
+      </svg>
     </div>
-  ))}
+  </div>
 </div>
 
 <script>

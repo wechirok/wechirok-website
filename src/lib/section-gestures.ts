@@ -76,13 +76,14 @@ export function attachSectionGestures(
   navigation: GestureNavigation,
 ) {
   const wheel = new WheelGesture();
+  const touchSurface = root.ownerDocument?.defaultView ?? window;
   const boundary = (direction: GestureDirection) => {
     const page = document.scrollingElement;
     if (!page) return false;
     const limit = Math.max(0, page.scrollHeight - window.innerHeight);
     return direction < 0 ? page.scrollTop <= 3 : page.scrollTop >= limit - 3;
   };
-  const ignored = (target: EventTarget | null) => {
+  const ignored = (target: EventTarget | null, measureScroll = true) => {
     if (
       document.querySelector(
         '[data-language-toggle][aria-expanded="true"], [data-navigation-toggle][aria-expanded="true"]',
@@ -97,6 +98,7 @@ export function attachSectionGestures(
       )
     )
       return true;
+    if (!measureScroll) return false;
     for (
       let element: Element | null = target;
       element && element !== document.body;
@@ -173,9 +175,11 @@ export function attachSectionGestures(
     previous: boolean;
     next: boolean;
     claimed: boolean;
+    stationary: boolean;
+    scrollTop: number;
   } | null = null;
 
-  root.addEventListener(
+  touchSurface.addEventListener(
     'touchstart',
     (event) => {
       touch = null;
@@ -197,11 +201,15 @@ export function attachSectionGestures(
         previous: boundary(-1),
         next: boundary(1),
         claimed: false,
+        stationary:
+          (document.scrollingElement?.scrollHeight ?? 0) <=
+          window.innerHeight + 3,
+        scrollTop: document.scrollingElement?.scrollTop ?? 0,
       };
     },
     { passive: true },
   );
-  root.addEventListener(
+  touchSurface.addEventListener(
     'touchmove',
     (event) => {
       if (!touch) return;
@@ -211,7 +219,7 @@ export function attachSectionGestures(
       if (
         event.touches.length !== 1 ||
         !point ||
-        ignored(event.target) ||
+        ignored(event.target, false) ||
         navigation.busy() ||
         navigation.section() !== touch.section ||
         performance.now() - touch.time > 800
@@ -222,7 +230,7 @@ export function attachSectionGestures(
       const intent = swipeIntent(
         point.clientX - touch.x,
         point.clientY - touch.y,
-        1,
+        6,
       );
       if (!intent) return;
       if (
@@ -234,7 +242,9 @@ export function attachSectionGestures(
         return;
       }
       if (!event.cancelable) {
-        touch = null;
+        // A short page has no native scroll to compete with. Some mobile
+        // browsers still mark its move events noncancelable.
+        if (!touch.stationary) touch = null;
         return;
       }
       event.preventDefault();
@@ -242,18 +252,24 @@ export function attachSectionGestures(
     },
     { passive: false },
   );
-  root.addEventListener(
+  touchSurface.addEventListener(
     'touchend',
     (event) => {
       const gesture = touch;
       touch = null;
       if (
         !gesture ||
-        !gesture.claimed ||
+        (!gesture.claimed && !gesture.stationary) ||
         event.touches.length ||
         navigation.busy() ||
         navigation.section() !== gesture.section ||
-        ignored(event.target) ||
+        ignored(event.target, false) ||
+        (gesture.stationary &&
+          (Math.abs(
+            (document.scrollingElement?.scrollTop ?? 0) - gesture.scrollTop,
+          ) > 3 ||
+            (document.scrollingElement?.scrollHeight ?? 0) >
+              window.innerHeight + 3)) ||
         performance.now() - gesture.time > 800
       )
         return;
@@ -278,7 +294,7 @@ export function attachSectionGestures(
     },
     { passive: false },
   );
-  root.addEventListener(
+  touchSurface.addEventListener(
     'touchcancel',
     () => {
       touch = null;
