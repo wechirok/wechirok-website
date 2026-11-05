@@ -2,6 +2,7 @@ import { finishLocaleTransitions } from '../lib/locale-transition';
 import { attachSectionGestures } from '../lib/section-gestures';
 
 interface TransitionOptions {
+  background?: boolean;
   focus?: boolean;
   animate?: boolean;
   scroll?: 'top' | 'bottom';
@@ -21,52 +22,20 @@ if (root && stage && homeButton) {
     document.querySelectorAll<HTMLAnchorElement>('[data-section]'),
   );
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const labelTimers = new Set<number>();
-  const clearLabels = () => {
-    for (const timer of labelTimers) window.clearTimeout(timer);
-    labelTimers.clear();
-    for (const link of links) {
-      link.removeAttribute('data-label-visible');
-      link.removeAttribute('data-entry-active');
-    }
-  };
-  const later = (callback: () => void, delay: number) => {
-    const timer = window.setTimeout(() => {
-      labelTimers.delete(timer);
-      callback();
-    }, delay);
-    labelTimers.add(timer);
+  let entryTimer: number | undefined;
+  let entryLink: HTMLAnchorElement | undefined;
+  const clearEntry = () => {
+    window.clearTimeout(entryTimer);
+    entryLink?.removeAttribute('data-entry-active');
+    entryTimer = undefined;
+    entryLink = undefined;
   };
   const highlightEntry = (link: HTMLAnchorElement, duration = 450) => {
-    clearLabels();
+    clearEntry();
+    entryLink = link;
     link.setAttribute('data-entry-active', '');
-    later(() => link.removeAttribute('data-entry-active'), duration);
+    entryTimer = window.setTimeout(clearEntry, duration);
   };
-  const introduceLabels = () => {
-    clearLabels();
-    if (document.activeElement?.closest('.section-navigation')) return;
-    if (links.some((link) => link.matches(':hover'))) return;
-    links.forEach((link, index) => {
-      later(
-        () => {
-          for (const item of links) item.removeAttribute('data-label-visible');
-          link.setAttribute('data-label-visible', '');
-        },
-        250 + index * 1450,
-      );
-    });
-    later(clearLabels, 250 + links.length * 1450);
-  };
-  for (const link of links) {
-    link.addEventListener('focus', clearLabels);
-    link.addEventListener('pointerenter', (event) => {
-      if (event.pointerType === 'mouse') clearLabels();
-    });
-  }
-  document.addEventListener('pointerdown', (event) => {
-    if (event.target instanceof Element && event.target.closest('[data-home]'))
-      clearLabels();
-  });
   let current = 'home';
   let requested = current;
   let revision = 0;
@@ -101,13 +70,22 @@ if (root && stage && homeButton) {
       focus = true,
       animate: useMotion = true,
       scroll = 'top',
+      background = false,
     }: TransitionOptions = {},
   ) => {
     const next = panels.get(name);
     if (!next || (name === current && name === requested)) return;
+    if (background) {
+      const order = Array.from(panels.keys());
+      document.dispatchEvent(
+        new CustomEvent('backgroundtravel', {
+          detail: Math.sign(order.indexOf(name) - order.indexOf(current)) * 240,
+        }),
+      );
+    }
     requested = name;
     const ticket = ++revision;
-    clearLabels();
+    clearEntry();
     finishLocaleTransitions();
     cancelAnimations();
     const previous = panels.get(current)!;
@@ -174,6 +152,9 @@ if (root && stage && homeButton) {
     }
     if (focus) {
       next.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
+      document.dispatchEvent(
+        new CustomEvent('backgroundscrollreset', { detail: scrollTop }),
+      );
       window.scrollTo({
         top: scrollTop,
         // Position the page before its entrance, so scrolling cannot reveal it in slices.
@@ -221,12 +202,12 @@ if (root && stage && homeButton) {
         event.button === 0
       ) {
         event.preventDefault();
-        navigate(link.dataset.section!);
+        navigate(link.dataset.section!, { background: true });
       }
     });
   root.addEventListener('click', (event) => {
     if (event.target instanceof Element && event.target.closest('[data-home]'))
-      navigate('home');
+      navigate('home', { background: true });
   });
 
   const fromAddress = () => {
@@ -239,7 +220,6 @@ if (root && stage && homeButton) {
   window.addEventListener('hashchange', () => void show(fromAddress()));
   document.addEventListener('localechange', () => {
     void show(requested, { focus: false, animate: false });
-    if (current === 'home' && requested === 'home') introduceLabels();
   });
   motion.addEventListener('change', () => {
     if (motion.matches) {
@@ -251,5 +231,4 @@ if (root && stage && homeButton) {
     }
   });
   void show(fromAddress(), { focus: false, animate: false });
-  if (current === 'home') introduceLabels();
 }

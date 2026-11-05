@@ -3,6 +3,7 @@ import { preferences } from '../data/en';
 import Icon from './Icon.astro';
 import SectionNavigation from './SectionNavigation.astro';
 import Tooltip from './Tooltip.astro';
+import GlassSurface from './GlassSurface.astro';
 
 interface Props {
   showNavigation?: boolean;
@@ -17,7 +18,8 @@ const languages = [
 ] as const;
 ---
 
-<header class="preferences-bar page-shell" hidden={!showNavigation}>
+<header class="preferences-bar page-shell glass-host" hidden={!showNavigation}>
+  <GlassSurface />
   {showNavigation && <SectionNavigation />}
   <div class="preferences-controls" data-preferences hidden>
     <div
@@ -27,31 +29,33 @@ const languages = [
       data-i18n-aria-label="preferences.theme"
     >
       <button
-        class="preference-button tooltip-trigger"
+        class="preference-button tooltip-trigger glass-host"
         type="button"
         data-theme-choice="dark"
         aria-pressed="true"
         aria-label={preferences.dark}
         data-i18n-aria-label="preferences.dark"
       >
+        <GlassSurface />
         <Icon name="moon" />
         <Tooltip i18n="preferences.dark">{preferences.dark}</Tooltip>
       </button>
       <button
-        class="preference-button tooltip-trigger"
+        class="preference-button tooltip-trigger glass-host"
         type="button"
         data-theme-choice="light"
         aria-pressed="false"
         aria-label={preferences.light}
         data-i18n-aria-label="preferences.light"
       >
+        <GlassSurface />
         <Icon name="sun" />
         <Tooltip i18n="preferences.light">{preferences.light}</Tooltip>
       </button>
     </div>
     <div class="language-picker" data-language-picker>
       <button
-        class="preference-button tooltip-trigger"
+        class="preference-button tooltip-trigger glass-host"
         type="button"
         data-language-toggle
         aria-label={preferences.language}
@@ -60,18 +64,20 @@ const languages = [
         aria-expanded="false"
         aria-controls="language-menu"
       >
+        <GlassSurface />
         <Icon name="languages" />
         <Tooltip i18n="preferences.language">{preferences.language}</Tooltip>
       </button>
       <div
         id="language-menu"
-        class="language-menu"
+        class="language-menu glass-host"
         role="menu"
         aria-label={preferences.language}
         data-i18n-aria-label="preferences.language"
         data-language-menu
         hidden
       >
+        <GlassSurface />
         {languages.map((language) => (
           <button
             type="button"

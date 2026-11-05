@@ -4,7 +4,7 @@ export const site = {
   ...en.site,
   language: 'de',
   description:
-    'Meine Ecke im Netz für alles, was ich entwickle, pflege und woran ich arbeite. Projekte, ein bisschen über mich und wo du mich findest.',
+    'Alles, was ihr über mich und meine Projekte wissen wolltet (oder auch nicht)!',
   skipLink: 'Zum Inhalt springen',
 };
 
@@ -16,6 +16,7 @@ export const introduction = {
 
 export const navigation = {
   label: 'Navigation',
+  menu: 'Menü',
   home: 'Startseite',
 };
 

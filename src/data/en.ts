@@ -3,7 +3,7 @@ export const site = {
   language: 'en',
   title: 'Wechirok',
   description:
-    'A personal space for the things I build, maintain and work on. Projects, a little about me, and where to find me.',
+    'Everything you wanted (and didn’t want) to know about me and my projects!',
   skipLink: 'Skip to content',
 };
 
@@ -15,6 +15,7 @@ export const introduction = {
 
 export const navigation = {
   label: 'Explore',
+  menu: 'Menu',
   home: 'Home',
 };
 
@@ -33,7 +34,7 @@ export const sections = {
     ],
   },
   about: {
-    title: 'About',
+    title: 'About me',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
       "I'm Artur Vechir, sometimes also known as Wechirok / Katzeyoru. My interests revolve around sysadmin work, software, and infrastructure, mostly out of curiosity about how things work, a desire to try something new, and finding ways to put what I've learned into my own projects.",

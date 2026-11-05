@@ -61,12 +61,17 @@ if (preferences) {
       menu.querySelectorAll<HTMLButtonElement>('[data-locale]'),
     );
     let menuOpen = false;
-    let menuAnimation: Animation | undefined;
+    let menuAnimations: Animation[] = [];
+    const fadeTargets = Array.from(
+      menu.querySelectorAll<HTMLElement>(
+        ':scope > .glass-surface, :scope > button',
+      ),
+    );
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const finishMenuAnimation = () => {
       if (!menuOpen) menu.hidden = true;
-      menuAnimation?.cancel();
-      menuAnimation = undefined;
+      for (const animation of menuAnimations) animation.cancel();
+      menuAnimations = [];
     };
     motion.addEventListener('change', () => {
       if (motion.matches) finishMenuAnimation();
@@ -74,15 +79,16 @@ if (preferences) {
     const setMenuOpen = (open: boolean) => {
       if (menuOpen === open) return;
       const collapsed = {
-        opacity: '0',
         transform: 'translateY(-6px) scale(0.98)',
       };
-      const expanded = { opacity: '1', transform: 'translateY(0) scale(1)' };
+      const expanded = { transform: 'translateY(0) scale(1)' };
       const style = getComputedStyle(menu);
-      const from = menu.hidden
-        ? collapsed
-        : { opacity: style.opacity, transform: style.transform };
-      menuAnimation?.cancel();
+      const from = menu.hidden ? collapsed : { transform: style.transform };
+      const fadeFrom = fadeTargets.map((target) =>
+        menu.hidden ? '0' : getComputedStyle(target).opacity,
+      );
+      for (const animation of menuAnimations) animation.cancel();
+      menuAnimations = [];
       menuOpen = open;
       menu.hidden = false;
       menu.inert = !open;
@@ -91,12 +97,25 @@ if (preferences) {
         finishMenuAnimation();
         return;
       }
-      menuAnimation = menu.animate([from, open ? expanded : collapsed], {
+      const timing: KeyframeAnimationOptions = {
         duration: open ? 200 : 160,
         easing: open ? 'cubic-bezier(0.16, 1, 0.3, 1)' : 'ease-in',
         fill: 'both',
-      });
-      menuAnimation.onfinish = finishMenuAnimation;
+      };
+      const movement = menu.animate(
+        [from, open ? expanded : collapsed],
+        timing,
+      );
+      menuAnimations = [
+        movement,
+        ...fadeTargets.map((target, index) =>
+          target.animate(
+            [{ opacity: fadeFrom[index] }, { opacity: open ? '1' : '0' }],
+            timing,
+          ),
+        ),
+      ];
+      movement.onfinish = finishMenuAnimation;
     };
 
     const openMenu = (

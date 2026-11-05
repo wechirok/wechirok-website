@@ -43,6 +43,8 @@ import Moon from '../assets/icons/interface/moon.svg';
 import Sun from '../assets/icons/interface/sun.svg';
 import ChevronDown from '../assets/icons/interface/chevron-down.svg';
 import Check from '../assets/icons/interface/check.svg';
+import Menu from '../assets/icons/interface/menu.svg';
+import X from '../assets/icons/interface/x.svg';
 
 // Build-time SVG components. No icon library is shipped as browser JavaScript.
 export const icons = {
@@ -91,6 +93,8 @@ export const icons = {
   sun: Sun,
   'chevron-down': ChevronDown,
   check: Check,
+  menu: Menu,
+  x: X,
 } as const;
 
 export type IconName = keyof typeof icons;

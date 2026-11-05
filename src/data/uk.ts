@@ -3,8 +3,7 @@ import * as en from './en';
 export const site = {
   ...en.site,
   language: 'uk',
-  description:
-    'Особистий простір для всього, що я створюю, підтримую й над чим працюю. Проєкти, трохи про мене та де мене знайти.',
+  description: 'Усе, що ви хочете й не хочете знати про мене та мої проєкти!',
   skipLink: 'Перейти до вмісту',
 };
 
@@ -16,6 +15,7 @@ export const introduction = {
 
 export const navigation = {
   label: 'Розділи',
+  menu: 'Меню',
   home: 'На головну',
 };
 

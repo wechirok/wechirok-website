@@ -84,7 +84,9 @@ export function attachSectionGestures(
   };
   const ignored = (target: EventTarget | null) => {
     if (
-      document.querySelector('[data-language-toggle][aria-expanded="true"]') ||
+      document.querySelector(
+        '[data-language-toggle][aria-expanded="true"], [data-navigation-toggle][aria-expanded="true"]',
+      ) ||
       window.getSelection()?.isCollapsed === false
     )
       return true;
