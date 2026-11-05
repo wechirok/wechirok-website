@@ -42,20 +42,19 @@ body {
 }
 
 .starfield-drift {
-  --drift-duration: calc(20s + var(--layer) * 4s);
+  --drift-duration: 24s;
   position: absolute;
   inset: 0;
   opacity: 0.85;
   animation: starfield-drift-x var(--drift-duration)
-    cubic-bezier(0.37, 0, 0.63, 1) calc(var(--layer) * -5s) infinite alternate;
+    cubic-bezier(0.37, 0, 0.63, 1) -5s infinite alternate;
 }
 
 .starfield-float {
   position: absolute;
   inset: 0;
   animation: starfield-drift-y var(--drift-duration)
-    cubic-bezier(0.37, 0, 0.63, 1) calc(-10s - var(--layer) * 7s) infinite
-    alternate;
+    cubic-bezier(0.37, 0, 0.63, 1) -17s infinite alternate;
 }
 
 /* HTML compositor layers preserve fractional movement of the SVG artwork.
@@ -83,8 +82,8 @@ body {
   animation-play-state: paused;
 }
 
-@media (max-width: 600px) {
-  .starfield-drift circle:nth-child(3n) {
+@media (max-width: 760px), (pointer: coarse) {
+  [data-star-extra] {
     display: none;
   }
 }

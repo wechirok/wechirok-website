@@ -3,15 +3,17 @@ import { test } from 'node:test';
 
 let instance = 0;
 
-async function browser(t) {
+async function browser(t, { compact = false, pointCount = 12 } = {}) {
   const window = new EventTarget();
   window.scrollY = 0;
   const document = new EventTarget();
   document.hidden = false;
-  const points = Array.from({ length: 12 }, (_, index) => ({
+  let writes = 0;
+  const points = Array.from({ length: pointCount }, (_, index) => ({
     dataset: { starIndex: String(index) },
     values: {},
     setAttribute(name, value) {
+      writes++;
       this.values[name] = value;
     },
   }));
@@ -31,7 +33,9 @@ async function browser(t) {
     document,
     matchMedia(query) {
       const media = new EventTarget();
-      media.matches = query.includes('pointer: fine');
+      media.matches = query.includes('pointer: fine')
+        ? !compact
+        : query.includes('max-width') && compact;
       queries.set(query, media);
       return media;
     },
@@ -77,7 +81,16 @@ async function browser(t) {
   };
   await import(`../src/scripts/starfield.ts?events=${++instance}`);
   settle();
-  return { window, document, frames, fire, settle, queries };
+  return {
+    window,
+    document,
+    frames,
+    fire,
+    settle,
+    queries,
+    points,
+    writes: () => writes,
+  };
 }
 
 test('section controls use the identical forward and reverse background motion as the wheel', async (t) => {
@@ -113,6 +126,22 @@ test('navigation scroll reset cannot reverse or double the requested background 
   assert.deepEqual(b.settle(), expected);
 });
 
+test('layout clamping the old page before its scroll event does not move the background again', async (t) => {
+  const b = await browser(t);
+  b.window.scrollY = 900;
+  b.fire(b.window, 'scroll');
+  b.settle();
+  b.fire(b.document, 'backgroundtravel', { detail: -240 });
+  const expected = b.settle();
+  b.window.scrollY = 0;
+  b.fire(b.document, 'backgroundscrollreset', { detail: 0 });
+  b.fire(b.window, 'scroll');
+  assert.deepEqual(b.settle(), expected);
+  b.window.scrollY = 100;
+  b.fire(b.window, 'scroll');
+  assert.notDeepEqual(b.settle(), expected);
+});
+
 test('section controls respect reduced motion and hidden documents', async (t) => {
   const b = await browser(t);
   const initial = b.settle();
@@ -128,4 +157,31 @@ test('section controls respect reduced motion and hidden documents', async (t) =
   b.fire(b.document, 'visibilitychange');
   b.fire(b.document, 'backgroundtravel', { detail: 240 });
   assert.equal(b.frames.size, 0);
+});
+
+test('touch layout updates only 72 particles and unchanged attributes are not rewritten', async (t) => {
+  const b = await browser(t, { compact: true, pointCount: 144 });
+  assert.equal(
+    b.points.filter((point) => point.values.cx !== undefined).length,
+    72,
+  );
+  const initialWrites = b.writes();
+  b.fire(b.document, 'backgroundtravel', { detail: 0 });
+  b.settle();
+  assert.equal(b.writes(), initialWrites);
+  b.fire(b.document, 'backgroundtravel', { detail: 240 });
+  b.settle();
+  assert.ok(b.writes() > initialWrites);
+  assert.equal(
+    b.points.filter((point) => point.values.cx !== undefined).length,
+    72,
+  );
+  const compact = b.queries.get('(max-width: 760px), (pointer: coarse)');
+  compact.matches = false;
+  compact.dispatchEvent(new Event('change'));
+  b.settle();
+  assert.equal(
+    b.points.filter((point) => point.values.cx !== undefined).length,
+    144,
+  );
 });

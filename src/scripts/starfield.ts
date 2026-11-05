@@ -18,10 +18,13 @@ if (field) {
     star: data[Number(node.dataset.starIndex)]!,
     offsetX: 0,
     offsetY: 0,
+    attributes: new Map<string, string>(),
   }));
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const colours = matchMedia('(forced-colors: active)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const compact = matchMedia('(max-width: 760px), (pointer: coarse)');
+  let activeStars = compact.matches ? stars.slice(0, 72) : stars;
   const measure = () => ({ width: svg.clientWidth, height: svg.clientHeight });
   let bounds = measure();
   let pointer: { x: number; y: number } | undefined;
@@ -49,7 +52,7 @@ if (field) {
     parallaxY = approach(parallaxY, targetY, seconds);
     let unsettled =
       travel !== targetTravel || parallaxX !== targetX || parallaxY !== targetY;
-    for (const point of stars) {
+    for (const point of activeStars) {
       const projected = projectStar(
         point.star,
         bounds.width,
@@ -64,13 +67,17 @@ if (field) {
         : { x: 0, y: 0 };
       point.offsetX = approach(point.offsetX, offset.x, seconds);
       point.offsetY = approach(point.offsetY, offset.y, seconds);
-      point.node.setAttribute('cx', (x + point.offsetX).toFixed(2));
-      point.node.setAttribute('cy', (y + point.offsetY).toFixed(2));
-      point.node.setAttribute(
-        'r',
-        (point.star.radius * Math.min(projected.scale, 1.6)).toFixed(2),
-      );
-      point.node.setAttribute('opacity', projected.opacity.toFixed(3));
+      const values = {
+        cx: (x + point.offsetX).toFixed(2),
+        cy: (y + point.offsetY).toFixed(2),
+        r: (point.star.radius * Math.min(projected.scale, 1.6)).toFixed(2),
+        opacity: projected.opacity.toFixed(3),
+      };
+      for (const [name, value] of Object.entries(values)) {
+        if (point.attributes.get(name) === value) continue;
+        point.attributes.set(name, value);
+        point.node.setAttribute(name, value);
+      }
       unsettled ||= point.offsetX !== offset.x || point.offsetY !== offset.y;
     }
     return unsettled;
@@ -107,7 +114,9 @@ if (field) {
   });
   document.addEventListener('backgroundscrollreset', (event) => {
     const top = (event as CustomEvent<number>).detail;
-    pendingScrollReset = window.scrollY === top ? undefined : top;
+    // Hiding a long panel may already have clamped scrollY before the queued
+    // scroll event runs. Consume that event even when the position is now right.
+    pendingScrollReset = top;
   });
 
   document.addEventListener(
@@ -227,5 +236,10 @@ if (field) {
   motion.addEventListener('change', configure);
   colours.addEventListener('change', configure);
   finePointer.addEventListener('change', releasePointer);
+  compact.addEventListener('change', () => {
+    activeStars = compact.matches ? stars.slice(0, 72) : stars;
+    schedule();
+    if (!enabled()) paint(1);
+  });
   configure();
 }
