@@ -1,6 +1,7 @@
 ---
 import { profiles } from '../data/en';
 import Icon from './Icon.astro';
+import GlassSurface from './GlassSurface.astro';
 ---
 
 <div class="home-profiles" id="profiles">
@@ -17,7 +18,8 @@ import Icon from './Icon.astro';
           rel="me noopener"
         >
           <Icon name={profile.icon} brand />
-          <span class="profile-preview" role="tooltip">
+          <span class="profile-preview glass-host" role="tooltip">
+            <GlassSurface />
             <span class="profile-preview-title">{profile.name}</span>
             <span
               class="profile-preview-description"

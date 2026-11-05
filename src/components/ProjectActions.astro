@@ -3,6 +3,7 @@ import { projectActions } from '../data/en';
 import type { ProjectLink } from '../lib/project-downloads';
 import Icon from './Icon.astro';
 import Tooltip from './Tooltip.astro';
+import GlassSurface from './GlassSurface.astro';
 
 interface Props {
   links: readonly ProjectLink[];
@@ -25,6 +26,7 @@ const icons = {
     <a
       class:list={[
         'project-action',
+        'glass-host',
         {
           'tooltip-trigger':
             link.platform === 'Modrinth' || link.platform === 'CurseForge',
@@ -34,6 +36,7 @@ const icons = {
       target="_blank"
       rel="noopener"
     >
+      <GlassSurface />
       <Icon
         name={icons[link.platform]}
         brand={link.platform !== 'website' && link.platform !== 'wiki'}

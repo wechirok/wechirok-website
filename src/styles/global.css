@@ -159,15 +159,16 @@ main:focus {
 
 .preferences-bar {
   position: sticky;
-  top: 0;
+  top: 12px;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   flex-wrap: nowrap;
   gap: 8px 12px;
-  padding-block: 16px;
-  pointer-events: none;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 22px;
 }
 
 .preferences-controls {
@@ -195,21 +196,14 @@ main:focus {
   padding: 10px;
   border: 0;
   border-radius: 10px;
-  background: var(--button-surface);
   color: var(--foreground);
-  box-shadow:
-    0 4px 14px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 30%, transparent);
   transition:
     background-color 160ms ease,
     color 160ms ease,
     transform 180ms ease;
 }
 
-.preference-button:hover,
-.navigation-button[data-label-visible],
-.navigation-button[data-entry-active] {
+.preference-button:hover {
   --button-surface: color-mix(in srgb, var(--surface), var(--foreground) 18%);
   color: var(--interactive-hover);
 }
@@ -238,9 +232,7 @@ main:focus {
   max-width: calc(100vw - 36px);
   padding: 6px;
   border-radius: 12px;
-  background: var(--surface);
   color: var(--foreground);
-  box-shadow: 0 8px 28px rgb(0 0 0 / 24%);
   transform-origin: top right;
 }
 
@@ -340,19 +332,69 @@ main:focus {
 
 .section-navigation {
   display: flex;
-  gap: 4px;
-  flex-shrink: 0;
+  min-width: 0;
   pointer-events: auto;
 }
 
+.navigation-toggle {
+  display: none;
+}
+
+.navigation-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .navigation-button {
+  --icon-size: 20px;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   flex-shrink: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.3;
   text-decoration: none;
+  white-space: nowrap;
   transition:
-    background-color 180ms ease,
     color 180ms ease,
-    transform 180ms ease;
+    background-color 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navigation-button::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  bottom: 3px;
+  left: 41px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left;
+  transition:
+    opacity 180ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navigation-button:is(:hover, :focus-visible, [aria-current='page']) {
+  color: var(--accent);
+}
+
+.navigation-button:is(:hover, :focus-visible, [aria-current='page'])::after {
+  opacity: 0.8;
+  transform: scaleX(1);
+}
+
+.navigation-button:is(:hover, :focus-visible, [data-entry-active]) {
+  transform: scale(1.025);
 }
 
 .tooltip-trigger {
@@ -360,6 +402,8 @@ main:focus {
 }
 
 .tooltip-label {
+  --overlay-opacity: 0;
+  --overlay-duration: 180ms;
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
@@ -367,29 +411,22 @@ main:focus {
   max-width: min(260px, calc(100vw - 36px));
   padding: 7px 11px;
   border-radius: 9px;
-  background: var(--surface);
   color: var(--accent);
-  box-shadow:
-    0 4px 14px var(--shadow),
-    inset 0 1px 0 var(--highlight);
   font-size: 16px;
   line-height: 1.3;
   font-weight: var(--text-weight);
   text-align: left;
-  opacity: 0;
   visibility: hidden;
   transform: translateY(-4px) scale(0.96);
   transform-origin: top left;
   pointer-events: none;
   transition:
-    opacity 180ms ease,
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
     visibility 180ms;
 }
 
-.tooltip-trigger:focus-visible > .tooltip-label,
-.navigation-button[data-label-visible] > .tooltip-label {
-  opacity: 1;
+.tooltip-trigger:focus-visible > .tooltip-label {
+  --overlay-opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
 }
@@ -406,9 +443,7 @@ main:focus {
   color: var(--muted);
 }
 
-.tooltip-trigger:focus-visible,
-.navigation-button[data-label-visible],
-.navigation-button[data-entry-active] {
+.tooltip-trigger:focus-visible {
   z-index: 1;
   transform: translateY(-2px);
 }
@@ -420,40 +455,20 @@ main:focus {
   }
 
   .tooltip-trigger:hover > .tooltip-label {
-    opacity: 1;
+    --overlay-opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
   }
 }
 
-[data-language-toggle][aria-expanded='true'] > .tooltip-label {
-  opacity: 0;
+[data-language-toggle][aria-expanded='true'] > .tooltip-label,
+[data-navigation-toggle][aria-expanded='true'] > .tooltip-label {
+  --overlay-opacity: 0;
   visibility: hidden;
 }
 
 .preference-button:active {
   transform: scale(0.97);
-}
-
-@supports (background: color-mix(in srgb, black, transparent)) and
-  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .preference-button {
-    background: color-mix(in srgb, var(--button-surface) 66%, transparent);
-    -webkit-backdrop-filter: blur(20px) saturate(115%);
-    backdrop-filter: blur(20px) saturate(115%);
-  }
-
-  .language-menu {
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-  }
-
-  .tooltip-label {
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-  }
 }
 
 .section-lead,
@@ -615,12 +630,7 @@ main:focus {
   min-height: 40px;
   padding: 8px 12px;
   border-radius: 9px;
-  background: var(--button-surface);
   color: var(--interactive);
-  box-shadow:
-    0 3px 10px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
   font-size: 16px;
   line-height: 1.25;
   text-decoration: none;
@@ -752,15 +762,6 @@ main:focus {
   stroke-width: 2.2;
 }
 
-@supports (background: color-mix(in srgb, black, transparent)) and
-  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .project-action {
-    background: color-mix(in srgb, var(--button-surface) 72%, transparent);
-    -webkit-backdrop-filter: blur(20px) saturate(115%);
-    backdrop-filter: blur(20px) saturate(115%);
-  }
-}
-
 .home-profiles {
   margin-top: 44px;
   scroll-margin-top: 100px;
@@ -816,6 +817,8 @@ main:focus {
 }
 
 .profile-preview {
+  --overlay-opacity: 0;
+  --overlay-duration: 200ms;
   position: absolute;
   top: calc(100% + 10px);
   left: var(--profile-card-offset, 0px);
@@ -825,20 +828,13 @@ main:focus {
   max-width: calc(100vw - 36px);
   padding: 16px 18px;
   border-radius: 12px;
-  background: var(--surface);
   color: var(--foreground);
-  box-shadow:
-    0 10px 28px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
   text-align: left;
-  opacity: 0;
   visibility: hidden;
   transform: translateY(-8px) scale(0.94);
   transform-origin: var(--profile-card-origin, 22px) top;
   pointer-events: none;
   transition:
-    opacity 200ms ease,
     transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
     visibility 200ms;
 }
@@ -851,10 +847,16 @@ main:focus {
 }
 
 .profile-link[data-profile-open] > .profile-preview {
-  opacity: 1;
+  --overlay-opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+/* Fade the glass itself, keeping its container out of the backdrop-root chain. */
+:where(.tooltip-label, .profile-preview) > * {
+  opacity: var(--overlay-opacity);
+  transition: opacity var(--overlay-duration) ease;
 }
 
 .profile-preview-title {
@@ -867,15 +869,6 @@ main:focus {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.45;
-}
-
-@supports (background: color-mix(in srgb, black, transparent)) and
-  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .profile-preview {
-    background: color-mix(in srgb, var(--surface) 82%, transparent);
-    -webkit-backdrop-filter: blur(20px) saturate(115%);
-    backdrop-filter: blur(20px) saturate(115%);
-  }
 }
 
 .document-page {
@@ -953,27 +946,84 @@ main:focus {
   }
 }
 
+@media (max-width: 760px) {
+  .section-navigation:not([data-navigation-ready]) .navigation-links {
+    flex-wrap: wrap;
+  }
+
+  [data-navigation-ready] .navigation-toggle {
+    display: grid;
+  }
+
+  .navigation-toggle-open,
+  .navigation-toggle-close {
+    display: grid;
+    grid-area: 1 / 1;
+    transition:
+      opacity 180ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .navigation-toggle-close {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.8);
+  }
+
+  .navigation-toggle[aria-expanded='true'] .navigation-toggle-open {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.8);
+  }
+
+  .navigation-toggle[aria-expanded='true'] .navigation-toggle-close {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  [data-navigation-ready] .navigation-links {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 4px;
+    max-height: calc(100svh - 110px);
+    padding: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 18px;
+    transform-origin: top left;
+  }
+
+  .navigation-button {
+    min-height: 48px;
+    padding: 12px;
+    white-space: normal;
+  }
+
+  .navigation-button::after {
+    display: none;
+  }
+
+  .navigation-button:is(:hover, :focus-visible, [aria-current='page']) {
+    background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  }
+}
+
 @media (max-width: 600px) {
   .page-shell {
     width: calc(100% - 36px);
   }
 
   .preferences-bar {
-    --control-size: clamp(28px, calc((100vw - 64px) / 6), 44px);
+    top: 8px;
     gap: 8px;
-    padding-block: 12px;
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 18px;
   }
 
   .preferences-controls {
     gap: 8px;
-  }
-
-  .preference-button {
-    --icon-size: clamp(17px, 5.3vw, 21px);
-    width: var(--control-size);
-    height: var(--control-size);
-    min-height: var(--control-size);
-    padding: 0;
   }
 
   .personal-space {
@@ -1008,8 +1058,7 @@ main:focus {
 
   .tooltip-trigger:hover,
   .tooltip-trigger:focus-visible,
-  .navigation-button[data-label-visible],
-  .navigation-button[data-entry-active],
+  .navigation-button:is(:hover, :focus-visible, [data-entry-active]),
   .preference-button:active,
   .profile-link:hover,
   .profile-link[data-profile-open] > .icon,

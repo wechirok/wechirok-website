@@ -1,8 +1,11 @@
 ---
 import { site } from '../data/en';
 import Preferences from '../components/Preferences.astro';
+import Starfield from '../components/Starfield.astro';
 import { withBase } from '../lib/paths';
 import '../styles/global.css';
+import '../styles/glass.css';
+import '../styles/starfield.css';
 
 interface Props {
   title?: string;
@@ -63,6 +66,7 @@ const canonical = Astro.site
     <title>{title}</title>
   </head>
   <body>
+    <Starfield />
     <a class="skip-link" href="#main" data-i18n="site.skipLink">
       {site.skipLink}
     </a>
