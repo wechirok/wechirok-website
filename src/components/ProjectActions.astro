@@ -11,6 +11,7 @@ interface Props {
 const { links } = Astro.props;
 const icons = {
   website: 'link',
+  wiki: 'book-open',
   repository: 'github',
   Modrinth: 'modrinth',
   CurseForge: 'curseforge',
@@ -33,19 +34,26 @@ const icons = {
       target="_blank"
       rel="noopener"
     >
-      <Icon name={icons[link.platform]} brand={link.platform !== 'website'} />
+      <Icon
+        name={icons[link.platform]}
+        brand={link.platform !== 'website' && link.platform !== 'wiki'}
+      />
       <span
         class:list={{
           'visually-hidden':
             link.platform === 'Modrinth' || link.platform === 'CurseForge',
         }}
         data-i18n={
-          link.platform === 'repository' || link.platform === 'website'
+          link.platform === 'repository' ||
+          link.platform === 'website' ||
+          link.platform === 'wiki'
             ? `projectActions.${link.platform}`
             : undefined
         }
       >
-        {link.platform === 'repository' || link.platform === 'website'
+        {link.platform === 'repository' ||
+        link.platform === 'website' ||
+        link.platform === 'wiki'
           ? projectActions[link.platform]
           : link.platform}
       </span>

@@ -9,7 +9,7 @@ export const site = {
 
 export const introduction = {
   greeting: 'Hello there!',
-  heading: "I'm Artur Vechir.",
+  heading: "I'm Artur Vechir",
   description: 'Building projects and maintaining systems.',
 };
 
@@ -21,13 +21,11 @@ export const navigation = {
 export const sections = {
   projects: {
     title: 'Projects',
-    lead: 'Things I build and look after.',
     description: 'Minecraft mods, modpacks and community tools by Wechirok.',
     paragraphs: ['Personal projects, modding, and a few tools.'],
   },
   work: {
     title: 'What I do',
-    lead: 'Things I spend my time on.',
     description:
       'System administration, software, localization, design, video and audio.',
     paragraphs: [
@@ -38,9 +36,8 @@ export const sections = {
     title: 'About',
     description: 'A little about Wechirok and the things I spend my time on.',
     paragraphs: [
-      'I’m Artur Vechir, sometimes also known as Wechirok / Katzeyoru. I do system administration and explore software and infrastructure. I enjoy understanding how things work, trying something new and putting it to use in my own projects.',
-      'I build and maintain personal projects and my home server infrastructure. I bring services, bots and game servers together in a carefully planned setup, paying attention to their configuration, stability and backups. I work on mods and modpacks for games like Minecraft and contribute to various Ukrainian localization projects. I also occasionally edit photos, video and audio.',
-      'When working with code and logic, I use LLMs to learn and help with development, and refer to documentation and wikis. The community often helps too, sharing experience, suggesting solutions and helping bring ideas to life through everyday conversations. I go through the code and check it to understand what has been done and how it works. I do not use AI for localization, writing documentation or creating assets.',
+      "I'm Artur Vechir, sometimes also known as Wechirok / Katzeyoru. My interests revolve around sysadmin work, software, and infrastructure, mostly out of curiosity about how things work, a desire to try something new, and finding ways to put what I've learned into my own projects.",
+      "Much of my experience comes from personal projects and maintaining my own homelab. This includes self-hosted services, bots, and game servers, with attention to how everything is set up, configured, maintained, and backed up. Outside of infrastructure, there's also Minecraft modding and modpacks, contributions to Ukrainian localization projects, and occasional photo, video, and audio editing.",
     ],
   },
 } as const;
@@ -48,9 +45,8 @@ export const sections = {
 export type SectionName = keyof typeof sections;
 
 export const translationContributions = {
-  title: 'My translation contributions.',
-  description:
-    'I contribute to Ukrainian localization and translation for a few projects.',
+  title: 'My translation contributions',
+  description: 'I contribute to Ukrainian localization for a few projects.',
   projects: [
     {
       name: 'Prism Launcher',
@@ -73,6 +69,7 @@ export const translationContributions = {
 
 export const toolkit = {
   title: 'Toolkit',
+  description: 'What I’ve used / still use today.',
   items: [
     {
       technologies: [{ name: 'Java', icon: 'java' }],
@@ -80,11 +77,15 @@ export const toolkit = {
     },
     {
       technologies: [{ name: 'JavaScript', icon: 'javascript' }],
-      details: 'Astro, TypeScript',
+      details: 'Astro, TypeScript, Vue, Nuxt',
     },
     {
       technologies: [{ name: 'Python 3', icon: 'python' }],
       details: 'discord.py, aiohttp, Pydantic',
+    },
+    {
+      technologies: [{ name: 'C#', icon: 'csharp' }],
+      details: 'SCP SL plugins: EXILED, LabAPI, Harmony',
     },
     {
       technologies: [{ name: 'HTML5', icon: 'html5' }],
@@ -97,6 +98,7 @@ export const toolkit = {
     {
       technologies: [
         { name: 'PostgreSQL', icon: 'postgresql' },
+        { name: 'SQLite', icon: 'sqlite' },
         { name: 'MySQL', icon: 'mysql' },
       ],
       details: '',
@@ -144,7 +146,7 @@ export const workAreas = [
       'Linux administration, server infrastructure, automation and databases.',
   },
   {
-    title: 'Software & Minecraft',
+    title: 'Software & modding',
     icon: 'code-xml',
     description:
       'Small tools, Discord integrations, Minecraft mods, modpacks and server content.',
@@ -167,8 +169,13 @@ export const projectActivity = {
   present: 'present',
 };
 
+export const projectAttribution = {
+  forkOf: 'A fork of',
+};
+
 export const projectActions = {
   website: 'Website',
+  wiki: 'Wiki',
   repository: 'Repository',
   downloads: 'Downloads',
   lastAvailable: 'Last available count',
@@ -182,8 +189,9 @@ export const projects = [
     startYear: '2026',
     category: 'Mod',
     description:
-      'A Minecraft mod that lets you transform into a cat and experience life from a neko’s perspective. I also write documentation and built the mod’s website.',
+      'A NeoForge mod that gives you a cat’s abilities and biological traits, changing how you experience Minecraft and opening up a completely different perspective on the game. It also adds laboratory equipment for creating the injection that starts your transformation. I maintain the project with my best friend, who is also a fellow dev. I also develop the mod’s website and write its wiki.',
     website: 'https://nekogenix.github.io/',
+    wiki: 'https://nekogenix.github.io/wiki/',
     url: 'https://github.com/nekogenix/nekogenix-mod',
   },
   {
@@ -191,7 +199,13 @@ export const projects = [
     startYear: '2026',
     category: 'Mod',
     description:
-      'A Fabric client mod for taking high-resolution Minecraft screenshots.',
+      'High-resolution Minecraft screenshots with configurable output sizes, formats and HUD visibility. I adapt the Fabric mod to new game versions, fix issues in the original and add useful',
+    featureLabel: 'new features',
+    featureUrl: 'https://github.com/wechirok/renice-shot/issues/11',
+    upstream: {
+      name: 'Fabrishot',
+      url: 'https://github.com/ramidzkh/fabrishot',
+    },
     url: 'https://github.com/wechirok/renice-shot',
   },
   {
@@ -199,7 +213,7 @@ export const projects = [
     startYear: '2026',
     category: 'Mod',
     description:
-      'A Minecraft mod that lets you choose which weapons should ignore Better Combat.',
+      'Weapon-by-weapon control over Better Combat, with personal toggles and server commands. I built the selection and configuration features for players and administrators, then expanded support across Minecraft versions and the Fabric, Forge and NeoForge loaders.',
     url: 'https://github.com/wechirok/better-selective-combat',
   },
   {
@@ -207,7 +221,8 @@ export const projects = [
     startYear: '2024',
     category: 'Modpack',
     description:
-      'A Fabric modpack focused on gameplay tweaks for a smoother, more enjoyable Minecraft experience.',
+      'A Fabric modpack combining performance and graphics improvements with building tools and everyday conveniences. As its maintainer, I choose and configure the mods, tune keybindings, resolve compatibility issues and prepare releases for the latest game versions. I also look after the project’s wiki.',
+    wiki: 'https://renice-cubed.gitbook.io/wiki',
     url: 'https://github.com/ReniceMC/renice-cubed',
   },
   {
@@ -215,21 +230,23 @@ export const projects = [
     startYear: '2026',
     category: 'Modpack',
     description:
-      'A variation of Renice Cubed that removes features which give players an advantage.',
+      'My official fork of Renice Cubed leaves out features that give players a gameplay advantage while retaining performance and visual improvements. I adapt the mod selection and defaults, update dependencies and prepare releases alongside Cubed for the supported Minecraft versions.',
     url: 'https://github.com/ReniceMC/renice-squared',
   },
   {
     name: 'Shelley',
     startYear: '2025',
-    category: 'Community tool',
-    description: 'A Discord bot built for a private community’s needs.',
+    category: 'Discord Bot',
+    description:
+      'Quite literally the soul of the Discord server for one of the private communities I run. Shelley awards points for text and voice activity; in our community, its voice activity tracking has worked more efficiently and reliably than larger bots. There are also leaderboards and a dedicated bridge between Minecraft chat and Discord. It automates plenty of other things too, but the full list would be far too long to put here.',
     url: 'https://github.com/METHADRENALINE/Shelley',
   },
   {
     name: 'SMP & Creative',
     startYear: '2023',
-    category: 'Server content',
-    description: 'Minecraft server content made for a private community.',
+    category: 'PaperMC plugins, resources',
+    description:
+      'Custom plugins and a resource pack for a private Minecraft server network. I run the whole network myself, on hardware at home, and take care of its setup, maintenance and backups. I set up chat between the servers and connected it to Discord through Shelley, so people can talk whether they’re in-game or on Discord. I designed shared PostgreSQL storage for player preferences and cosmetic data, using transactions to keep related changes consistent. The plugins are also kept compatible with server updates.',
     url: 'https://github.com/METHADRENALINE/SMP-Creative',
   },
 ] as const;
@@ -241,6 +258,18 @@ export const profiles = [
     icon: 'github',
     description: 'Code, projects and issues.',
     url: 'https://github.com/wechirok',
+  },
+  {
+    name: 'Modrinth',
+    icon: 'modrinth',
+    description: 'Modding projects.',
+    url: 'https://modrinth.com/user/Wechirok',
+  },
+  {
+    name: 'CurseForge',
+    icon: 'curseforge',
+    description: 'Another place for modding projects.',
+    url: 'https://www.curseforge.com/members/wechirok',
   },
   {
     name: 'Crowdin',
@@ -256,18 +285,6 @@ export const profiles = [
     url: 'https://hosted.weblate.org/user/wechirok/',
   },
   {
-    name: 'Modrinth',
-    icon: 'modrinth',
-    description: 'Modding projects.',
-    url: 'https://modrinth.com/user/Wechirok',
-  },
-  {
-    name: 'CurseForge',
-    icon: 'curseforge',
-    description: 'Another place for modding projects.',
-    url: 'https://www.curseforge.com/members/wechirok',
-  },
-  {
     name: 'Discord',
     icon: 'discord',
     description: 'A place to get in touch.',
@@ -277,7 +294,7 @@ export const profiles = [
 
 export const notFound = {
   title: 'Page not found',
-  heading: 'Nothing here, stranger.',
+  heading: 'Nothing here, stranger',
   description:
     'That page may have moved, or the address might be a little off.',
   link: 'Back to my personal space',

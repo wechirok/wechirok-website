@@ -17,7 +17,8 @@
   --selection-foreground: #f2f2f6;
   --shadow: rgb(24 24 32 / 16%);
   --highlight: rgb(255 255 255 / 12%);
-  --font: 'Source Serif 4', serif;
+  --font: 'Noto Sans', sans-serif;
+  --heading-font: 'Source Serif 4', serif;
   --text-weight: 400;
   --heading-weight: 450;
   font-family: var(--font);
@@ -121,6 +122,18 @@ dd,
 ol,
 ul {
   margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-row dt,
+.row-title > a,
+.project-name {
+  font-family: var(--heading-font);
 }
 
 h1 {
@@ -466,13 +479,19 @@ main:focus {
   margin-top: 36px;
 }
 
-.toolkit-list {
+.toolkit-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(var(--toolkit-rows), auto);
-  grid-auto-flow: column;
-  gap: 20px 32px;
-  margin-top: 18px;
+  gap: 16px 32px;
+  margin-top: 24px;
+}
+
+.toolkit-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -498,8 +517,12 @@ main:focus {
   color: var(--interactive);
 }
 
+.toolkit-technology--java .icon {
+  height: 32px;
+}
+
 .toolkit-detail {
-  margin-top: 5px;
+  margin-top: 3px;
   margin-inline-start: 34px;
   color: var(--muted);
   font-size: 16px;
@@ -744,53 +767,103 @@ main:focus {
 }
 
 .profile-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(0px, 1.5vw, 12px);
   margin-top: 0;
   padding: 0;
   list-style: none;
 }
 
-.profile-link {
-  --profile-surface: color-mix(in srgb, var(--surface), var(--foreground) 10%);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
-  align-content: start;
-  height: 100%;
-  min-height: 104px;
-  padding: 16px 18px;
-  border-radius: 12px;
-  background: var(--profile-surface);
-  box-shadow:
-    0 4px 14px var(--shadow),
-    inset 0 1px 0 var(--highlight),
-    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
-  text-decoration: none;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+.profile-list > li {
+  flex: 0 1 44px;
+  min-width: 0;
 }
 
-.profile-link:hover {
-  --profile-surface: color-mix(in srgb, var(--surface), var(--foreground) 16%);
-  transform: translateY(-2px);
+.profile-link {
+  --icon-size: 28px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 44px;
+  border-radius: 6px;
+  color: var(--interactive);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.profile-link[data-profile-open] {
+  z-index: 2;
+  color: var(--interactive-hover);
+}
+
+.profile-link > .icon {
+  transform-origin: center;
+  transition:
+    transform 380ms cubic-bezier(0.22, 1.4, 0.36, 1),
+    filter 260ms ease;
+}
+
+.profile-link[data-profile-open] > .icon {
+  transform: translateY(-4px) scale(1.12);
+  filter: drop-shadow(0 4px 8px var(--shadow));
 }
 
 .profile-link:focus-visible {
-  outline-offset: -3px;
+  outline-offset: 3px;
 }
 
-.profile-name {
-  --icon-size: 21px;
-  gap: 10px;
+.profile-preview {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: var(--profile-card-offset, 0px);
+  display: grid;
+  gap: 8px;
+  width: 280px;
+  max-width: calc(100vw - 36px);
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow:
+    0 10px 28px var(--shadow),
+    inset 0 1px 0 var(--highlight),
+    inset 0 0 0 1px color-mix(in srgb, var(--control-border) 25%, transparent);
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.94);
+  transform-origin: var(--profile-card-origin, 22px) top;
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 200ms;
+}
+
+.profile-preview::before {
+  content: '';
+  position: absolute;
+  inset: -12px 0 auto;
+  height: 12px;
+}
+
+.profile-link[data-profile-open] > .profile-preview {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.profile-preview-title {
+  color: var(--accent);
   font-size: 21px;
   line-height: 1.3;
 }
 
-.profile-description {
+.profile-preview-description {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.45;
@@ -798,8 +871,8 @@ main:focus {
 
 @supports (background: color-mix(in srgb, black, transparent)) and
   ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .profile-link {
-    background: color-mix(in srgb, var(--profile-surface) 72%, transparent);
+  .profile-preview {
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
     -webkit-backdrop-filter: blur(20px) saturate(115%);
     backdrop-filter: blur(20px) saturate(115%);
   }
@@ -878,12 +951,6 @@ main:focus {
     justify-content: flex-start;
     text-align: left;
   }
-
-  .profile-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(var(--profile-rows), auto);
-    grid-auto-flow: column;
-  }
 }
 
 @media (max-width: 600px) {
@@ -917,27 +984,12 @@ main:focus {
     min-height: 320px;
   }
 
-  .toolkit-list {
+  .toolkit-columns {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-    grid-auto-flow: row;
   }
 
   .home-profiles {
     margin-top: 36px;
-  }
-
-  .profile-list {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-    grid-auto-flow: row;
-    gap: 10px;
-  }
-
-  .profile-link {
-    min-height: 0;
-    gap: 6px;
-    padding: 14px 16px;
   }
 
   .document-page {
@@ -960,6 +1012,7 @@ main:focus {
   .navigation-button[data-entry-active],
   .preference-button:active,
   .profile-link:hover,
+  .profile-link[data-profile-open] > .icon,
   .project-action:hover,
   .project-action:active {
     transform: none;
