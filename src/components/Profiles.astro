@@ -1,0 +1,40 @@
+---
+import { profiles } from '../data/en';
+import Icon from './Icon.astro';
+import GlassSurface from './GlassSurface.astro';
+---
+
+<div class="home-profiles" id="profiles">
+  <ul class="profile-list">
+    {profiles.map((profile, index) => (
+      <li>
+        <a
+          class="profile-link"
+          data-profile-link
+          aria-label={profile.name}
+          aria-describedby={`profile-${profile.icon}-description`}
+          href={profile.url}
+          target="_blank"
+          rel="me noopener"
+        >
+          <Icon name={profile.icon} brand />
+          <span class="profile-preview glass-host" role="tooltip">
+            <GlassSurface />
+            <span class="profile-preview-title">{profile.name}</span>
+            <span
+              class="profile-preview-description"
+              id={`profile-${profile.icon}-description`}
+              data-i18n={`profiles.${index}.description`}
+            >
+              {profile.description}
+            </span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  import '../scripts/profile-cards';
+</script>

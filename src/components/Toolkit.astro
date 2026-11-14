@@ -1,0 +1,57 @@
+---
+import { toolkit } from '../data/en';
+import Icon from './Icon.astro';
+
+const rightColumnStart = toolkit.items.findIndex(
+  (item) => item.technologies[0].icon === 'blender',
+);
+const items = Array.from(toolkit.items.entries());
+const columns = [
+  items.slice(0, rightColumnStart),
+  items.slice(rightColumnStart),
+];
+---
+
+<section class="toolkit" aria-labelledby="toolkit-heading">
+  <h2 id="toolkit-heading" data-i18n="toolkit.title">
+    {toolkit.title}
+  </h2>
+  <div class="section-prose">
+    <p data-i18n="toolkit.description">{toolkit.description}</p>
+  </div>
+  <div class="toolkit-columns">
+    {columns.map((column) => (
+      <ul class="toolkit-list" role="list">
+        {column.map(([itemIndex, item]) => (
+          <li>
+            <h3 class="toolkit-names">
+              {item.technologies.map((technology, index) => (
+                <span
+                  class:list={[
+                    'toolkit-technology with-icon',
+                    { 'toolkit-technology--java': technology.icon === 'java' },
+                  ]}
+                >
+                  <Icon name={technology.icon} brand />
+                  <span>
+                    {technology.name}
+                    {index < item.technologies.length - 1 ? ',' : ''}
+                  </span>
+                </span>
+              ))}
+            </h3>
+            {item.details && (
+              <p class="toolkit-detail">
+                (
+                <span data-i18n={`toolkit.items.${itemIndex}.details`}>
+                  {item.details}
+                </span>
+                )
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</section>

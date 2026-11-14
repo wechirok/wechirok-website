@@ -1,0 +1,32 @@
+---
+import { createStars, projectStar } from '../lib/starfield-motion';
+const stars = createStars().map((star, index) => ({
+  ...star,
+  index,
+  projected: projectStar(star, 100, 100, 0),
+}));
+---
+
+<div class="site-starfield" aria-hidden="true">
+  <div class="starfield-drift">
+    <div class="starfield-float">
+      <svg xmlns="http://www.w3.org/2000/svg">
+        {stars.map((star) => (
+          <circle
+            cx={`${star.projected.x}%`}
+            cy={`${star.projected.y}%`}
+            r={star.radius * Math.min(star.projected.scale, 1.6)}
+            opacity={star.projected.opacity}
+            data-star-tone={star.tone}
+            data-star-index={star.index}
+            data-star-extra={star.index >= 72 ? '' : undefined}
+          />
+        ))}
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/starfield';
+</script>

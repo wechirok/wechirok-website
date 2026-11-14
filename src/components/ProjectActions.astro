@@ -1,0 +1,113 @@
+---
+import { projectActions } from '../data/en';
+import type { ProjectLink } from '../lib/project-downloads';
+import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
+import GlassSurface from './GlassSurface.astro';
+
+interface Props {
+  links: readonly ProjectLink[];
+}
+
+const { links } = Astro.props;
+const icons = {
+  website: 'link',
+  wiki: 'book-open',
+  repository: 'github',
+  Modrinth: 'modrinth',
+  CurseForge: 'curseforge',
+  Crowdin: 'crowdin',
+  Weblate: 'weblate',
+} as const;
+---
+
+<div class="project-actions">
+  {links.map((link) => (
+    <a
+      class:list={[
+        'project-action',
+        'glass-host',
+        {
+          'tooltip-trigger':
+            link.platform === 'Modrinth' || link.platform === 'CurseForge',
+        },
+      ]}
+      href={link.url}
+      target="_blank"
+      rel="noopener"
+    >
+      <GlassSurface />
+      <Icon
+        name={icons[link.platform]}
+        brand={link.platform !== 'website' && link.platform !== 'wiki'}
+      />
+      <span
+        class:list={{
+          'visually-hidden':
+            link.platform === 'Modrinth' || link.platform === 'CurseForge',
+        }}
+        data-i18n={
+          link.platform === 'repository' ||
+          link.platform === 'website' ||
+          link.platform === 'wiki'
+            ? `projectActions.${link.platform}`
+            : undefined
+        }
+      >
+        {link.platform === 'repository' ||
+        link.platform === 'website' ||
+        link.platform === 'wiki'
+          ? projectActions[link.platform]
+          : link.platform}
+      </span>
+      {link.downloads && (
+        <span
+          class="project-downloads"
+          data-download-provider={link.downloads.provider}
+          data-download-id={link.downloads.id}
+          aria-busy="true"
+        >
+          <span class="download-symbol">
+            <Icon name="arrow-right" />
+          </span>
+          <span class="download-number" data-download-count aria-hidden="true">
+            ······
+          </span>
+          <span
+            class="visually-hidden"
+            data-download-label
+            data-i18n="projectActions.loading"
+          >
+            {projectActions.loading}
+          </span>
+        </span>
+      )}
+      {(link.platform === 'Modrinth' || link.platform === 'CurseForge') && (
+        <Tooltip>
+          {link.platform}
+          <span class="download-tooltip-detail">
+            <span data-i18n="projectActions.downloads">
+              {projectActions.downloads}
+            </span>
+            :{' '}
+            <span
+              class="download-number download-number-exact"
+              data-download-tooltip-count
+            >
+              ······
+            </span>
+            <span
+              class="download-tooltip-status"
+              data-download-tooltip-status
+              hidden
+            />
+          </span>
+        </Tooltip>
+      )}
+    </a>
+  ))}
+</div>
+
+<script>
+  import '../scripts/project-downloads';
+</script>

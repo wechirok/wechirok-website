@@ -1,0 +1,81 @@
+---
+import { site } from '../data/en';
+import Preferences from '../components/Preferences.astro';
+import Starfield from '../components/Starfield.astro';
+import { withBase } from '../lib/paths';
+import '../styles/global.css';
+import '../styles/glass.css';
+import '../styles/starfield.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  page?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  page,
+} = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : undefined;
+---
+
+<!doctype html>
+<html lang={site.language} data-theme="dark" data-page={page}>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#50505c" />
+    <meta name="color-scheme" content="dark" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={withBase('favicon.svg')}
+      data-theme-favicon
+      data-icon-dark={withBase('favicon.svg')}
+      data-icon-light={withBase('favicon-light.svg')}
+    />
+    <script is:inline>
+      try {
+        const theme =
+          localStorage.getItem('wechirok.theme') === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').content =
+          theme === 'light' ? '#eeeef3' : '#50505c';
+        document.querySelector('meta[name="color-scheme"]').content = theme;
+        const favicon = document.querySelector('[data-theme-favicon]');
+        favicon.href =
+          theme === 'light'
+            ? favicon.dataset.iconLight
+            : favicon.dataset.iconDark;
+      } catch {}
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={site.name} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <Starfield />
+    <a class="skip-link" href="#main" data-i18n="site.skipLink">
+      {site.skipLink}
+    </a>
+    <Preferences showNavigation={!page} />
+    <main id="main" class="page-shell" tabindex="-1">
+      <slot />
+    </main>
+    <script>
+      import '../scripts/preferences';
+    </script>
+  </body>
+</html>

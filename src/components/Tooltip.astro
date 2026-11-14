@@ -1,0 +1,16 @@
+---
+import GlassSurface from './GlassSurface.astro';
+
+interface Props {
+  i18n?: string;
+}
+
+const { i18n } = Astro.props;
+---
+
+<span class="tooltip-label glass-host" aria-hidden="true">
+  <GlassSurface />
+  <span data-i18n={i18n}>
+    <slot />
+  </span>
+</span>

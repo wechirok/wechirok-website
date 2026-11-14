@@ -1,0 +1,116 @@
+---
+import {
+  sections,
+  workAreas,
+  projects,
+  projectActivity,
+  projectAttribution,
+  type SectionName,
+} from '../data/en';
+import Icon from './Icon.astro';
+import Toolkit from './Toolkit.astro';
+import TranslationContributions from './TranslationContributions.astro';
+import ProjectActions from './ProjectActions.astro';
+import { projectLinks } from '../data/project-links';
+
+interface Props {
+  name: SectionName;
+}
+
+const { name } = Astro.props;
+const section = sections[name];
+---
+
+<div class="section-content">
+  <div class="section-prose">
+    {section.paragraphs.map((paragraph, index) => (
+      <p data-i18n={`sections.${name}.paragraphs.${index}`}>{paragraph}</p>
+    ))}
+  </div>
+
+  {name === 'work' && (
+    <dl class="text-list work-list">
+      {workAreas.map((area, index) => (
+        <div class="text-row">
+          <dt class="with-icon">
+            <Icon name={area.icon} />
+            <span data-i18n={`workAreas.${index}.title`}>{area.title}</span>
+          </dt>
+          <dd data-i18n={`workAreas.${index}.description`}>
+            {area.description}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )}
+
+  {name === 'work' && <Toolkit />}
+
+  {name === 'projects' && (
+    <ul class="text-list project-list">
+      {projects.map((project, index) => (
+        <li class="text-row">
+          <div class="row-title">
+            <span class="project-name">{project.name}</span>
+            <span class="row-detail project-meta">
+              <span data-i18n={`projects.${index}.category`}>
+                {project.category}
+              </span>
+              <span class="project-period">
+                <time datetime={project.startYear}>{project.startYear}</time>
+                {' - '}
+                <span data-i18n="projectActivity.present">
+                  {projectActivity.present}
+                </span>
+              </span>
+            </span>
+          </div>
+          <p>
+            {'upstream' in project && (
+              <>
+                <span data-i18n="projectAttribution.forkOf">
+                  {projectAttribution.forkOf}
+                </span>{' '}
+                <a href={project.upstream.url} target="_blank" rel="noopener">
+                  {project.upstream.name}
+                </a>
+                .{' '}
+              </>
+            )}
+            <span data-i18n={`projects.${index}.description`}>
+              {project.description}
+            </span>
+            {'featureUrl' in project && (
+              <>
+                {' '}
+                <a
+                  href={project.featureUrl}
+                  target="_blank"
+                  rel="noopener"
+                  data-i18n={`projects.${index}.featureLabel`}
+                >
+                  {project.featureLabel}
+                </a>
+                .
+              </>
+            )}
+          </p>
+          <ProjectActions
+            links={[
+              ...('website' in project
+                ? [{ platform: 'website' as const, url: project.website }]
+                : []),
+              ...('wiki' in project
+                ? [{ platform: 'wiki' as const, url: project.wiki }]
+                : []),
+              { platform: 'repository', url: project.url },
+              ...(projectLinks[project.name] ?? []),
+            ]}
+          />
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {name === 'projects' && <TranslationContributions />}
+</div>

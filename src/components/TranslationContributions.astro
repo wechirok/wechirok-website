@@ -1,0 +1,43 @@
+---
+import { translationContributions } from '../data/en';
+import ProjectActions from './ProjectActions.astro';
+---
+
+<section
+  class="translation-contributions"
+  aria-labelledby="translation-contributions-heading"
+>
+  <h2
+    id="translation-contributions-heading"
+    class="section-lead"
+    data-i18n="translationContributions.title"
+  >
+    {translationContributions.title}
+  </h2>
+  <div class="section-prose">
+    <p data-i18n="translationContributions.description">
+      {translationContributions.description}
+    </p>
+  </div>
+  <ul class="text-list project-list">
+    {translationContributions.projects.map((project, index) => (
+      <li class="text-row">
+        <div class="row-title">
+          <span class="project-name">{project.name}</span>
+          <span
+            class="row-detail"
+            data-i18n={`translationContributions.projects.${index}.category`}
+          >
+            {project.category}
+          </span>
+        </div>
+        <p data-i18n={`translationContributions.projects.${index}.description`}>
+          {project.description}
+        </p>
+        <ProjectActions
+          links={[{ platform: project.platform, url: project.url }]}
+        />
+      </li>
+    ))}
+  </ul>
+</section>

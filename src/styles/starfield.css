@@ -1,0 +1,102 @@
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-starfield {
+  --star-lilac: #ddc2f6;
+  --star-rose: #ffc5e0;
+  --star-purple: #8752b3;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  opacity: 0.9;
+}
+
+:root[data-theme='light'] .site-starfield {
+  --star-lilac: #73558e;
+  --star-rose: #995778;
+  --star-purple: #684181;
+}
+
+[data-star-tone='lilac'] {
+  fill: var(--star-lilac);
+}
+
+[data-star-tone='rose'] {
+  fill: var(--star-rose);
+}
+
+[data-star-tone='purple'] {
+  fill: var(--star-purple);
+}
+
+.site-starfield svg {
+  display: block;
+  width: 100%;
+  height: 100lvh;
+  overflow: visible;
+}
+
+.starfield-drift {
+  --drift-duration: 24s;
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+  animation: starfield-drift-x var(--drift-duration)
+    cubic-bezier(0.37, 0, 0.63, 1) -5s infinite alternate;
+}
+
+.starfield-float {
+  position: absolute;
+  inset: 0;
+  animation: starfield-drift-y var(--drift-duration)
+    cubic-bezier(0.37, 0, 0.63, 1) -17s infinite alternate;
+}
+
+/* HTML compositor layers preserve fractional movement of the SVG artwork.
+   Quarter-cycle separation keeps one axis moving as the other turns. */
+@keyframes starfield-drift-x {
+  from {
+    transform: translate3d(-24px, 0, 0);
+  }
+  to {
+    transform: translate3d(24px, 0, 0);
+  }
+}
+
+@keyframes starfield-drift-y {
+  from {
+    transform: translate3d(0, -18px, 0);
+  }
+  to {
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+.site-starfield[data-paused] .starfield-drift,
+.site-starfield[data-paused] .starfield-float {
+  animation-play-state: paused;
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  [data-star-extra] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield-drift,
+  .starfield-float {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active), print {
+  .site-starfield {
+    display: none;
+  }
+}

@@ -1,0 +1,67 @@
+---
+import { navigation, sections } from '../data/en';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
+import GlassSurface from './GlassSurface.astro';
+
+const destinations = [
+  { name: 'projects', icon: 'folder-code' },
+  { name: 'work', icon: 'briefcase-business' },
+  { name: 'about', icon: 'user-round' },
+] as const;
+---
+
+<nav
+  class="section-navigation"
+  aria-label={navigation.label}
+  data-i18n-aria-label="navigation.label"
+  data-section-navigation
+>
+  <button
+    class="preference-button navigation-toggle tooltip-trigger glass-host"
+    type="button"
+    data-navigation-toggle
+    aria-label={navigation.menu}
+    data-i18n-aria-label="navigation.menu"
+    aria-expanded="false"
+    aria-controls="section-navigation-links"
+  >
+    <GlassSurface />
+    <span class="navigation-toggle-open">
+      <Icon name="menu" />
+    </span>
+    <span class="navigation-toggle-close">
+      <Icon name="x" />
+    </span>
+    <Tooltip i18n="navigation.menu">{navigation.menu}</Tooltip>
+  </button>
+  <div
+    class="navigation-links glass-host"
+    id="section-navigation-links"
+    data-navigation-links
+  >
+    <GlassSurface />
+    {destinations.map(({ name, icon }) => (
+      <a
+        class="navigation-button"
+        href={withBase(`${name}/`)}
+        target="_blank"
+        rel="noopener"
+        data-section={name}
+        aria-controls={`${name}-panel`}
+        aria-label={sections[name].title}
+        data-i18n-aria-label={`sections.${name}.title`}
+      >
+        <Icon name={icon} />
+        <span class="navigation-label" data-i18n={`sections.${name}.title`}>
+          {sections[name].title}
+        </span>
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  import '../scripts/section-menu';
+</script>

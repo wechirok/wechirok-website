@@ -1,0 +1,253 @@
+{
+  "collections": [
+    {
+      "name": "simple-icons",
+      "version": "16.34.0",
+      "source": "https://registry.npmjs.org/simple-icons/-/simple-icons-16.34.0.tgz",
+      "license": "licenses/simple-icons.txt",
+      "icons": [
+        "github",
+        "discord",
+        "steam",
+        "crowdin",
+        "weblate",
+        "modrinth",
+        "curseforge",
+        "blender",
+        "blockbench",
+        "aseprite",
+        "davinciresolve"
+      ]
+    },
+    {
+      "name": "lucide-static",
+      "version": "1.52.0",
+      "source": "https://registry.npmjs.org/lucide-static/-/lucide-static-1.52.0.tgz",
+      "license": "licenses/lucide-static.txt",
+      "icons": [
+        "circle-help",
+        "user-round",
+        "briefcase-business",
+        "folder-code",
+        "link",
+        "trash-2",
+        "server",
+        "code-xml",
+        "languages",
+        "palette",
+        "send-horizontal",
+        "arrow-left",
+        "arrow-right",
+        "sun",
+        "moon",
+        "chevron-down",
+        "check"
+      ]
+    },
+    {
+      "name": "devicon",
+      "version": "2.17.0",
+      "source": "https://registry.npmjs.org/devicon/-/devicon-2.17.0.tgz",
+      "license": "licenses/devicon.txt",
+      "icons": [
+        "java",
+        "python",
+        "javascript",
+        "html5",
+        "css3",
+        "postgresql",
+        "mysql"
+      ]
+    },
+    {
+      "name": "simple-icons",
+      "version": "11.15.0",
+      "source": "https://registry.npmjs.org/simple-icons/-/simple-icons-11.15.0.tgz",
+      "license": "licenses/simple-icons-11.15.txt",
+      "icons": [
+        "adobephotoshop",
+        "adobeillustrator",
+        "adobepremierepro",
+        "adobeaftereffects",
+        "adobeaudition"
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "title": "Crowdin",
+      "slug": "crowdin",
+      "hex": "2E3340",
+      "source": "https://support.crowdin.com/using-logo/"
+    },
+    {
+      "title": "CurseForge",
+      "slug": "curseforge",
+      "hex": "F16436",
+      "source": "https://www.curseforge.com"
+    },
+    {
+      "title": "Discord",
+      "slug": "discord",
+      "hex": "5865F2",
+      "source": "https://discord.com/branding",
+      "guidelines": "https://discord.com/branding"
+    },
+    {
+      "title": "GitHub",
+      "slug": "github",
+      "hex": "181717",
+      "source": "https://github.com/logos",
+      "guidelines": "https://github.com/logos"
+    },
+    {
+      "title": "Modrinth",
+      "slug": "modrinth",
+      "hex": "00AF5C",
+      "source": "https://github.com/modrinth/art/blob/d5ab4f965b0b4cea7201967483885ecd8d04a562/Branding/Favicon/favicon.svg"
+    },
+    {
+      "title": "Steam",
+      "slug": "steam",
+      "hex": "000000",
+      "source": "https://partner.steamgames.com/doc/marketing/branding",
+      "guidelines": "https://partner.steamgames.com/doc/marketing/branding"
+    },
+    {
+      "title": "Weblate",
+      "slug": "weblate",
+      "hex": "2ECCAA",
+      "source": "https://github.com/WeblateOrg/graphics/blob/669e4f910abd9ec36fda172d2ea6f2f424a32ace/logo/weblate-black.svg",
+      "license": {
+        "type": "GPL-3.0-only"
+      }
+    },
+    {
+      "title": "Java",
+      "slug": "java",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/java/java-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "Python",
+      "slug": "python",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/python/python-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "JavaScript",
+      "slug": "javascript",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/javascript/javascript-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "HTML5",
+      "slug": "html5",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/html5/html5-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "CSS3",
+      "slug": "css3",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/css3/css3-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "PostgreSQL",
+      "slug": "postgresql",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/postgresql/postgresql-plain.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "MySQL",
+      "slug": "mysql",
+      "source": "https://github.com/devicons/devicon/blob/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/mysql/mysql-original.svg",
+      "license": {
+        "type": "MIT"
+      }
+    },
+    {
+      "title": "Blender",
+      "slug": "blender",
+      "hex": "E87D0D",
+      "source": "https://www.blender.org/about/logo",
+      "guidelines": "https://www.blender.org/about/logo"
+    },
+    {
+      "title": "Blockbench",
+      "slug": "blockbench",
+      "hex": "1E93D9",
+      "source": "https://www.blockbench.net/wiki/blockbench/logos",
+      "guidelines": "https://www.blockbench.net/wiki/blockbench/logos"
+    },
+    {
+      "title": "Aseprite",
+      "slug": "aseprite",
+      "hex": "7D929E",
+      "source": "https://www.aseprite.org"
+    },
+    {
+      "title": "DaVinci Resolve",
+      "slug": "davinciresolve",
+      "hex": "233A51",
+      "source": "https://www.blackmagicdesign.com/media/images/davinci-resolve-logo-square"
+    },
+    {
+      "title": "Adobe Photoshop",
+      "hex": "31A8FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobephotoshop"
+    },
+    {
+      "title": "Adobe Illustrator",
+      "hex": "FF9A00",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeillustrator"
+    },
+    {
+      "title": "Adobe Premiere Pro",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobepremierepro"
+    },
+    {
+      "title": "Adobe After Effects",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeaftereffects"
+    },
+    {
+      "title": "Adobe Audition",
+      "hex": "9999FF",
+      "source": "https://www.adobe.com/creativecloud.html",
+      "guidelines": "https://developer.adobe.com/developer-distribution/creative-cloud/docs/guides/branding_guidelines",
+      "slug": "adobeaudition"
+    },
+    {
+      "title": "Media Composer",
+      "slug": "media-composer",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/0/03/Avid_Media_Composer_Logo.svg",
+      "guidelines": "https://www.avid.com/legal/trademarks-and-other-notices",
+      "license": {
+        "type": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Avid_Media_Composer_Logo.svg"
+      }
+    }
+  ]
+}

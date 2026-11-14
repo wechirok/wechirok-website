@@ -1,0 +1,70 @@
+---
+import {
+  introduction,
+  navigation,
+  sections,
+  type SectionName,
+} from '../data/en';
+import Icon from './Icon.astro';
+import SectionContent from './SectionContent.astro';
+import Profiles from './Profiles.astro';
+
+const destinations = Object.keys(sections) as SectionName[];
+---
+
+<div class="personal-space" data-personal-space>
+  <button
+    class="home-button with-icon"
+    type="button"
+    data-home
+    aria-label={navigation.home}
+    data-i18n-aria-label="navigation.home"
+    hidden
+  >
+    <Icon name="arrow-left" />
+    <span class="home-label">
+      <Icon name="house" />
+      <span data-i18n="navigation.home">{navigation.home}</span>
+    </span>
+  </button>
+  <div class="space-stage" data-space-stage>
+    <section
+      class="space-panel welcome"
+      data-panel="home"
+      aria-labelledby="home-heading"
+    >
+      <p class="greeting" data-i18n="introduction.greeting">
+        {introduction.greeting}
+      </p>
+      <h1 id="home-heading" tabindex="-1" data-i18n="introduction.heading">
+        {introduction.heading}
+      </h1>
+      <p class="welcome-description" data-i18n="introduction.description">
+        {introduction.description}
+      </p>
+      <Profiles />
+    </section>
+    {destinations.map((name) => (
+      <article
+        id={`${name}-panel`}
+        class="space-panel"
+        data-panel={name}
+        aria-labelledby={`${name}-heading`}
+        hidden
+      >
+        <h1
+          id={`${name}-heading`}
+          tabindex="-1"
+          data-i18n={`sections.${name}.title`}
+        >
+          {sections[name].title}
+        </h1>
+        <SectionContent name={name} />
+      </article>
+    ))}
+  </div>
+</div>
+
+<script>
+  import '../scripts/navigation';
+</script>
