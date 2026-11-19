@@ -23,7 +23,7 @@ export const sections = {
   projects: {
     title: 'Projects',
     description: 'Minecraft mods, modpacks and community tools by Wechirok.',
-    paragraphs: ['Personal projects, modding, and a few tools.'],
+    paragraphs: ['Personal hobby projects, modding, and a few tools.'],
   },
   work: {
     title: 'What I do',
@@ -185,16 +185,16 @@ export const projectActions = {
 };
 
 export const projects = [
-  {
-    name: 'Nekogenix',
-    startYear: '2026',
-    category: 'Mod',
-    description:
-      'A NeoForge mod that gives you a cat’s abilities and biological traits, changing how you experience Minecraft and opening up a completely different perspective on the game. It also adds laboratory equipment for creating the injection that starts your transformation. I maintain the project with my best friend, who is also a fellow dev. I also develop the mod’s website and write its wiki.',
-    website: 'https://nekogenix.github.io/',
-    wiki: 'https://nekogenix.github.io/wiki/',
-    url: 'https://github.com/nekogenix/nekogenix-mod',
-  },
+  // {
+  //   name: 'Nekogenix',
+  //   startYear: '2026',
+  //   category: 'Mod',
+  //   description:
+  //     'A NeoForge mod that gives you a cat’s abilities and biological traits, changing how you experience Minecraft and opening up a completely different perspective on the game. It also adds laboratory equipment for creating the injection that starts your transformation. I maintain the project with my best friend, who is also a fellow dev. I also develop the mod’s website and write its wiki.',
+  //   website: 'https://nekogenix.github.io/',
+  //   wiki: 'https://nekogenix.github.io/wiki/',
+  //   url: 'https://github.com/nekogenix/nekogenix-mod',
+  // },
   {
     name: 'Renice Shot',
     startYear: '2026',
