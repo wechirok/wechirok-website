@@ -97,7 +97,7 @@ const section = sections[name];
           </p>
           <ProjectActions
             links={[
-              ...('website' in project
+              ...('website' in project && typeof project.website === 'string'
                 ? [{ platform: 'website' as const, url: project.website }]
                 : []),
               ...('wiki' in project
