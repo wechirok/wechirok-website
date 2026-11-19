@@ -154,11 +154,11 @@ const projectCopy = {
     description:
       'Better Combat für jede Waffe einzeln steuern, mit persönlichen Schaltern und Serverbefehlen. Ich habe die Auswahl- und Einstellungsfunktionen für Spieler und Administratoren umgesetzt und anschließend die Unterstützung auf weitere Minecraft-Versionen sowie Fabric, Forge und NeoForge ausgeweitet.',
   },
-  // Nekogenix: {
-  //   category: 'Mod',
-  //   description:
-  //     'Ein NeoForge-Mod, der dir die Fähigkeiten und biologischen Eigenschaften einer Katze verleiht. Dadurch verändert sich dein Minecraft-Erlebnis und du entdeckst das Spiel aus einer völlig anderen Perspektive. Mit Laborausrüstung stellst du die Injektion her, die deine Verwandlung auslöst. Ich betreue das Projekt gemeinsam mit meinem besten Freund, der ebenfalls Entwickler ist. Außerdem entwickle ich die Website des Mods und schreibe das Wiki dazu.',
-  // },
+  Nekogenix: {
+    category: 'Mod',
+    description:
+      'Ein NeoForge-Mod, der dir die Fähigkeiten und biologischen Eigenschaften einer Katze verleiht. Dadurch verändert sich dein Minecraft-Erlebnis und du entdeckst das Spiel aus einer völlig anderen Perspektive. Mit Laborausrüstung stellst du die Injektion her, die deine Verwandlung auslöst. Ich betreue das Projekt gemeinsam mit meinem besten Freund, der ebenfalls Entwickler ist. Außerdem entwickle ich die Website des Mods und schreibe das Wiki dazu.',
+  },
   Shelley: {
     category: 'Discord-Bot',
     description:
