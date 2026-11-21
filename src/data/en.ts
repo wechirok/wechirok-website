@@ -73,6 +73,10 @@ export const toolkit = {
   description: 'What I’ve used / still use today.',
   items: [
     {
+      technologies: [{ name: 'AI agents', icon: 'bot' }],
+      details: 'Claude & Codex for coding',
+    },
+    {
       technologies: [{ name: 'Java', icon: 'java' }],
       details: 'Fabric, Forge, NeoForge, Paper, Velocity',
     },

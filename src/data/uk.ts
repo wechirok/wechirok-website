@@ -72,14 +72,21 @@ export const toolkit = {
   ...en.toolkit,
   title: 'Інструменти',
   description: 'Те, чим я користувався / користуюся зараз.',
-  items: en.toolkit.items.map((item) =>
-    item.technologies[0].icon === 'csharp'
+  items: en.toolkit.items.map((item) => {
+    const [technology] = item.technologies;
+    if (technology.icon === 'bot') {
+      return {
+        technologies: [{ ...technology, name: 'ШІ-агенти' }],
+        details: 'Claude й Codex для роботи з кодом',
+      };
+    }
+    return technology.icon === 'csharp'
       ? {
           ...item,
           details: 'Плагіни для SCP SL: EXILED, LabAPI, Harmony',
         }
-      : item,
-  ),
+      : item;
+  }),
 };
 
 const workCopy = {

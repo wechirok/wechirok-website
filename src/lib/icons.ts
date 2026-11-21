@@ -33,6 +33,7 @@ import BookOpen from '../assets/icons/interface/book-open.svg';
 import Trash from '../assets/icons/interface/trash-2.svg';
 import Server from '../assets/icons/interface/server.svg';
 import Code from '../assets/icons/interface/code-xml.svg';
+import Bot from '../assets/icons/interface/bot.svg';
 import Languages from '../assets/icons/interface/languages.svg';
 import Palette from '../assets/icons/interface/palette.svg';
 import Send from '../assets/icons/interface/send-horizontal.svg';
@@ -83,6 +84,7 @@ export const icons = {
   'trash-2': Trash,
   server: Server,
   'code-xml': Code,
+  bot: Bot,
   languages: Languages,
   palette: Palette,
   'send-horizontal': Send,
