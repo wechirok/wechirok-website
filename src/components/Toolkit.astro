@@ -32,8 +32,17 @@ const columns = [
                     { 'toolkit-technology--java': technology.icon === 'java' },
                   ]}
                 >
-                  <Icon name={technology.icon} brand />
-                  <span>
+                  <Icon
+                    name={technology.icon}
+                    brand={technology.icon !== 'bot'}
+                  />
+                  <span
+                    data-i18n={
+                      technology.icon === 'bot'
+                        ? `toolkit.items.${itemIndex}.technologies.${index}.name`
+                        : undefined
+                    }
+                  >
                     {technology.name}
                     {index < item.technologies.length - 1 ? ',' : ''}
                   </span>
